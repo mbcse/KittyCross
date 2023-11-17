@@ -27,3 +27,16 @@ interface Kitty {
 
 
 type Kitties= Kitty[];
+
+export interface GetKittyDetails {
+    isGestating: boolean;
+    isReady: boolean;
+    cooldownIndex: string;  // uint256 in Solidity is represented as string in TypeScript
+    nextActionAt: string;   // uint256
+    siringWithId: string;   // uint256
+    birthTime: string;      // uint256
+    matronId: string;       // uint256
+    sireId: string;         // uint256
+    generation: string;     // uint256
+    genes: string;          // uint256
+}
