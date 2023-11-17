@@ -337,4 +337,86 @@ contract KittyBreeding is KittyERC721 {
         // return the new kitten's ID
         return kittenId;
     }
+
+
+
+/*
+************************************************* Cross Chain Functions *************************
+*/// @title A title that should describe the contract/interface
+
+    function breedWithAutoCrossChain(uint256 _matronId, uint256 _matronChainId, uint256 _sireId, uint256 _sireChainId)
+        external
+        payable
+        whenNotPaused
+    {
+        // Checks for payment.
+        require(msg.value >= autoBirthFee);
+
+        // Caller must own the matron.
+        require(_owns(msg.sender, _matronId));
+
+        // Neither sire nor matron are allowed to be on auction during a normal
+        // breeding operation, but we don't need to check that explicitly.
+        // For matron: The caller of this function can't be the owner of the matron
+        //   because the owner of a Kitty on auction is the auction house, and the
+        //   auction house will never call breedWith().
+        // For sire: Similarly, a sire on auction will be owned by the auction house
+        //   and the act of transferring ownership will have cleared any oustanding
+        //   siring approval.
+        // Thus we don't need to spend gas explicitly checking to see if either cat
+        // is on auction.
+
+        // Check that matron and sire are both owned by caller, or that the sire
+        // has given siring permission to caller (i.e. matron's owner).
+        // Will fail for _sireId = 0
+        require(_isSiringPermitted(_sireId, _matronId));
+
+        // Grab a reference to the potential matron
+        Kitty storage matron = kitties[_matronId];
+
+        // Make sure matron isn't pregnant, or in the middle of a siring cooldown
+        require(_isReadyToBreed(matron));
+
+        
+        if(_matronChainId == _sireChainId) 
+        {
+            // Grab a reference to the potential sire
+            Kitty storage sire = kitties[_sireId];
+
+            // Make sure sire isn't pregnant, or in the middle of a siring cooldown
+            require(_isReadyToBreed(sire));
+        }else{
+            
+        }
+       
+
+        // All checks passed, kitty gets pregnant!
+        _breedWith(_matronId, _sireId);
+    }
+
+
+
+    function _breedWithCrossChain(uint256 _matronId, uint256 _sireId) internal {
+        // Grab a reference to the Kitties from storage.
+        Kitty storage sire = kitties[_sireId];
+        Kitty storage matron = kitties[_matronId];
+
+        // Mark the matron as pregnant, keeping track of who the sire is.
+        matron.siringWithId = uint32(_sireId);
+
+        // Trigger the cooldown for both parents.
+        _triggerCooldown(sire);
+        _triggerCooldown(matron);
+
+        // Clear siring permission for both parents. This may not be strictly necessary
+        // but it's likely to avoid confusion!
+        delete sireAllowedToAddress[_matronId];
+        delete sireAllowedToAddress[_sireId];
+
+        // Every time a kitty gets pregnant, counter is incremented.
+        pregnantKitties++;
+
+        // Emit the pregnancy event.
+        emit Pregnant(kittyIndexToOwner[_matronId], _matronId, _sireId, matron.cooldownEndBlock);
+    }
 }

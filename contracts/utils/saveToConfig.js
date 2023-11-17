@@ -1,4 +1,4 @@
-const path = '../frontend/src/config/contractData.json'
+const path = '../contractData.json'
 const { constants } = require('fs')
 const fs = require('fs').promises
 

@@ -18,7 +18,7 @@ async function main () {
   const ABI = (await artifacts.readArtifact('KittyCore')).abi
   await saveToConfig(`KITTYCORE_${CHAIN_NAME}`, 'ABI', ABI)
 
-  const kittyCoreDeployer = await AUTOLIMITXSWAP_CONTRACT.deploy()
+  const kittyCoreDeployer = await KittyCoreContract.deploy()
   await kittyCoreDeployer.deployed()
 
   await saveToConfig(`KITTYCORE_${CHAIN_NAME}`, 'ADDRESS', kittyCoreDeployer.address)
