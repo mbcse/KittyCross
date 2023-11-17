@@ -5,15 +5,15 @@ import "./KittyBase.sol";
 
 contract KittyCross is KittyBase {
 
-    struct Approved {
+    struct Permitted {
         uint256 chainID;
-        address appAddress;
+        address permittedAddress;
     }
 
     /// @dev A mapping from KittyIDs to an address that has been approved to use
     ///  this Kitty for siring via breedWith(). Each Kitty can only have one approved
     ///  address for siring at any time. A zero value means no approval is outstanding.
-    mapping (uint256 => Approved) public sireAllowedToAddress;
+    mapping (uint256 => Permitted) public sireAllowedToAddress;
 
     mapping (uint256 => address) crossContractAddresses;
 
