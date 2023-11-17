@@ -139,8 +139,8 @@ export default function Navbar(){
 
             <Avatar
               size="sm"
-              name="Dan Abrahmov"
-              src="https://bit.ly/dan-abramov"
+              name="Vitalik Buterin"
+              src="https://wikibioage.com/uploads/2021/05/vitalik-buterin-29395.jpg"
             />
           </HStack>
         </Flex>

@@ -8,7 +8,8 @@ async function getAllTokensOfOwner(ownerAddress) {
     functionName: "totalSupply",
   });
 
-  const totalSupply = await contract.methods.totalSupply().call();
+  const totalSupply = data.totalSupply;
+
   const tokens = [];
 
   for (let tokenId = 0; tokenId < totalSupply; tokenId++) {
