@@ -4,10 +4,10 @@ import { Address, useContractRead } from "wagmi";
 
 async function useAllTokensOfOwner(ownerAddress) {
   const [kittiesPerChain, setKittiesPerChain] = useState<KittesPerChain>({
-    polygonZkEVM: [],
-    scroll: [],
-    arbitrum: [],
-    base: [],
+    "polygon-zkevm": [],
+    "scroll": [],
+    "arbitrum": [],
+    "base": [],
   });
 
   useEffect(() => {
