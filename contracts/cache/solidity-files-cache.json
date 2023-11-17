@@ -1057,8 +1057,8 @@
       ]
     },
     "/Users/quantadrian/workspace/ethglobal_istanbul_23/KittyCross/contracts/contracts/GeneScience.sol": {
-      "lastModificationDate": 1700261465095,
-      "contentHash": "f26cb36d241a684e4db600b22b220817",
+      "lastModificationDate": 1700261519772,
+      "contentHash": "6e422b2221848c2b12242dea92211295",
       "sourceName": "contracts/GeneScience.sol",
       "solcConfig": {
         "version": "0.8.20",

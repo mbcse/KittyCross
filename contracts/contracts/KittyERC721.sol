@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.20;
 
-import "./KittyBase.sol";
+import "./KittyCross.sol";
 import "./ERC721Metadata.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 /// @author Axiom Zen (https://www.axiomzen.co)
 /// @dev Ref: https://github.com/ethereum/EIPs/issues/721
 ///  See the KittyCore contract documentation to understand how the various contract facets are arranged.
-contract KittyERC721 is KittyBase, ERC721 {
+contract KittyERC721 is KittyCross, ERC721 {
     
     constructor() ERC721("KittyCross", "KC") {
     }
