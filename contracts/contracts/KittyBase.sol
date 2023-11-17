@@ -119,11 +119,6 @@ contract KittyBase is KittyAccessControl {
     ///  at any time. A zero value means no approval is outstanding.
     mapping (uint256 => address) public kittyIndexToApproved;
 
-    /// @dev A mapping from KittyIDs to an address that has been approved to use
-    ///  this Kitty for siring via breedWith(). Each Kitty can only have one approved
-    ///  address for siring at any time. A zero value means no approval is outstanding.
-    mapping (uint256 => address) public sireAllowedToAddress;
-
     /// @dev The address of the ClockAuction contract that handles sales of Kitties. This
     ///  same contract handles both peer-to-peer sales as well as the gen0 sales which are
     ///  initiated every 15 minutes.
