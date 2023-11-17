@@ -20,7 +20,7 @@ function KittyCard({kittyId}) {
       <Box p='6'>
         <Box display='flex' alignItems='baseline'>
           <Badge borderRadius='full' px='2' colorScheme='teal'>
-            {kittyId}
+            New
           </Badge>
           <Box
             color='gray.500'
