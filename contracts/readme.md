@@ -37,3 +37,4 @@ role-based access control
 ## Notes
 
 - removed `bid()` from `ClockAuction` (also exists in `SiringClockAuction` ?)
+- `KittyCore.sol`: `_createKitty(..)` with 0 instead of -1

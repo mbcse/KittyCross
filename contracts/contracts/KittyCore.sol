@@ -1,6 +1,8 @@
 //SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.20;
 
+import "./KittyMinting.sol";
+
 /// @title CryptoKitties: Collectible, breedable, and oh-so-adorable cats on the Ethereum blockchain.
 /// @author Axiom Zen (https://www.axiomzen.co)
 /// @dev The main CryptoKitties contract, keeps track of kittens so they don't wander around and get lost.
@@ -59,7 +61,7 @@ contract KittyCore is KittyMinting {
         cooAddress = msg.sender;
 
         // start with the mythical kitten 0 - so we don't have generation-0 parent issues
-        _createKitty(0, 0, 0, uint256(-1), address(0));
+        _createKitty(0, 0, 0, 0, address(0));
     }
 
     /// @dev Used to mark the smart contract as upgraded, in case there is a serious
@@ -71,13 +73,13 @@ contract KittyCore is KittyMinting {
     function setNewAddress(address _v2Address) external onlyCEO whenPaused {
         // See README.md for updgrade plan
         newContractAddress = _v2Address;
-        ContractUpgrade(_v2Address);
+        emit ContractUpgrade(_v2Address);
     }
 
     /// @notice No tipping!
     /// @dev Reject all Ether from being sent here, unless it's from one of the
     ///  two auction contracts. (Hopefully, we can prevent user accidents.)
-    function() external payable {
+    receive() external payable {
         require(
             msg.sender == address(saleAuction) ||
             msg.sender == address(siringAuction)
@@ -121,10 +123,10 @@ contract KittyCore is KittyMinting {
     ///  newContractAddress set either, because then the contract was upgraded.
     /// @notice This is public rather than external so we can call super.unpause
     ///  without using an expensive CALL.
-    function unpause() public onlyCEO whenPaused {
-        require(saleAuction != address(0));
-        require(siringAuction != address(0));
-        require(geneScience != address(0));
+    function unpause() public onlyCEO override whenPaused {
+        require(address(saleAuction) != address(0));
+        require(address(siringAuction) != address(0));
+        require(address(geneScience) != address(0));
         require(newContractAddress == address(0));
 
         // Actually unpause the contract.
@@ -133,12 +135,12 @@ contract KittyCore is KittyMinting {
 
     // @dev Allows the CFO to capture the balance available to the contract.
     function withdrawBalance() external onlyCFO {
-        uint256 balance = this.balance;
+        uint256 balance = address(this).balance;
         // Subtract all the currently pregnant kittens we have, plus 1 of margin.
         uint256 subtractFees = (pregnantKitties + 1) * autoBirthFee;
 
         if (balance > subtractFees) {
-            cfoAddress.send(balance - subtractFees);
+            payable(cfoAddress).transfer(balance - subtractFees);
         }
     }
 }
