@@ -858,7 +858,7 @@ export default function CallToActionWithIllustration() {
           </Button>
         </Stack>
         <Flex w={'full'}>
-            <
+          <image src={"IstanbulCat.png"}></image>
         </Flex>
       </Stack>
     </Container>
