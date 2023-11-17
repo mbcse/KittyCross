@@ -36,7 +36,7 @@
     "@chainlink/contracts": "^0.6.1",
     "@connext/interfaces": "^2.0.5",
     "@connext/nxtp-contracts": "^0.2.1-rc.16",
-    "@openzeppelin/contracts": "^4.9.1",
+    "@openzeppelin/contracts": "^4.9.3",
     "@openzeppelin/contracts-upgradeable": "^4.9.3",
     "@openzeppelin/hardhat-upgrades": "^1.19.0",
     "@openzeppelin/upgrades-core": "^1.26.2",
