@@ -78,7 +78,7 @@ contract KittyBreeding is KittyERC721 {
     /// @param _addr The address that will be able to sire with your Kitty. Set to
     ///  address(0) to clear all siring approvals for this Kitty.
     /// @param _sireId A Kitty that you own that _addr will now be able to sire with.
-    function approveSiring(address _addr, uint256 _sireId)
+    function approveSiring(address _addr, uint256 _sireId, uint256 chainID)
         external
         whenNotPaused
     {

@@ -2,6 +2,136 @@
   "version": "3.4",
   "log": [
     {
+      "contracts/GeneScience.sol:GeneScience": {
+        "src": "contracts/GeneScience.sol:12",
+        "version": {
+          "withMetadata": "bc8bac7062f365ac7e9911238c7397601f4e1ffe9da51799888f5695ec18770f",
+          "withoutMetadata": "51604c6a8ade211a69ee1414fdc0d6d7e58e7118254eba0707fbfb38729efc5b",
+          "linkedWithoutMetadata": "51604c6a8ade211a69ee1414fdc0d6d7e58e7118254eba0707fbfb38729efc5b"
+        },
+        "inherit": [
+          "contracts/GeneScienceInterface.sol:GeneScienceInterface"
+        ],
+        "libraries": [],
+        "methods": [
+          "(address,address)",
+          "isGeneScience()",
+          "setPrivilegedBirther(address)",
+          "decode(uint256)",
+          "encode(uint8[])",
+          "expressingTraits(uint256)",
+          "mixGenes(uint256,uint256,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "GeneScience",
+            "src": "contracts/GeneScience.sol:24"
+          },
+          {
+            "kind": "state-variable-assignment",
+            "name": "geneScience",
+            "src": "contracts/GeneScience.sol:13"
+          },
+          {
+            "kind": "state-variable-assignment",
+            "name": "privilegedBirtherWindowSize",
+            "src": "contracts/GeneScience.sol:21"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "geneScience",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_bool",
+              "contract": "GeneScience",
+              "src": "contracts/GeneScience.sol:13"
+            },
+            {
+              "label": "_privilegedBirther",
+              "offset": 1,
+              "slot": "0",
+              "type": "t_address",
+              "contract": "GeneScience",
+              "src": "contracts/GeneScience.sol:19"
+            },
+            {
+              "label": "privilegedBirtherWindowSize",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_uint256",
+              "contract": "GeneScience",
+              "src": "contracts/GeneScience.sol:21"
+            },
+            {
+              "label": "_kittyCore",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_contract(KittyCoreInterface)8",
+              "contract": "GeneScience",
+              "src": "contracts/GeneScience.sol:22"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_bool": {
+              "label": "bool",
+              "numberOfBytes": "1"
+            },
+            "t_contract(KittyCoreInterface)8": {
+              "label": "contract KittyCoreInterface",
+              "numberOfBytes": "20"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.2",
+          "flat": true
+        }
+      },
+      "contracts/GeneScience.sol:KittyCoreInterface": {
+        "src": "contracts/GeneScience.sol:6",
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "cooAddress()"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false
+        }
+      },
+      "contracts/GeneScienceInterface.sol:GeneScienceInterface": {
+        "src": "contracts/GeneScienceInterface.sol:4",
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "isGeneScience()",
+          "mixGenes(uint256,uint256,uint256)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false
+        }
+      }
+    },
+    {
       "@openzeppelin/contracts/access/Ownable.sol:Ownable": {
         "src": "@openzeppelin/contracts/access/Ownable.sol:20",
         "inherit": [
