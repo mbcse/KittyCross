@@ -111,7 +111,7 @@ contract KittyAccessControl {
     ///  compromised.
     /// @notice This is public rather than external so it can be called by
     ///  derived contracts.
-    function unpause() public onlyCEO whenPaused {
+    function unpause() public onlyCEO virtual whenPaused {
         // can't unpause if contract was upgraded
         paused = false;
     }

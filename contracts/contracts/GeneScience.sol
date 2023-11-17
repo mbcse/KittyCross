@@ -3,17 +3,17 @@ pragma solidity 0.8.20;
 
 import "./GeneScienceInterface.sol";
 
-contract KittyCoreInterface {
-    function cooAddress() public returns(address);
+interface KittyCoreInterface {
+    function cooAddress() external returns(address);
 }
 
 /// @title GeneScience implements the trait calculation for new kitties
 /// @author Axiom Zen, Dieter Shirley <dete@axiomzen.co> (https://github.com/dete), Fabiano P. Soriani <fabianosoriani@gmail.com> (https://github.com/flockonus), Jordan Schalm <jordan.schalm@gmail.com> (https://github.com/jordanschalm), Abhishek Chadha <abhishek@dapperlabs.com> (https://github.com/achadha235)
 contract GeneScience is GeneScienceInterface {
-    bool public isGeneScience = true;
+    bool private geneScience = true;
 
     uint256 internal constant maskLast8Bits = uint256(0xff);
-    uint256 internal constant maskFirst248Bits = uint256(~0xff);
+    uint256 internal constant maskFirst248Bits = uint256(~uint256(0xff));
 
     // This is the privileged birther address. If this is set to 0, privileged birthing is disabled
     address internal _privilegedBirther;
@@ -21,10 +21,14 @@ contract GeneScience is GeneScienceInterface {
     uint256 public privilegedBirtherWindowSize = 5;
     KittyCoreInterface _kittyCore;
 
-    function GeneScience(address _privilegedBirtherAddress, address _kittyCoreAddress) public {
+    constructor(address _privilegedBirtherAddress, address _kittyCoreAddress) {
         require(_kittyCoreAddress != address(0));
         _kittyCore = KittyCoreInterface(_kittyCoreAddress);
         _privilegedBirther = _privilegedBirtherAddress;
+    }
+
+    function isGeneScience() public override view returns (bool) {
+        return geneScience;
     }
 
     /// @dev set the privileged birther address
@@ -38,7 +42,7 @@ contract GeneScience is GeneScienceInterface {
     /// @param trait1 any trait of that characteristic
     /// @param trait2 any trait of that characteristic
     /// @param rand is expected to be a 3 bits number (0~7)
-    /// @return -1 if didnt match any ascention, OR a number from 0 to 30 for the ascended trait
+    /// @return ascension if didnt match any ascention, OR a number from 0 to 30 for the ascended trait
     function _ascend(uint8 trait1, uint8 trait2, uint256 rand) internal pure returns(uint8 ascension) {
         ascension = 0;
 
@@ -89,7 +93,7 @@ contract GeneScience is GeneScienceInterface {
     /// @dev Parse a kitten gene and returns all of 12 "trait stack" that makes the characteristics
     /// @param _genes kitten gene
     /// @return the 48 traits that composes the genetic code, logically divided in stacks of 4, where only the first trait of each stack may express
-    function decode(uint256 _genes) public pure returns(uint8[]) {
+    function decode(uint256 _genes) public pure returns(uint8[] memory) {
         uint8[] memory traits = new uint8[](48);
         uint256 i;
         for(i = 0; i < 48; i++) {
@@ -99,7 +103,7 @@ contract GeneScience is GeneScienceInterface {
     }
 
     /// @dev Given an array of traits return the number that represent genes
-    function encode(uint8[] _traits) public pure returns (uint256 _genes) {
+    function encode(uint8[] memory _traits) public pure returns (uint256 _genes) {
         _genes = 0;
         for(uint256 i = 0; i < 48; i++) {
             _genes = _genes << 5;
@@ -111,7 +115,7 @@ contract GeneScience is GeneScienceInterface {
 
     /// @dev return the expressing traits
     /// @param _genes the long number expressing cat genes
-    function expressingTraits(uint256 _genes) public pure returns(uint8[12]) {
+    function expressingTraits(uint256 _genes) public pure returns(uint8[12] memory) {
         uint8[12] memory express;
         for(uint256 i = 0; i < 12; i++) {
             express[i] = _get5Bits(_genes, i * 4);
@@ -120,7 +124,7 @@ contract GeneScience is GeneScienceInterface {
     }
 
     /// @dev the function as defined in the breeding contract - as defined in CK bible
-    function mixGenes(uint256 _genes1, uint256 _genes2, uint256 _targetBlock) public returns (uint256) {
+    function mixGenes(uint256 _genes1, uint256 _genes2, uint256 _targetBlock) public view override returns (uint256) {
         if (_privilegedBirther == address(0) || tx.origin == _privilegedBirther) {
             // Allow immediate births if there is no privileged birther, or if the originator
             // of the transaction is the privileged birther
@@ -134,7 +138,7 @@ contract GeneScience is GeneScienceInterface {
         // majority of the time (it will only fail if no-one calls giveBirth() within 256
         // blocks of the target block, which is about 40 minutes. Since anyone can call
         // giveBirth() and they are rewarded with ether if it succeeds, this is quite unlikely.)
-        uint256 randomN = uint256(block.blockhash(_targetBlock));
+        uint256 randomN = uint256(blockhash(_targetBlock));
 
         if (randomN == 0) {
             // We don't want to completely bail if the target block is no-longer available,
@@ -150,7 +154,7 @@ contract GeneScience is GeneScienceInterface {
             // if so, subtract 256.
             if (_targetBlock >= block.number) _targetBlock -= 256;
 
-            randomN = uint256(block.blockhash(_targetBlock));
+            randomN = uint256(blockhash(_targetBlock));
 
             // DEBUG ONLY
             // assert(block.number != _targetBlock);
@@ -160,7 +164,7 @@ contract GeneScience is GeneScienceInterface {
 
         // generate 256 bits of random, using as much entropy as we can from
         // sources that can't change between calls.
-        randomN = uint256(keccak256(randomN, _genes1, _genes2, _targetBlock));
+        randomN = uint256(keccak256(abi.encode(randomN, _genes1, _genes2, _targetBlock)));
         uint256 randomIndex = 0;
 
         uint8[] memory genes1Array = decode(_genes1);
@@ -171,12 +175,12 @@ contract GeneScience is GeneScienceInterface {
         uint256 traitPos;
         // Trait swap value holder
         uint8 swap;
+        uint256 rand;
         // iterate all 12 characteristics
         for(uint256 i = 0; i < 12; i++) {
             // pick 4 traits for characteristic i
             uint256 j;
             // store the current random value
-            uint256 rand;
             for(j = 3; j >= 1; j--) {
                 traitPos = (i * 4) + j;
 

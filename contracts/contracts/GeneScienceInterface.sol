@@ -3,7 +3,7 @@ pragma solidity 0.8.20;
 
 abstract contract GeneScienceInterface {
     /// @dev simply a boolean to indicate this is the contract we expect to be
-    function isGeneScience() public virtual pure returns (bool);
+    function isGeneScience() public virtual view returns (bool);
 
     /// @dev given genes of kitten 1 & 2, return a genetic combination - may have a random factor
     /// @param genes1 genes of mom
