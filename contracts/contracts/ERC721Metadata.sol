@@ -1,3 +1,4 @@
+//SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.20;
 
 /// @title The external contract that is responsible for generating metadata for the kitties,

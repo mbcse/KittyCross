@@ -2,8 +2,8 @@
 
 ### Changes to CryptoKitties
 
-- updated all contracts to 0.8.20
-- 
+- updated all contracts to 0.8.20 (made a lot of changes accordingly)
+- moved `_transfer()`, `_createKitty()` from `KittyBase` to `KittyERC721`
 
 
 ### Contract Descriptions
@@ -15,11 +15,11 @@ role-based access control
 #### KittyBase
 
 - Kitty struct and array (the token array)
-- `_transfer()`, `_createKitty()`
 
 #### KittyERC721
 
 - inherits from ERC721 and KittyBase
+- oved `_transfer()`, `_createKitty()` from `KittyBase`
 - `approve()`, `transfer()`, `transferFrom()`
 
 #### KittyBreeding
