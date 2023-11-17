@@ -86,7 +86,7 @@ export default function Navbar(){
                   variant="ghost"
                   leftIcon={<BsFillCameraVideoFill />}
                 >
-                  Videos
+                  Catalouge
                 </Button>
               </VStack>
             </Box>
@@ -96,7 +96,7 @@ export default function Navbar(){
               display="flex"
               alignItems="center"
             >
-                <FaCat size={30}/>
+                <FaCat size={30}/> Kitty Cross
               <VisuallyHidden>Choc</VisuallyHidden>
             </chakra.a>
 

@@ -13,6 +13,8 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
+import { FaCat } from "react-icons/fa";
+
 
 export default function LandingPageComponent() {
   return (
@@ -28,19 +30,13 @@ export default function LandingPageComponent() {
           fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }}
           lineHeight={"110%"}
         >
+          <FaCat/>
           Kitty{" "}
           <Text as={"span"} color={"teal.400"}>
             Cross
           </Text>
         </Heading>
-        <HStack>
-          <Image
-            src="logo.png"
-            width={300}
-            height={300}
-            alt="Picture of the author"
-          />
-        </HStack>
+      
         <Text color={"gray.500"} maxW={"3xl"}>
           Cross-Chain Crypto Kitties let you trade and breed your virtual cats
           across different blockchains, making the game more flexible and fun
@@ -60,6 +56,14 @@ export default function LandingPageComponent() {
             Learn more
           </Button>
         </Stack>
+        <HStack>
+          <Image
+            src="logo.png"
+            width={500}
+            height={500}
+            alt="Picture of the author"
+          />
+        </HStack>
        
       </Stack>
     </Container>
