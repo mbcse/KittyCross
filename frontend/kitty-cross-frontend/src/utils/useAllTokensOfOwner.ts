@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { KittesPerChain, contractABI, contractAddresses } from "./constants";
+import { KittesPerChain, contractABI, contractAddresses, supportedChains } from "./constants";
 import { Address, useContractRead } from "wagmi";
 
 async function useAllTokensOfOwner(ownerAddress) {
@@ -13,19 +13,20 @@ async function useAllTokensOfOwner(ownerAddress) {
   useEffect(() => {
     const fetchKitties = async () => {
       const result = {
-        polygonZkEVM: [],
-        scroll: [],
-        arbitrum: [],
-        base: [],
+        "polygon-zkevm": [],
+        "scroll": [],
+        "arbitrum": [],
+        "base": [],
       };
 
       for (const chain in contractAddresses) {
         if (contractAddresses.hasOwnProperty(chain)) {
           const address = contractAddresses[chain];
-          const { data, isError, isLoading } = await useContractRead({
+          const { data, isError, isLoading } = useContractRead({
             address,
             abi: contractABI,
             functionName: "kittyIndexToOwner",
+            chainId: supportedChains.find((c) => c.network === chain).id,
           });
 
           const kittesToAddressMapping: { kittyId: number; owner: Address }[] =
