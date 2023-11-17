@@ -1,1 +1,1 @@
-# XKitties
+# KittyCross
