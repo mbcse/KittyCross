@@ -1,8 +1,9 @@
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
+import KittyCard from "../../components/Profile/KittyCard";
 
 export default function Page() {
   const router = useRouter();
   const { kittyId } = router.query;
 
-  return <div>My Post: {kittyId}</div>;
+  return <KittyCard kittyId={String(kittyId)}/>
 }
