@@ -117,7 +117,7 @@ export default function Navbar(){
                 leftIcon={<BsFillCameraVideoFill />}
                 size="sm"
               >
-                Videos
+                Catalouge
               </Button>
             </HStack>
           </HStack>
