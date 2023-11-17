@@ -22,6 +22,7 @@ import {
 } from "react-icons/ai";
 import { BsFillCameraVideoFill, BsPlus } from "react-icons/bs";
 import ConnectButton from "../WalletConnect/WalletConnectButtons";
+import { FaCat } from "react-icons/fa";
 
 export default function Navbar(){
   const bg = useColorModeValue("gray.100", "gray.800");
@@ -95,7 +96,7 @@ export default function Navbar(){
               display="flex"
               alignItems="center"
             >
-                
+                <FaCat size={30}/>
               <VisuallyHidden>Choc</VisuallyHidden>
             </chakra.a>
 
