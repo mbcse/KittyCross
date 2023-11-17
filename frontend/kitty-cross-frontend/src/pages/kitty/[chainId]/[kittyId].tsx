@@ -6,8 +6,8 @@ export default function Page() {
 
   return (
     <>
-      <div>My Post: {kittyId}</div>
-      <div>My Post: {chainId}</div>
+      <div>ChainId: {chainId}</div>
+      <div>KittyId: {kittyId}</div>
     </>
   );
 }
