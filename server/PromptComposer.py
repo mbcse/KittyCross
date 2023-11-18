@@ -1,6 +1,12 @@
 import json
 
-breed = ["orange tabby", "bengal", "tuxedo", "british shorthair", "turtleshell calico"]
+breed = {
+    534351: "orange tabby", 
+    421613: "bengal", 
+    1442: "tuxedo", 
+    84531: "british shorthair"
+}
+
 with open('prompts.json', 'r') as file:
     lookup = json.loads(file.read())
 
