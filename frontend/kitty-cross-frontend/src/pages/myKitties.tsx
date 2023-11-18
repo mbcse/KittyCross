@@ -7,7 +7,13 @@ import { useAllTokensOfOwner } from "../utils/useAllTokensOfOwner";
 import { useAccount } from "wagmi";
 export default function MyKitties() {
   const { address, isConnected } = useAccount()
-  const data = useAllTokensOfOwner(address);
+  // const data = useAllTokensOfOwner(address);
+  const data = {
+    "polygon-zkevm" : [1,2,3],
+    "scroll" : [4,5,6],
+    "arbitrum" : [1,2,3],
+    "base" : [4,5,6],
+  }
   return (
     <>
       <Navbar />
