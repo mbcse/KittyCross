@@ -3,6 +3,7 @@ import {
   contractABI,
   contractAddresses,
   getNetworkNameForChainId,
+  getRpcForChainId,
   supportedChains,
 } from "./constants";
 import { GetKittyDetails } from "./types";
@@ -17,7 +18,7 @@ export async function getKitty(
 ) {
   try {
     setIsLoading(true);
-    const rpcUrl = supportedChains[0].rpcUrls.default.http[0];
+    const rpcUrl = getRpcForChainId(chainId);
     const provider = new ethers.JsonRpcProvider(rpcUrl);
     const contractAddress =
       contractAddresses[getNetworkNameForChainId(chainId)];

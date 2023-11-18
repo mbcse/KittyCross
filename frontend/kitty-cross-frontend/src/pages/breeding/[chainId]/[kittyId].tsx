@@ -21,13 +21,9 @@ export default function Page() {
 
   useEffect(() => {
     if (chainId && kittyId) {
-      getKitty(chainId,kittyData, setIsLoading,setKittyData, setError);
+      getKitty(chainId,kittyId, setIsLoading,setKittyData, setError);
     }
   }, [chainId, kittyId ]);
-
-  useEffect(() => {
-    console.log(kittyData);
-  }, [kittyData]);
 
   return (
     <>

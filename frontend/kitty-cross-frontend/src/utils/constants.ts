@@ -33,6 +33,12 @@ export const getNetworkNameForChainId = (chainId) => {
     return chain ? chain.network : undefined;
 };
 
+export const getRpcForChainId = (chainId) => {
+    const chain = supportedChains.find(chain => chain.network == getNetworkNameForChainId(chainId)) || supportedChains[0];
+    return chain.rpcUrls.default.http[0];
+}
+
+
 export const getChainIdForNetworkName = (networkName) => {
     const chain = supportedChains.find((c) => c.network === networkName);
     return chain ? chain.id : undefined;
