@@ -32,10 +32,12 @@ export default function KittyCard({
   chainId,
   kitty,
   kittyId,
+  showButtons = false,
 }: {
   chainId: any;
   kitty: GetKittyDetails;
   kittyId: string;
+  showButtons?: boolean;
 }) {
   const router = useRouter();
 
@@ -106,6 +108,32 @@ export default function KittyCard({
             </Badge>
           </VStack>
         </Stack>
+        {showButtons && (
+          <>
+                  <HStack mt={8} direction={"row"} spacing={4}>
+                  <Button
+                    flex={1}
+                    fontSize={"sm"}
+                    rounded={"full"}
+                    _focus={{
+                      bg: "teal.200",
+                    }}
+                  >
+                    Breed
+                  </Button>
+                  <Button
+                    flex={1}
+                    fontSize={"sm"}
+                    rounded={"full"}
+                    _focus={{
+                      bg: "teal.200",
+                    }}
+                  >
+                    Give Birth
+                  </Button>
+        </HStack>
+        </>
+        )}
       </Box>
     </Center>
         }
