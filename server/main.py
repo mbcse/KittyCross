@@ -65,7 +65,7 @@ def get_storage():
     return jsonify(storage)
 
 
-@app.get("/kitties")
+@app.post("/kitties")
 def get_kitties():
     if request.is_json:
         ls = request.get_json()
