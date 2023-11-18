@@ -1,7 +1,12 @@
 import { Flex, GridItem, Image, Text } from "@chakra-ui/react";
+import { useGetKitty } from "../utils/useGetKitty";
+import { getChainIdForNetworkName } from "../utils/constants";
+import { useGetAllKittiesData } from "../utils/useGetAllKittiesData";
 
-export default function ProfileGrid({ chainName, imageSource, kitties }) {
-  // fetch all the kitties from kitties
+export default function ProfileGrid({ chainName, networkName, imageSource, kitties }) {
+  const chainId = getChainIdForNetworkName(networkName)
+  const kittiesData = useGetAllKittiesData(chainId,kitties)
+
   return (
     <>
       <GridItem w="100%">
