@@ -54,14 +54,14 @@
   },
   {
     "name": "seat",
-    "prompt": "The cat is positioned on a {}. The cat sitting upright, with its entire body visible in the frame. The cat should be facing the camera directly, ensuring that its face and eyes are clearly seen and centered. The cat's posture should be alert and upright, with its back straight, showcasing its full stature. Its front paws should be positioned neatly in front, and its tail can be either curled around its feet or resting behind it. The cat's expression should be calm and attentive, with a gentle gaze that connects with the viewer.",
+    "prompt": "The cat is sitting on top of a {}. The cat sitting upright, with its entire body visible in the frame. The cat should be facing the camera directly. The cat's posture should be alert and upright, with its back straight, showcasing its full stature. Its front paws should be positioned neatly in front, and its tail can be either curled around its feet or resting behind it. The cat's expression should be calm and attentive, with a gentle gaze that connects with the viewer.",
     "options": {
       "worn concrete pillar": 5,
       "shabby carboard box": 5,
       "shiny marble pedestal": 1,
       "intricate manhole cover": 3,
       "oriental flying carpet": 2,
-      "fancy keyboard": 3,
+      "computer keyboard": 3,
       "comfy armchair": 3,
       "pile of gold bars": 1,
       "cheap wooden crate": 3,
@@ -97,7 +97,7 @@
   },
   {
     "name": "background",
-    "prompt": "The scene is set outside. In the background is the imposing {}. ",
+    "prompt": "The scene is set outside and shows part of the sky. In the background is the {}. ",
     "options": {
       "desert": 4,
       "forest": 4,
