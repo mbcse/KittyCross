@@ -1,13 +1,20 @@
 //SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.20;
 
-import "./KittyBase.sol";
+import "./CrossMessenger.sol";
 
-contract KittyCross is KittyBase {
+contract KittyCross is CrossMessenger {
 
     struct Permitted {
         uint256 chainID;
-        address permittedAddress;
+        address approvedAddress;
+    }
+
+    struct CrossSireData {
+        uint256 sireId;
+        uint256 sireChainId;
+        uint16 generation;
+        uint256 genes;
     }
 
     /// @dev A mapping from KittyIDs to an address that has been approved to use
@@ -15,18 +22,27 @@ contract KittyCross is KittyBase {
     ///  address for siring at any time. A zero value means no approval is outstanding.
     mapping (uint256 => Permitted) public sireAllowedToAddress;
 
-    mapping (uint256 => address) crossContractAddresses;
+    mapping (uint256 => address) public crossContractAddresses;
 
     /// @dev A kitty is blocked when cross-chain breeding is in process and a message is sent
     ///      It will be unblocked once the callback is successful
-    mapping (uint256 => bool) isBlocked;
+    mapping (uint256 => bool) public isKittyCrossBlocked;
 
-    uint256[] chainIDs;
+    mapping(uint256 => CrossSireData) public crossSireData;
+
+    uint256[] public  chainIDs;
 
     modifier onlyUnblocked(uint256 id) {
-        require(!isBlocked[id], "This kitten is currently blocked!");
-
+        require(!isKittyCrossBlocked[id], "This kitten is currently blocked!");
         _;
+    }
+
+    function blockKittyForCrossCall(uint256 id) internal {
+        isKittyCrossBlocked[id] = true;
+    }
+
+    function unblockKittyForCrossCall(uint256 id) internal {
+        isKittyCrossBlocked[id] = false;
     }
 
     function setAddress(uint256 chainID, address contractAddress) public onlyCEO{
@@ -42,4 +58,14 @@ contract KittyCross is KittyBase {
         return chainIDs.length;
     }
 
+    function addChainIdsAndDomain(uint256[] memory _chainIDs, uint32[] memory _domainIds) public onlyCEO() {
+        for (uint256 i = 0; i < _chainIDs.length; i++) {
+            chainIDs.push(_chainIDs[i]);
+            hyperlaneChainDomain[_chainIDs[i]] = _domainIds[i];
+        }
+    }
+
+    function getChainIDByIndex(uint256 index) external view returns (uint256){
+        return chainIDs[index];
+    }
 }
