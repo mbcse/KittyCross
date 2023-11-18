@@ -68,7 +68,7 @@ export default function Page() {
                       borderRadius={"50%"}
                     />
                   </Button>
-                  <Button onClick={() => handleChainSelect("2")}>
+                  <Button onClick={() => handleChainSelect(getChainIdForNetworkName("arbitrum-goerli"))} opacity={isButtonSelected(getChainIdForNetworkName("arbitrum-goerli")) ? 1 : 0.4}>
                     <Image
                       src="/arbitrum.webp"
                       alt="Arbitrum"
@@ -76,7 +76,7 @@ export default function Page() {
                       borderRadius={"50%"}
                     />
                   </Button>
-                  <Button onClick={() => handleChainSelect("3")}>
+                  <Button onClick={() => handleChainSelect(getChainIdForNetworkName("polygon-zkevm-testnet"))} opacity={isButtonSelected(getChainIdForNetworkName("polygon-zkevm-testnet")) ? 1 : 0.4}>
                     <Image
                       src="/polygon.png"
                       alt="Polygon"
@@ -84,7 +84,7 @@ export default function Page() {
                       borderRadius={"50%"}
                     />
                   </Button>
-                  <Button onClick={() => handleChainSelect("4")}>
+                  <Button onClick={() => handleChainSelect(getChainIdForNetworkName("base-goerli"))} opacity={isButtonSelected(getChainIdForNetworkName("base-goerli")) ? 1 : 0.4}>
                     <Image
                       src="/base.png"
                       alt="Base"
