@@ -284,26 +284,18 @@ contract CrossGeneScience is CrossGeneScienceInterface {
 
         // Chain ID trait mixing
         for (uint256 i = 48; i < 52; i++) {
-            uint8 parentChainID1 = genes1Array[i];
-            uint8 parentChainID2 = genes2Array[i];
-            uint256 chainIDLength = _kittyCore.getChainIDLength();
-
-            // Randomly assign a new chain ID from the registered IDs
+            // Mutation: Assign a new chain ID from the registered IDs with increased chance
             rand = _sliceNumber(randomN, 100, randomIndex); // Using 100 to represent percentage
             randomIndex += 100;
-            if (rand < 60 && chainIDLength > 0) {
-                uint256 newChainID;
-                do {
-                    uint256 newChainIdIndex = _sliceNumber(randomN, _calculateBitsForChainID(), randomIndex) % chainIDLength;
-                    randomIndex += _calculateBitsForChainID();
-                    newChainID = _kittyCore.getChainIDByIndex(newChainIdIndex);
-                } while (newChainID == _kittyCore.getChainIDByIndex(parentChainID1) || newChainID == _kittyCore.getChainIDByIndex(parentChainID2));
-                babyArray[i] = uint8(newChainID);
+            if (rand < 100 && _kittyCore.getChainIDLength() > 0) { // Increased mutation chance
+                uint256 newChainIdIndex = _sliceNumber(randomN, _calculateBitsForChainID(), randomIndex) % _kittyCore.getChainIDLength();
+                randomIndex += _calculateBitsForChainID();
+                babyArray[i] = uint8(newChainIdIndex);
             } else {
                 // Inherit chain ID from one of the parents
                 rand = _sliceNumber(randomN, 1, randomIndex);
                 randomIndex += 1;
-                babyArray[i] = (rand == 0) ? parentChainID1 : parentChainID2;
+                babyArray[i] = (rand == 0) ? genes1Array[i] : genes2Array[i];
             }
         }
 
