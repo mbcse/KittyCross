@@ -693,3 +693,18 @@ export const getChainIdForNetworkName = (networkName) => {
   const chain = supportedChains.find((c) => c.network === networkName);
   return chain ? chain.id : undefined;
 };
+
+export const getImageSrc = (id) => {
+  switch (id) {
+    case '534351':
+      return '/scroll.jpeg';
+    case '421613':
+      return '/arbitrum.webp';
+    case '1442':
+      return '/polygon.png';
+    case '84531':
+      return '/base.png';
+    default:
+      return '/logo.png'; 
+  }
+};

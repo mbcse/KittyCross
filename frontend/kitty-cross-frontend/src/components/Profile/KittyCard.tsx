@@ -23,6 +23,7 @@ import Cat from "../../lib/Types";
 import { GetKittyDetails } from "../../utils/types";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { getImageSrc } from "../../utils/constants";
 
 const IMAGE =
   "https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80";
@@ -115,6 +116,14 @@ export default function KittyCard({
               Status: {kitty && kitty.isGestating? "Gestating": kitty.isReady ? "Ready": kitty.cooldownIndex}
             </Badge>
           </VStack>
+
+          <VStack direction={"row"} align={"center"}>
+            <Text fontWeight={500} fontSize={"l"}>
+              Living On
+            </Text>
+            <Image src={getImageSrc(chainId)} boxSize={50} borderRadius={'50%'}></Image>
+          </VStack>
+
         </Stack>
         {showButtons && (
           <>
