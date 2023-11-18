@@ -1,7 +1,7 @@
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import { contractABI } from "./constants";
 
-async function writeApproveSiring(
+async function giveBirth(
   chainIdOrigin,
   chainIdDestination,
   sireId,
@@ -12,8 +12,8 @@ async function writeApproveSiring(
     address: "0xecb504d39723b0be0e3a9aa33d646642d1051ee1",
     // TODO: adapt abi
     abi: contractABI,
-    // TODO: will be called crosschain something xD
-    functionName: "approveSiring",
+    // TODO: will be called give Birth something
+    functionName: "giveBirthAuto",
     // TODO: adapt args
     args: [sireId, chainIdDestination, matronId],
     chainId: chainIdOrigin,
