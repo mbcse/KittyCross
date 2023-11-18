@@ -66,7 +66,7 @@ contract KittyBreeding is KittyERC721, IMessageRecipient {
     /// @dev Check if a sire has authorized breeding with this matron. True if both sire
     ///  and matron have the same owner, or if the sire has given siring permission to
     ///  the matron's owner (via approveSiring()).
-    function _isSiringPermitted(uint256 _sireId, uint256 _matronId, uint256 srcChain) internal view returns (bool) {
+    function _isSiringPermitted(uint256 _sireId, uint256 _matronId) internal view returns (bool) {
         address matronOwner = kittyIndexToOwner[_matronId];
         address sireOwner = kittyIndexToOwner[_sireId];
 
@@ -223,7 +223,7 @@ contract KittyBreeding is KittyERC721, IMessageRecipient {
         Kitty storage matron = kitties[_matronId];
         Kitty storage sire = kitties[_sireId];
         return _isValidMatingPair(matron, _matronId, sire, _sireId) &&
-            _isSiringPermitted(_sireId, _matronId, _srcChain);
+            _isSiringPermitted(_sireId, _matronId);
     }
 
     /// @dev Internal utility function to initiate breeding, assumes that all breeding
@@ -283,7 +283,7 @@ contract KittyBreeding is KittyERC721, IMessageRecipient {
         // Check that matron and sire are both owned by caller, or that the sire
         // has given siring permission to caller (i.e. matron's owner).
         // Will fail for _sireId = 0
-        require(_isSiringPermitted(_sireId, _matronId, _chainID));
+        require(_isSiringPermitted(_sireId, _matronId));
 
         // Grab a reference to the potential matron
         Kitty storage matron = kitties[_matronId];
