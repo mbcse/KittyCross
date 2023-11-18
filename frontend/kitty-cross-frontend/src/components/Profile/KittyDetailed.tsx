@@ -55,7 +55,7 @@ export default function KittyDetailed({
           rounded={"lg"}
           mt={-10}
           pos={"relative"}
-          height={"330px"}
+          height={"580px"}
           _after={{
             transition: "all .3s ease",
             content: '""',
@@ -76,15 +76,15 @@ export default function KittyDetailed({
         >
           <Image
             rounded={"lg"}
-            height={340}
-            width={580}
+            height={540}
+            width={570}
             objectFit={"cover"}
             src={imgcat}
             alt="#"
           />
         </Box>
         <Stack pt={10} align={"center"}>
-          <Text color={"teal.500"} fontSize={"sm"} textTransform={"uppercase"}>
+          <Text color={"teal.500"} fontSize={"sm"} textTransform={"uppercase"} fontWeight={600}>
             Kitty: {kittyId}
           </Text>
           <Brand m={2} />
