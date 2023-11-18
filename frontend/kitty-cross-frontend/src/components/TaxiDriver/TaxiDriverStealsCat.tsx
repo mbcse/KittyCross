@@ -22,11 +22,11 @@ export default function TaxiDriverStealsCatFailAlert() {
         <AlertIcon boxSize="20px" mr={0} />
         <FaTaxi size={"120px"}/>
         <AlertTitle mt={4} mb={1} fontSize="lg">
-          Ohhh no! You got scammed! Taxi driver stole your cat away{" "}
+          Ohhh no! You got scammed! 
         </AlertTitle>
         <AlertDescription maxWidth="sm">
           You can't cross breed you cat
-          anymore. Try again and stay safe!
+          anymore. Try again please.
         </AlertDescription>
       </Alert>
     </>
