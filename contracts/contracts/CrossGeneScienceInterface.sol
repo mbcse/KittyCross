@@ -11,5 +11,5 @@ abstract contract CrossGeneScienceInterface {
     /// @return the genes that are supposed to be passed down the child
     function mixGenes(uint256 genes1, uint256 genes2, uint256 targetBlock) public virtual returns (uint256);
 
-    function decodeChainID(uint256 genes) public virtual pure returns (uint8);
+    function decodeChainID(uint256 genes) public virtual view returns (uint);
 }

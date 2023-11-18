@@ -113,10 +113,11 @@ contract GeneScience is CrossGeneScienceInterface {
         return traits;
     }
 
-    /// @dev returns the "visible" chainID that the kitty will be on.
-    /// @return chainID that the kitty will live on
-    function decodeChainID(uint256 _genes) public pure override returns(uint8) {
-        return _get4Bits(_genes, 48);
+    /// @dev returns the "visible" chainID index that the kitty will be on.
+    /// @return index of chainID that the kitty will live on
+    function decodeChainID(uint256 _genes) public view override returns(uint) {
+        uint index = _get4Bits(_genes, 48);
+        return _kittyCore.getChainIDByIndex(index);
     }
 
     function encode(uint8[] memory _traits) public pure returns (uint256 _genes) {
@@ -283,9 +284,8 @@ contract GeneScience is CrossGeneScienceInterface {
 
         // Chain ID trait mixing
         for (uint256 i = 48; i < 52; i++) {
-            // Get chain IDs of parents from the chainIDs array
-            uint256 parentChainID1 = _kittyCore.getChainIDByIndex(genes1Array[i]);
-            uint256 parentChainID2 = _kittyCore.getChainIDByIndex(genes2Array[i]);
+            uint8 parentChainID1 = genes1Array[i];
+            uint8 parentChainID2 = genes2Array[i];
             uint256 chainIDLength = _kittyCore.getChainIDLength();
 
             // Randomly assign a new chain ID from the registered IDs
@@ -293,18 +293,16 @@ contract GeneScience is CrossGeneScienceInterface {
             randomIndex += 100;
             if (rand < 60 && chainIDLength > 0) {
                 // Ensure that new chain ID is different from both parents
-                uint256 newChainID;
                 do {
                     uint256 newChainIdIndex = _sliceNumber(randomN, _calculateBitsForChainID(), randomIndex) % chainIDLength;
                     randomIndex += _calculateBitsForChainID();
-                    newChainID = _kittyCore.getChainIDByIndex(newChainIdIndex);
-                } while (newChainID == parentChainID1 || newChainID == parentChainID2);
-                babyArray[i] = uint8(newChainID);
+                    babyArray[i] = uint8(newChainIdIndex);
+                } while (babyArray[i] == parentChainID1 || babyArray[i] == parentChainID2);
             } else {
                 // Inherit chain ID from one of the parents
                 rand = _sliceNumber(randomN, 1, randomIndex);
                 randomIndex += 1;
-                babyArray[i] = (rand == 0) ? uint8(parentChainID1) : uint8(parentChainID2);
+                babyArray[i] = (rand == 0) ? parentChainID1 : parentChainID2;
             }
         }
 
