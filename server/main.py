@@ -2,6 +2,8 @@
 import json
 from flask import Flask, request, jsonify
 from openai import OpenAI
+from ipfshttpclient import connect
+
 
 import PromptComposer
 
@@ -10,6 +12,14 @@ client = OpenAI(api_key="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",)
 taxidriver_url = "https://oaidalleapiprodscus.blob.core.windows.net/private/org-b96SxKz2DjiAINW2kfQd3LvS/user-cAIsouEBA2Dd8wTpKsFgWrb0/img-GUleoqJ3ozGtebL93JOmjkCv.png?st=2023-11-18T08%3A17%3A41Z&se=2023-11-18T10%3A17%3A41Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-11-17T19%3A52%3A27Z&ske=2023-11-18T19%3A52%3A27Z&sks=b&skv=2021-08-06&sig=BFC05v4%2B8RcCULq3uhzNCgQtjtJ0VjZ7Hnu0ZPvKJ%2BE%3D"
 with open('storage.json', 'r') as file:
     storage = json.loads(file.read())
+
+
+def publish_to_ipfs(image_data):
+    # Upload image data to IPFS
+    response = ipfs.add_bytes(image_data)
+    ipfs_hash = response['Hash']
+    ipfs_url = f'https://ipfs.io/ipfs/{ipfs_hash}'
+    return ipfs_url
 
 
 @app.get("/taxi")
@@ -41,6 +51,7 @@ def get_kitties():
                     size="1024x1024",
                     quality="standard",
                     n=1,
+                    response_format = "b64_json"
                 )
                 print("response", response)
                 image_url = response.data[0].url
