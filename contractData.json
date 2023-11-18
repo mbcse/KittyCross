@@ -116,6 +116,55 @@
             "inputs": [
                 {
                     "indexed": false,
+                    "internalType": "uint256",
+                    "name": "matronId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "sireId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "matronChainId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "sireChainId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "kittyChainId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "childGenes",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                }
+            ],
+            "name": "KittyBorn",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
                     "internalType": "address",
                     "name": "owner",
                     "type": "address"
@@ -1619,15 +1668,15 @@
             "type": "receive"
         }
     ],
-    "KITTYCORE_base_goerli_ADDRESS": "0x285c495f21CAb4DfD4fde5529de091E94A23ac86",
+    "KITTYCORE_base_goerli_ADDRESS": "0x0197412eDEda62bBaB01C78F8bd5E903B9A8B0fc",
     "CHAINID_ADDRESSES": [
         {
             "chainId": "84531",
-            "kittyCoreAddress": "0x285c495f21CAb4DfD4fde5529de091E94A23ac86"
+            "kittyCoreAddress": "0x0197412eDEda62bBaB01C78F8bd5E903B9A8B0fc"
         },
         {
             "chainId": "534351",
-            "kittyCoreAddress": "0xf4041F40573be062e24Bf619767A1A76CDfA0672"
+            "kittyCoreAddress": "0x7518e389f5De12fF9F636d0Ee6549B5b4472f10a"
         }
     ],
     "CROSSGENESCIENCE_base_goerli_ABI": [
@@ -1792,7 +1841,7 @@
             "type": "function"
         }
     ],
-    "CROSSGENESCIENCE_base_goerli_ADDRESS": "0x511F92Fd233bd8c1EB1C94ddcD5D90dBCAd7d538",
+    "CROSSGENESCIENCE_base_goerli_ADDRESS": "0xB1bf639A3bf066f96C82Fc1F11F02f048A0787aB",
     "KITTYCORE_scroll_testnet_ABI": [
         {
             "inputs": [
@@ -1903,6 +1952,55 @@
                 }
             ],
             "name": "ContractUpgrade",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "matronId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "sireId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "matronChainId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "sireChainId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "kittyChainId",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "childGenes",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                }
+            ],
+            "name": "KittyBorn",
             "type": "event"
         },
         {
@@ -3413,7 +3511,7 @@
             "type": "receive"
         }
     ],
-    "KITTYCORE_scroll_testnet_ADDRESS": "0xf4041F40573be062e24Bf619767A1A76CDfA0672",
+    "KITTYCORE_scroll_testnet_ADDRESS": "0x7518e389f5De12fF9F636d0Ee6549B5b4472f10a",
     "CROSSGENESCIENCE_scroll_testnet_ABI": [
         {
             "inputs": [
@@ -3576,5 +3674,5 @@
             "type": "function"
         }
     ],
-    "CROSSGENESCIENCE_scroll_testnet_ADDRESS": "0x3cBa7077Bba29bd252E5b2F9145C93527dfa0A65"
+    "CROSSGENESCIENCE_scroll_testnet_ADDRESS": "0x52C31c0906eb89b51Bca14150f402f010CCa870E"
 }

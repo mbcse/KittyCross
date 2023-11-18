@@ -370,6 +370,68 @@ contract KittyBreeding is KittyERC721, IMessageRecipient {
     }
 
 
+    event KittyBorn(uint256 matronId, uint256 sireId, uint256 matronChainId, uint256 sireChainId, uint256 kittyChainId, uint256 childGenes, address owner);
+    
+    function _giveBirthCrossChain(uint256 _matronId)
+        internal
+    {
+        // Grab a reference to the matron in storage.
+        Kitty storage matron = kitties[_matronId];
+
+        // Check that the matron is a valid cat.
+        require(matron.birthTime != 0);
+
+        // Check that the matron is pregnant, and that its time has come!
+        require(_isReadyToGiveBirth(matron));
+
+        // Grab a reference to the sire in storage.
+        uint256 sireId = crossSireData[_matronId].sireChainId == 0 ? matron.siringWithId : crossSireData[_matronId].sireId;
+
+        uint16 sireGeneration = crossSireData[_matronId].sireChainId == 0 ? kitties[sireId].generation : crossSireData[_matronId].generation;
+
+        uint256 sireGenes = crossSireData[_matronId].sireChainId == 0 ? kitties[sireId].genes : crossSireData[_matronId].genes;
+        // Kitty storage sire = kitties[sireId];
+
+        // Determine the higher generation number of the two parents
+        uint16 parentGen = matron.generation;
+        if (sireGeneration > matron.generation) {
+            parentGen = sireGeneration;
+        }
+
+        // Call the sooper-sekret gene mixing operation.
+        uint256 childGenes = geneScience.mixGenes(matron.genes, sireGenes, matron.cooldownEndBlock - 1);
+        uint256 newKittyChainId = uint256(geneScience.decodeChainID(childGenes));
+
+     
+
+        // Make the new kitten!
+        address owner = kittyIndexToOwner[_matronId];
+        if (newKittyChainId == block.chainid) {
+            _createKitty(_matronId, matron.siringWithId, parentGen + 1, childGenes, owner);
+        }else{
+            bytes memory payload = abi.encode(_matronId, matron.siringWithId, parentGen + 1, childGenes, owner);
+            sendCrossMessage(newKittyChainId, crossContractAddresses[newKittyChainId], payload, 'crossCallCreateKitty');
+        }
+        
+        emit KittyBorn(_matronId, sireId, block.chainid, crossSireData[_matronId].sireChainId, newKittyChainId, childGenes, owner);
+
+        // Clear the reference to sire from the matron (REQUIRED! Having siringWithId
+        // set is what marks a matron as being pregnant.)
+        delete matron.siringWithId;
+
+        delete crossSireData[_matronId];
+
+        // Every time a kitty gives birth counter is decremented.
+        pregnantKitties--;
+
+
+        // Send the balance fee to the person who made birth happen.
+        payable(msg.sender).transfer(autoBirthFee);
+
+        // return the new kitten's ID
+        // return kittenId;
+    }
+
 
 /*
 ************************************************* Cross Chain Functions *************************
@@ -458,51 +520,7 @@ contract KittyBreeding is KittyERC721, IMessageRecipient {
     }
 
 
-    function _giveBirthCrossChain(uint256 _matronId)
-        internal
-    {
-        // Grab a reference to the matron in storage.
-        Kitty storage matron = kitties[_matronId];
-
-        // Check that the matron is a valid cat.
-        require(matron.birthTime != 0);
-
-        // Check that the matron is pregnant, and that its time has come!
-        require(_isReadyToGiveBirth(matron));
-
-        // Grab a reference to the sire in storage.
-        uint256 sireId = crossSireData[_matronId].sireId;
-
-        // Kitty storage sire = kitties[sireId];
-
-        // Determine the higher generation number of the two parents
-        uint16 parentGen = matron.generation;
-        if (crossSireData[_matronId].generation > matron.generation) {
-            parentGen = crossSireData[_matronId].generation;
-        }
-
-        // Call the sooper-sekret gene mixing operation.
-        uint256 childGenes = geneScience.mixGenes(matron.genes, crossSireData[_matronId].genes, matron.cooldownEndBlock - 1);
-        uint256 newKittyChainId = uint256(geneScience.decodeChainID(childGenes));
-        // Make the new kitten!
-        address owner = kittyIndexToOwner[_matronId];
-        bytes memory payload = abi.encode(_matronId, matron.siringWithId, parentGen + 1, childGenes, owner);
-        sendCrossMessage(newKittyChainId, crossContractAddresses[newKittyChainId], payload, 'crossCallCreateKitty');
-        // uint256 kittenId = _createKitty(_matronId, matron.siringWithId, parentGen + 1, childGenes, owner);
-
-        // Clear the reference to sire from the matron (REQUIRED! Having siringWithId
-        // set is what marks a matron as being pregnant.)
-        delete matron.siringWithId;
-
-        // Every time a kitty gives birth counter is decremented.
-        pregnantKitties--;
-
-        // Send the balance fee to the person who made birth happen.
-        payable(msg.sender).transfer(autoBirthFee);
-
-        // return the new kitten's ID
-        // return kittenId;
-    }
+    
 
 
     function _hasSireApprovedAndReadyCrossCallCheck(uint256 _matronId, address _matronOwner, uint256 _matronChainId, uint256 _sireId) internal {
