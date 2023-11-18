@@ -17,7 +17,6 @@ def extract(val, lk):
 def compose(chain, attr):
     prompt = "I NEED to test how the tool works with extremely simple prompts. DO NOT add any detail, just use it AS-IS: Create a picture of a {} cat. ".format(breed[chain])
     for e in lookup:
-        print(e)
         val = extract(int(attr.pop(0)), e["options"])
         if val:
             prompt += e["prompt"].format(val)
