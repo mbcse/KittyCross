@@ -22,15 +22,15 @@ contract KittyCross is CrossMessenger {
     ///  address for siring at any time. A zero value means no approval is outstanding.
     mapping (uint256 => Permitted) public sireAllowedToAddress;
 
-    mapping (uint256 => address) crossContractAddresses;
+    mapping (uint256 => address) public crossContractAddresses;
 
     /// @dev A kitty is blocked when cross-chain breeding is in process and a message is sent
     ///      It will be unblocked once the callback is successful
-    mapping (uint256 => bool) isKittyCrossBlocked;
+    mapping (uint256 => bool) public isKittyCrossBlocked;
 
     mapping(uint256 => CrossSireData) public crossSireData;
 
-    uint256[] chainIDs;
+    uint256[] public  chainIDs;
 
     modifier onlyUnblocked(uint256 id) {
         require(!isKittyCrossBlocked[id], "This kitten is currently blocked!");
@@ -56,6 +56,13 @@ contract KittyCross is CrossMessenger {
 
     function getChainIDLength() external view returns (uint256) {
         return chainIDs.length;
+    }
+
+    function addChainIdsAndDomain(uint256[] memory _chainIDs, uint32[] memory _domainIds) public onlyCEO() {
+        for (uint256 i = 0; i < _chainIDs.length; i++) {
+            chainIDs.push(_chainIDs[i]);
+            hyperlaneChainDomain[_chainIDs[i]] = _domainIds[i];
+        }
     }
 
     function getChainIDByIndex(uint256 index) external view returns (uint256){
