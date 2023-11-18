@@ -420,6 +420,9 @@ contract KittyBreeding is KittyERC721, IMessageRecipient {
             //####### Check if Sire is approved and ready on the other chain
             bytes memory payload = abi.encode(_matronId, msg.sender, _matronChainId, _sireId);
             blockKittyForCrossCall(_matronId);
+
+            crossSireData[_matronId] = CrossSireData(_sireId, _sireChainId, 0, 0);
+
             sendCrossMessage(_sireChainId, crossContractAddresses[_sireChainId], payload, 'hasSireApprovedAndReadyCrossCallCheck');
         }
     }
@@ -437,21 +440,21 @@ contract KittyBreeding is KittyERC721, IMessageRecipient {
         // Trigger the cooldown for Female parent.
         _triggerCooldown(matron);
 
-        // Clear siring permission for both parents. This may not be strictly necessary
-        // but it's likely to avoid confusion!
-        // delete sireAllowedToAddress[_sireId];
-
         crossSireData[_matronId] = CrossSireData(_sireId, _sireChainId, _sireGeneration, _sireGenes);
         // Every time a kitty gets pregnant, counter is incremented.
         pregnantKitties++;
 
         // Emit the pregnancy event.
         emit Pregnant(kittyIndexToOwner[_matronId], _matronId, _sireId, matron.cooldownEndBlock);
+
+        //unblock the kitty as state is now finalized
+        unblockKittyForCrossCall(_matronId);
     }
 
     function _failedBreedCrossCallback(uint256 _matronId) internal {
         unblockKittyForCrossCall(_matronId);
         emit BreedingReverted(_matronId, crossSireData[_matronId].sireId, crossSireData[_matronId].sireChainId);
+        delete crossSireData[_matronId];
     }
 
 
@@ -468,7 +471,7 @@ contract KittyBreeding is KittyERC721, IMessageRecipient {
         // Payload to send -> uint256 _matronId, uint256 _matronChainId, uint256 _sireId, uint256 _sireChainId, uint16 _sireGeneration, uint256 _sireGenes
            bytes memory payload = abi.encode(_matronId, _matronChainId, _sireId, block.chainid, sire.generation, sire.genes);
            sendCrossMessage(_matronChainId, crossContractAddresses[_matronChainId], payload, 'breedWithCrossCallCalback');
-        }else{
+        } else {
             bytes memory payload = abi.encode(_matronId);
             sendCrossMessage(_matronChainId, crossContractAddresses[_matronChainId], payload, 'failedBreedCrossCallback');
         }
