@@ -1,5 +1,5 @@
 import { Flex, GridItem, Image, Text } from "@chakra-ui/react";
-import { useGetKitty } from "../utils/useGetKitty";
+import { getKitty } from "../utils/getKitty";
 import { getChainIdForNetworkName } from "../utils/constants";
 import { useGetAllKittiesData } from "../utils/useGetAllKittiesData";
 import KittyCard from "./Profile/KittyCard";
