@@ -19,6 +19,7 @@ import {
 } from "@chakra-ui/react";
 import { FaCat } from "react-icons/fa";
 import Brand from "../Brand";
+import { GetKittyDetails } from "../../utils/types";
 
 const IMAGE =
   "https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80";
@@ -27,13 +28,22 @@ const imgcat =
   "https://images.unsplash.com/photo-1592194996308-7b43878e84a6?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 export default function KittyDetailed({
   kittyId,
+  kitty,
+}: {
+  kitty: GetKittyDetails;
+  kittyId: string;
 }) {
+  const unixTimestamp:any = Number(kitty.birthTime);
+  const date = new Date(unixTimestamp * 1e3); // 1e3 === 1000
+  const localizedTime = date.toLocaleDateString();
+
   return (
     <Center py={12}>
       <Box
         role={"group"}
         p={6}
-        maxW={"530px"}
+        // TODO@RASHMI Fix Width / Shadow
+        maxW={"600px"}
         w={"full"}
         bg={useColorModeValue("white", "teal.800")}
         boxShadow={"2xl"}
@@ -81,10 +91,10 @@ export default function KittyDetailed({
 
           <VStack direction={"row"} align={"center"}>
             <Text fontWeight={500} fontSize={"l"}>
-              Generation:
+              Generation: {kitty.generation.toString()}
             </Text>
             <Badge fontWeight={500} color={"teal.600"}>
-              Status:
+              Status: {kitty.isGestating? "Gestating": kitty.isReady ? "Ready": kitty.cooldownIndex}
             </Badge>
           </VStack>
         </Stack>
@@ -145,6 +155,8 @@ export default function KittyDetailed({
           </Heading>
 
           <Wrap>
+            {(kitty.generation.toString()== '0' ? <p>No Parents</p>: 
+            <>
             <WrapItem>
               <Avatar
                 name="Dan Abrahmov"
@@ -159,15 +171,20 @@ export default function KittyDetailed({
                 mt={2}
               />
             </WrapItem>
+            <WrapItem>
+              <p>Sire: {kitty.sireId.toString()}, Matron: {kitty.matronId.toString()}</p>
+            </WrapItem>
+            </>
+            )}
           </Wrap>
+
         </HStack>
 
         <Divider my={5} />
         <Heading fontSize={"sm"} fontFamily={"body"} fontWeight={500}>
-            Cattributes:
-          </Heading>
+          Cattributes:
+        </Heading>
         <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
-          
           <Badge
             px={2}
             py={1}
@@ -193,23 +210,23 @@ export default function KittyDetailed({
             #music
           </Badge>
         </Stack>
-        <Divider my={5}/>
+        <Divider my={5} />
         <Heading fontSize={"sm"} fontFamily={"body"} fontWeight={500}>
           Genes
         </Heading>
         <VStack align={"center"} justify={"center"} direction={"row"} mt={6}>
-          <Text fontWeight={500} fontSize={"l"}>
-            [11,12,22,4,5,6,3,2,3,55,3,3]
+          <Text fontWeight={600} fontSize={"xs"}>
+            {kitty.genes.toString()}
           </Text>
-        </VStack>
+       </VStack>
 
-        <Divider my={5}/>
+        <Divider my={5} />
         <Heading fontSize={"sm"} fontFamily={"body"} fontWeight={500}>
           Activity
         </Heading>
         <VStack align={"center"} justify={"center"} direction={"row"} mt={6}>
           <Text fontWeight={500} fontSize={"l"}>
-            Nov 14, 2023 - 4:50pm UTC Birthday hatched by: 0xC79Fd9Be...{" "}
+            {localizedTime.toString()}
           </Text>
         </VStack>
       </Box>
