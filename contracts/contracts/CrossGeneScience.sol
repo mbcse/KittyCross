@@ -292,12 +292,13 @@ contract CrossGeneScience is CrossGeneScienceInterface {
             rand = _sliceNumber(randomN, 100, randomIndex); // Using 100 to represent percentage
             randomIndex += 100;
             if (rand < 60 && chainIDLength > 0) {
-                // Ensure that new chain ID is different from both parents
+                uint256 newChainID;
                 do {
                     uint256 newChainIdIndex = _sliceNumber(randomN, _calculateBitsForChainID(), randomIndex) % chainIDLength;
                     randomIndex += _calculateBitsForChainID();
-                    babyArray[i] = uint8(newChainIdIndex);
-                } while (babyArray[i] == parentChainID1 || babyArray[i] == parentChainID2);
+                    newChainID = _kittyCore.getChainIDByIndex(newChainIdIndex);
+                } while (newChainID == _kittyCore.getChainIDByIndex(parentChainID1) || newChainID == _kittyCore.getChainIDByIndex(parentChainID2));
+                babyArray[i] = uint8(newChainID);
             } else {
                 // Inherit chain ID from one of the parents
                 rand = _sliceNumber(randomN, 1, randomIndex);

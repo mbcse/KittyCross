@@ -10,6 +10,13 @@ contract KittyCross is CrossMessenger {
         address approvedAddress;
     }
 
+    struct CrossSireData {
+        uint256 sireId;
+        uint256 sireChainId;
+        uint16 generation;
+        uint256 genes;
+    }
+
     /// @dev A mapping from KittyIDs to an address that has been approved to use
     ///  this Kitty for siring via breedWith(). Each Kitty can only have one approved
     ///  address for siring at any time. A zero value means no approval is outstanding.
@@ -20,13 +27,6 @@ contract KittyCross is CrossMessenger {
     /// @dev A kitty is blocked when cross-chain breeding is in process and a message is sent
     ///      It will be unblocked once the callback is successful
     mapping (uint256 => bool) public isKittyCrossBlocked;
-
-    struct CrossSireData {
-        uint256 sireId;
-        uint256 sireChainId;
-        uint16 generation;
-        uint256 genes;
-    }
 
     mapping(uint256 => CrossSireData) public crossSireData;
 
