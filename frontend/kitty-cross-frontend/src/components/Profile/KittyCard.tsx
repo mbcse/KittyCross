@@ -40,12 +40,12 @@ export default function KittyCard({
   const router = useRouter();
 
   const handleClick = () => {
-    // Replace '/your-path' with the path you want to navigate to
     router.push('/kitty/' + chainId + '/' + kittyId);
   };
 
   return (
-    <Center py={12}>
+    <>
+    {kitty  && <Center py={12}>
       <Box
       onClick={handleClick} // Add onClick event
       cursor="pointer" // Change cursor to indicate it's clickable
@@ -99,14 +99,16 @@ export default function KittyCard({
 
           <VStack direction={"row"} align={"center"}>
             <Text fontWeight={500} fontSize={"l"}>
-              Generation: {kitty.generation.toString()}
+              Generation: {kitty && kitty.generation.toString()}
             </Text>
             <Badge fontWeight={500} color={"teal.600"}>
-              Status: {kitty.isGestating? "Gestating": kitty.isReady ? "Ready": kitty.cooldownIndex}
+              Status: {kitty && kitty.isGestating? "Gestating": kitty.isReady ? "Ready": kitty.cooldownIndex}
             </Badge>
           </VStack>
         </Stack>
       </Box>
     </Center>
+        }
+        </>
   );
 }
