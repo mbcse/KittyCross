@@ -36,13 +36,13 @@ export default function KittyCard({
   kitty,
   kittyId,
   showButtons = false,
-  kittyImg,
+  // kittyImg,
 }: {
   chainId: any;
   kitty?: GetKittyDetails;
   kittyId: string;
   showButtons?: boolean;
-  kittyImg?: string;
+  // kittyImg?: string;
 }) {
   const router = useRouter();
   // Generate Image at the Component Level
@@ -52,7 +52,7 @@ export default function KittyCard({
     {
       id: kittyId,
       chain: chainId,
-      genes: [31, 19, 8, 10, 9, 24, 23, 17]
+      genes: kitty.genes
     },
 
   ];
@@ -75,7 +75,7 @@ export default function KittyCard({
         console.error("Error fetching data:", error);
       }
     };
-    //fetchData();
+    fetchData();
   });
 
   const handleClick = () => {
