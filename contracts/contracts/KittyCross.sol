@@ -22,14 +22,18 @@ contract KittyCross is CrossMessenger {
     ///  address for siring at any time. A zero value means no approval is outstanding.
     mapping (uint256 => Permitted) public sireAllowedToAddress;
 
+    /// @dev mapping from chainID to contract address on that chain
     mapping (uint256 => address) public crossContractAddresses;
 
     /// @dev A kitty is blocked when cross-chain breeding is in process and a message is sent
     ///      It will be unblocked once the callback is successful
     mapping (uint256 => bool) public isKittyCrossBlocked;
 
+    /// @dev data of the sire to be used when giving birth to avoid another cross-chain call
+    ///    this data is provided upon callback after initiating breeding and cached here
     mapping(uint256 => CrossSireData) public crossSireData;
 
+    /// @dev all chainIDs currently supported
     uint256[] public  chainIDs;
 
     modifier onlyUnblocked(uint256 id) {
