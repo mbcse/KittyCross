@@ -33,7 +33,7 @@ export default function KittyDetailed({
   kitty: GetKittyDetails;
   kittyId: string;
 }) {
-  const unixTimestamp:any = Number(kitty.birthTime);
+  const unixTimestamp: any = Number(kitty.birthTime);
   const date = new Date(unixTimestamp * 1e3); // 1e3 === 1000
   const localizedTime = date.toLocaleDateString();
 
@@ -42,7 +42,6 @@ export default function KittyDetailed({
       <Box
         role={"group"}
         p={6}
-        // TODO@RASHMI Fix Width / Shadow
         maxW={"600px"}
         w={"full"}
         bg={useColorModeValue("white", "teal.800")}
@@ -94,7 +93,12 @@ export default function KittyDetailed({
               Generation: {kitty.generation.toString()}
             </Text>
             <Badge fontWeight={500} color={"teal.600"}>
-              Status: {kitty.isGestating? "Gestating": kitty.isReady ? "Ready": kitty.cooldownIndex}
+              Status:{" "}
+              {kitty.isGestating
+                ? "Gestating"
+                : kitty.isReady
+                ? "Ready"
+                : kitty.cooldownIndex}
             </Badge>
           </VStack>
         </Stack>
@@ -155,30 +159,38 @@ export default function KittyDetailed({
           </Heading>
 
           <Wrap>
-            {(kitty.generation.toString()== '0' ? <p>No Parents</p>: 
-            <>
-            <WrapItem>
-              <Avatar
-                name="Dan Abrahmov"
-                src="https://images.unsplash.com/photo-1574158622682-e40e69881006?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                mt={2}
-              />
-            </WrapItem>
-            <WrapItem>
-              <Avatar
-                name="Kola Tioluwani"
-                src="https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                mt={2}
-              />
-            </WrapItem>
-            <WrapItem>
-              <p>Sire: {kitty.sireId.toString()}, Matron: {kitty.matronId.toString()}</p>
-            </WrapItem>
-            </>
+            {kitty.generation.toString() == "0" ? (
+              <p>No Parents</p>
+            ) : (
+              <>
+                <WrapItem>
+                  <Avatar
+                    name="Dan Abrahmov"
+                    src="https://images.unsplash.com/photo-1574158622682-e40e69881006?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    mt={2}
+                  />
+                </WrapItem>
+                <WrapItem>
+                  <Avatar
+                    name="Kola Tioluwani"
+                    src="https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    mt={2}
+                  />
+                </WrapItem>
+              </>
             )}
           </Wrap>
-
         </HStack>
+
+        <Divider my={5} />
+        <Heading fontSize={"sm"} fontFamily={"body"} fontWeight={500}>
+          Sire: {kitty.sireId.toString()}
+        </Heading>
+
+        <Divider my={5} />
+        <Heading fontSize={"sm"} fontFamily={"body"} fontWeight={500}>
+          Matron: {kitty.matronId.toString()}
+        </Heading>
 
         <Divider my={5} />
         <Heading fontSize={"sm"} fontFamily={"body"} fontWeight={500}>
@@ -218,7 +230,7 @@ export default function KittyDetailed({
           <Text fontWeight={600} fontSize={"xs"}>
             {kitty.genes.toString()}
           </Text>
-       </VStack>
+        </VStack>
 
         <Divider my={5} />
         <Heading fontSize={"sm"} fontFamily={"body"} fontWeight={500}>
