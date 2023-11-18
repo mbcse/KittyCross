@@ -1,0 +1,146 @@
+[
+  {
+    "name": "breed",
+    "prompt": "Create a picture of a {} cat. ",
+    "options": {
+      "orange tabby": 34,
+      "bengal": 33,
+      "tuxedo": 33
+    }
+  },
+  {
+    "name": "eye color",
+    "prompt": "The cat has {} eyes. ",
+    "options": {
+      "green": 15,
+      "yellow": 5,
+      "azure": 5,
+      "ice blue": 5,
+      "hazel": 15,
+      "red": 5,
+      "amber": 5,
+      "brown": 15,
+      "aqua": 5,
+      "pink": 5,
+      "lilac": 5,
+      "copper": 5,
+      "gold": 2,
+      "white": 3,
+      "black": 3,
+      "rainbow": 2
+    }
+  },
+  {
+    "name": "accessory",
+    "prompt": "The cat is wearing a {} with the ethereum chain logo. ",
+    "options": {
+      "eyepatch": 10,
+      "collar": 10,
+      "headband": 10,
+      "shirt": 10,
+      "scarf": 10,
+      "sheriff badge": 10,
+      "gangster chain": 10
+    }
+  },
+  {
+    "name": "hat",
+    "prompt": "The cat is also wearing a {} on its head. ",
+    "options": {
+      "moped helmet": 10,
+      "turkish hat": 10,
+      "crown": 5,
+      "baseball cap": 10,
+      "beanie": 10,
+      "sombrero": 5,
+      "tophat": 5,
+      "fedora": 5,
+      "cowboy hat": 5,
+      "ski goggles": 5,
+      "pirate hat": 5,
+      "halo": 5
+    }
+  },
+  {
+    "name": "seat",
+    "prompt": "The cat is sitting alertly on a {}. The cat is pictured in its entirety and facing the camera. The tail of the cat is curled around the feet. ",
+    "options": {
+      "worn concrete pillar": 15,
+      "shabby carboard box": 15,
+      "shiny marble pedestal": 5,
+      "intricate manhole cover": 10,
+      "oriental flying carpet": 5,
+      "fancy keyboard": 10,
+      "comfy armchair": 10,
+      "pile of gold bars": 5,
+      "cheap wooden crate": 10,
+      "tri-level podium": 5,
+      "wooden stool": 10
+    }
+  },
+  {
+    "name": "wild",
+    "prompt": "The cat has {}. ",
+    "options": {
+      "three eyes": 5,
+      "the zombie virus": 5,
+      "cybernetic implants": 5,
+      "battle scars": 5,
+      "glowing eyes": 5
+    }
+  },
+  {
+    "name": "weather",
+    "prompt": "The lighting of the scene is like a {}. ",
+    "options": {
+      "sunny day": 20,
+      "rainy day": 15,
+      "sunset": 10,
+      "moonlit night": 20,
+      "rainy night": 15,
+      "aurora borealis": 5,
+      "rainbow": 5,
+      "apocalypse": 5,
+      "disco": 5
+    }
+  },
+  {
+    "name": "art style",
+    "prompt": "The picture is in the {} art style. ",
+    "options": {
+      "colorful memphis": 10,
+      "grimy dieselpunk": 10,
+      "scifi cyberpunk": 10,
+      "futuristic vaporwave": 10,
+      "fantasy gothic": 10,
+      "sketched lineart": 10,
+      "retro pixelart": 10,
+      "energetic anime": 10,
+      "loriot comic style": 10,
+      "abstract art": 10
+    }
+  },
+  {
+    "name": "background",
+    "prompt": "In the background is {}. ",
+    "options": {
+      "desert": 10,
+      "forest": 10,
+      "grassy hills": 10,
+      "stonehenge": 5,
+      "hagia sophia": 5,
+      "galata tower": 5,
+      "statue of liberty": 5,
+      "eiffel tower": 5,
+      "egyptian pyramids": 5,
+      "japanese torii": 5,
+      "brandenburg gate": 5,
+      "burj kalifa": 5,
+      "chinese wall": 5,
+      "colosseum": 5,
+      "taj mahal": 5,
+      "christ the redeemer": 5,
+      "petra": 5
+    }
+  }
+]
