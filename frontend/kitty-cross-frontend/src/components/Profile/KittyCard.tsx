@@ -16,6 +16,7 @@ import {
   Wrap,
   WrapItem,
   VStack,
+  Link,
 } from "@chakra-ui/react";
 import { FaCat } from "react-icons/fa";
 import Brand from "../Brand";
@@ -170,6 +171,8 @@ export default function KittyCard({
             {showButtons && (
               <>
                 <HStack mt={8} direction={"row"} spacing={4}>
+
+                  <Link href={"/breeding/" + chainId + "/" + kittyId}>
                   <Button
                     flex={1}
                     fontSize={"sm"}
@@ -180,6 +183,7 @@ export default function KittyCard({
                   >
                     Breed
                   </Button>
+                  </Link>
                   <Button
                     flex={1}
                     fontSize={"sm"}
