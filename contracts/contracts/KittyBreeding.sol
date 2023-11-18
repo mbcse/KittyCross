@@ -4,10 +4,26 @@ pragma solidity 0.8.20;
 import "./KittyERC721.sol";
 import "./CrossGeneScienceInterface.sol";
 
+//Hyperlane Recieve interface
+interface IMessageRecipient {
+    /**
+     * @notice Handle an interchain message
+     * @param _origin Domain ID of the chain from which the message came
+     * @param _sender Address of the message sender on the origin chain as bytes32
+     * @param _body Raw bytes content of message body
+     */
+    function handle(
+        uint32 _origin,
+        bytes32 _sender,
+        bytes calldata _body
+    ) external payable;
+}
+
+
 /// @title A facet of KittyCore that manages Kitty siring, gestation, and birth.
 /// @author Axiom Zen (https://www.axiomzen.co)
 /// @dev See the KittyCore contract documentation to understand how the various contract facets are arranged.
-contract KittyBreeding is KittyERC721 {
+contract KittyBreeding is KittyERC721, IMessageRecipient {
 
     /// @dev The Pregnant event is fired when two cats successfully breed and the pregnancy
     ///  timer begins for the matron.
@@ -50,16 +66,21 @@ contract KittyBreeding is KittyERC721 {
     /// @dev Check if a sire has authorized breeding with this matron. True if both sire
     ///  and matron have the same owner, or if the sire has given siring permission to
     ///  the matron's owner (via approveSiring()).
-    function _isSiringPermitted(uint256 _sireId, uint256 _matronId, uint256 srcChain) internal view returns (bool) {
+    function _isSiringPermitted(uint256 _sireId, uint256 _matronId) internal view returns (bool) {
         address matronOwner = kittyIndexToOwner[_matronId];
         address sireOwner = kittyIndexToOwner[_sireId];
 
         // Siring is okay if they have same owner, or if the matron's owner was given
         // permission to breed with this sire.
-        return (matronOwner == sireOwner || 
-            (sireAllowedToAddress[_sireId].permittedAddress == matronOwner && 
-            sireAllowedToAddress[_sireId].chainID == srcChain)
-        );
+        return (matronOwner == sireOwner || sireAllowedToAddress[_sireId].approvedAddress == matronOwner);
+    }
+
+    function _isSiringPermitted(uint256 _sireId, address matronOwner, uint256 _chainId) internal view returns (bool) {
+        address sireOwner = kittyIndexToOwner[_sireId];
+
+        // Siring is okay if they have same owner, or if the matron's owner was given
+        // permission to breed with this sire.
+        return (matronOwner == sireOwner || (sireAllowedToAddress[_sireId].approvedAddress == matronOwner && sireAllowedToAddress[_sireId].chainID == _chainId));
     }
 
     /// @dev Set the cooldownEndTime for the given Kitty, based on its current cooldownIndex.
@@ -86,10 +107,7 @@ contract KittyBreeding is KittyERC721 {
         whenNotPaused
     {
         require(_owns(msg.sender, _sireId));
-        sireAllowedToAddress[_sireId] = Permitted({
-            chainID: chainID,
-            permittedAddress: _addr
-        });
+        sireAllowedToAddress[_sireId] = Permitted(chainID, _addr);
     }
 
     /// @dev Updates the minimum payment required for calling giveBirthAuto(). Can only
@@ -205,7 +223,7 @@ contract KittyBreeding is KittyERC721 {
         Kitty storage matron = kitties[_matronId];
         Kitty storage sire = kitties[_sireId];
         return _isValidMatingPair(matron, _matronId, sire, _sireId) &&
-            _isSiringPermitted(_sireId, _matronId, _srcChain);
+            _isSiringPermitted(_sireId, _matronId);
     }
 
     /// @dev Internal utility function to initiate breeding, assumes that all breeding
@@ -240,56 +258,56 @@ contract KittyBreeding is KittyERC721 {
     ///  fail entirely. Requires a pre-payment of the fee given out to the first caller of giveBirth()
     /// @param _matronId The ID of the Kitty acting as matron (will end up pregnant if successful)
     /// @param _sireId The ID of the Kitty acting as sire (will begin its siring cooldown if successful)
-    function breedWithAuto(uint256 _matronId, uint256 _sireId, uint256 _chainID)
-        external
-        payable
-        whenNotPaused
-    {
-        // Checks for payment.
-        require(msg.value >= autoBirthFee);
+    // function breedWithAuto(uint256 _matronId, uint256 _sireId)
+    //     external
+    //     payable
+    //     whenNotPaused
+    // {
+    //     // Checks for payment.
+    //     require(msg.value >= autoBirthFee);
 
-        // Caller must own the matron.
-        require(_owns(msg.sender, _matronId));
+    //     // Caller must own the matron.
+    //     require(_owns(msg.sender, _matronId));
 
-        // Neither sire nor matron are allowed to be on auction during a normal
-        // breeding operation, but we don't need to check that explicitly.
-        // For matron: The caller of this function can't be the owner of the matron
-        //   because the owner of a Kitty on auction is the auction house, and the
-        //   auction house will never call breedWith().
-        // For sire: Similarly, a sire on auction will be owned by the auction house
-        //   and the act of transferring ownership will have cleared any oustanding
-        //   siring approval.
-        // Thus we don't need to spend gas explicitly checking to see if either cat
-        // is on auction.
+    //     // Neither sire nor matron are allowed to be on auction during a normal
+    //     // breeding operation, but we don't need to check that explicitly.
+    //     // For matron: The caller of this function can't be the owner of the matron
+    //     //   because the owner of a Kitty on auction is the auction house, and the
+    //     //   auction house will never call breedWith().
+    //     // For sire: Similarly, a sire on auction will be owned by the auction house
+    //     //   and the act of transferring ownership will have cleared any oustanding
+    //     //   siring approval.
+    //     // Thus we don't need to spend gas explicitly checking to see if either cat
+    //     // is on auction.
 
-        // Check that matron and sire are both owned by caller, or that the sire
-        // has given siring permission to caller (i.e. matron's owner).
-        // Will fail for _sireId = 0
-        require(_isSiringPermitted(_sireId, _matronId, _chainID));
+    //     // Check that matron and sire are both owned by caller, or that the sire
+    //     // has given siring permission to caller (i.e. matron's owner).
+    //     // Will fail for _sireId = 0
+    //     require(_isSiringPermitted(_sireId, _matronId));
 
-        // Grab a reference to the potential matron
-        Kitty storage matron = kitties[_matronId];
+    //     // Grab a reference to the potential matron
+    //     Kitty storage matron = kitties[_matronId];
 
-        // Make sure matron isn't pregnant, or in the middle of a siring cooldown
-        require(_isReadyToBreed(matron));
+    //     // Make sure matron isn't pregnant, or in the middle of a siring cooldown
+    //     require(_isReadyToBreed(matron));
 
-        // Grab a reference to the potential sire
-        Kitty storage sire = kitties[_sireId];
+    //     // Grab a reference to the potential sire
+    //     Kitty storage sire = kitties[_sireId];
 
-        // Make sure sire isn't pregnant, or in the middle of a siring cooldown
-        require(_isReadyToBreed(sire));
+    //     // Make sure sire isn't pregnant, or in the middle of a siring cooldown
+    //     require(_isReadyToBreed(sire));
 
-        // Test that these cats are a valid mating pair.
-        require(_isValidMatingPair(
-            matron,
-            _matronId,
-            sire,
-            _sireId
-        ));
+    //     // Test that these cats are a valid mating pair.
+    //     require(_isValidMatingPair(
+    //         matron,
+    //         _matronId,
+    //         sire,
+    //         _sireId
+    //     ));
 
-        // All checks passed, kitty gets pregnant!
-        _breedWith(_matronId, _sireId);
-    }
+    //     // All checks passed, kitty gets pregnant!
+    //     _breedWith(_matronId, _sireId);
+    // }
 
     /// @notice Have a pregnant Kitty give birth!
     /// @param _matronId A Kitty ready to give birth.
@@ -299,10 +317,17 @@ contract KittyBreeding is KittyERC721 {
     ///  to the current owner of the matron. Upon successful completion, both the matron and the
     ///  new kitten will be ready to breed again. Note that anyone can call this function (if they
     ///  are willing to pay the gas!), but the new kitten always goes to the mother's owner.
-    function giveBirth(uint256 _matronId)
-        external
-        whenNotPaused
-        returns(uint256)
+    
+    function giveBirth(uint256 _matronId) external whenNotPaused() returns(uint256){
+        if(block.chainid == crossSireData[_matronId].sireChainId) {
+            _giveBirth(_matronId);
+        }else {
+            _giveBirthCrossChain(_matronId);
+        }    
+    }
+    
+    function _giveBirth(uint256 _matronId)
+       internal
     {
         // Grab a reference to the matron in storage.
         Kitty storage matron = kitties[_matronId];
@@ -341,7 +366,7 @@ contract KittyBreeding is KittyERC721 {
         payable(msg.sender).transfer(autoBirthFee);
 
         // return the new kitten's ID
-        return kittenId;
+        // return kittenId;
     }
 
 
@@ -372,58 +397,161 @@ contract KittyBreeding is KittyERC721 {
         // Thus we don't need to spend gas explicitly checking to see if either cat
         // is on auction.
 
-        // Check that matron and sire are both owned by caller, or that the sire
-        // has given siring permission to caller (i.e. matron's owner).
-        // Will fail for _sireId = 0
-        /// @dev _matronChainId needs to be the source chain ID here (which should always be the matron chain I assume?)
-        require(_isSiringPermitted(_sireId, _matronId, _matronChainId));
 
         // Grab a reference to the potential matron
         Kitty storage matron = kitties[_matronId];
 
         // Make sure matron isn't pregnant, or in the middle of a siring cooldown
         require(_isReadyToBreed(matron));
-
         
         if(_matronChainId == _sireChainId) 
         {
+            // Check that matron and sire are both owned by caller, or that the sire
+            // has given siring permission to caller (i.e. matron's owner).
+            // Will fail for _sireId = 0
+            require(_isSiringPermitted(_sireId, _matronId));
             // Grab a reference to the potential sire
             Kitty storage sire = kitties[_sireId];
 
             // Make sure sire isn't pregnant, or in the middle of a siring cooldown
             require(_isReadyToBreed(sire));
+            // All checks passed, kitty gets pregnant!
+            _breedWith(_matronId, _sireId);
         }else{
-            
-        }
-       
 
-        // All checks passed, kitty gets pregnant!
-        _breedWith(_matronId, _sireId);
+            //####### Implement Cross Chain Call
+            //####### Check if Sire is approved and ready on the other chain
+            bytes memory payload = abi.encode(_matronId, msg.sender, _matronChainId, _sireId);
+            blockKittyForCrossCall(_matronId);
+            sendCrossMessage(_sireChainId, crossContractAddresses[_sireChainId], payload, 'hasSireApprovedAndReadyCrossCallCheck');
+        }
     }
 
 
 
-    function _breedWithCrossChain(uint256 _matronId, uint256 _sireId) internal {
+    function _breedWithCrossCallCalback(uint256 _matronId, uint256 _matronChainId, uint256 _sireId, uint256 _sireChainId, uint16 _sireGeneration, uint256 _sireGenes) internal {
         // Grab a reference to the Kitties from storage.
-        Kitty storage sire = kitties[_sireId];
+        // Kitty storage sire = kitties[_sireId];
         Kitty storage matron = kitties[_matronId];
 
         // Mark the matron as pregnant, keeping track of who the sire is.
         matron.siringWithId = uint32(_sireId);
 
-        // Trigger the cooldown for both parents.
-        _triggerCooldown(sire);
+        // Trigger the cooldown for Female parent.
         _triggerCooldown(matron);
 
         // Clear siring permission for both parents. This may not be strictly necessary
         // but it's likely to avoid confusion!
-        delete sireAllowedToAddress[_matronId];
-        delete sireAllowedToAddress[_sireId];
+        // delete sireAllowedToAddress[_sireId];
 
+        crossSireData[_matronId] = CrossSireData(_sireId, _sireChainId, _sireGeneration, _sireGenes);
         // Every time a kitty gets pregnant, counter is incremented.
         pregnantKitties++;
 
         // Emit the pregnancy event.
         emit Pregnant(kittyIndexToOwner[_matronId], _matronId, _sireId, matron.cooldownEndBlock);
+    }
+
+    function _failedBreedCrossCallback(uint256 _matronId) internal {
+        unblockKittyForCrossCall(_matronId);
+    }
+
+
+    function _giveBirthCrossChain(uint256 _matronId)
+        internal
+    {
+        // Grab a reference to the matron in storage.
+        Kitty storage matron = kitties[_matronId];
+
+        // Check that the matron is a valid cat.
+        require(matron.birthTime != 0);
+
+        // Check that the matron is pregnant, and that its time has come!
+        require(_isReadyToGiveBirth(matron));
+
+        // Grab a reference to the sire in storage.
+        uint256 sireId = crossSireData[_matronId].sireId;
+
+        // Kitty storage sire = kitties[sireId];
+
+        // Determine the higher generation number of the two parents
+        uint16 parentGen = matron.generation;
+        if (crossSireData[_matronId].generation > matron.generation) {
+            parentGen = crossSireData[_matronId].generation;
+        }
+
+        // Call the sooper-sekret gene mixing operation.
+        uint256 childGenes = geneScience.mixGenes(matron.genes, crossSireData[_matronId].genes, matron.cooldownEndBlock - 1);
+        uint256 newKittyChainId = uint256(geneScience.decodeChainID(childGenes));
+        // Make the new kitten!
+        address owner = kittyIndexToOwner[_matronId];
+        bytes memory payload = abi.encode(_matronId, matron.siringWithId, parentGen + 1, childGenes, owner);
+        sendCrossMessage(newKittyChainId, crossContractAddresses[newKittyChainId], payload, 'crossCallCreateKitty');
+        // uint256 kittenId = _createKitty(_matronId, matron.siringWithId, parentGen + 1, childGenes, owner);
+
+        // Clear the reference to sire from the matron (REQUIRED! Having siringWithId
+        // set is what marks a matron as being pregnant.)
+        delete matron.siringWithId;
+
+        // Every time a kitty gives birth counter is decremented.
+        pregnantKitties--;
+
+        // Send the balance fee to the person who made birth happen.
+        payable(msg.sender).transfer(autoBirthFee);
+
+        // return the new kitten's ID
+        // return kittenId;
+    }
+
+
+    function _hasSireApprovedAndReadyCrossCallCheck(uint256 _matronId, address _matronOwner, uint256 _matronChainId, uint256 _sireId) internal {
+        require(_matronId > 0);
+        require(_sireId > 0);
+        Kitty storage sire = kitties[_sireId];
+        bool isReady = _isSiringPermitted(_sireId, _matronOwner, _matronChainId) && _isReadyToBreed(sire);
+
+        if(isReady) {
+            // Trigger the cooldown for Male parent.
+            _triggerCooldown(sire);
+           delete sireAllowedToAddress[_matronId];
+        // Payload to send -> uint256 _matronId, uint256 _matronChainId, uint256 _sireId, uint256 _sireChainId, uint16 _sireGeneration, uint256 _sireGenes
+           bytes memory payload = abi.encode(_matronId, _matronChainId, _sireId, block.chainid, sire.generation, sire.genes);
+           sendCrossMessage(_matronChainId, crossContractAddresses[_matronChainId], payload, 'breedWithCrossCallCalback');
+        }else{
+            bytes memory payload = abi.encode(_matronId);
+            sendCrossMessage(_matronChainId, crossContractAddresses[_matronChainId], payload, 'failedBreedCrossCallback');
+        }
+    }
+
+/*****
+****************************************** Cross Messenger Receiver ************************************** 
+**/    
+    function handle(
+        uint32 origin,
+        bytes32 sender,
+        bytes calldata data
+    ) external payable virtual override onlyMailbox {
+        (string memory routeName, bytes memory payload) = abi.decode(data, (string, bytes));
+        if(compare(routeName, 'hasSireApprovedAndReadyCrossCallCheck')){
+            (uint256 _matronId, address _matronOwner, uint256 _matronChainId, uint256 _sireId) = abi.decode(payload, (uint256, address, uint256, uint256));
+            _hasSireApprovedAndReadyCrossCallCheck(_matronId, _matronOwner, _matronChainId, _sireId);
+        }else if(compare(routeName, 'breedWithCrossCallCalback')){
+            (uint256 _matronId, uint256 _matronChainId, uint256 _sireId, uint256 _sireChainId, uint16 _sireGeneration, uint256 _sireGenes) = abi.decode(payload, (uint256, uint256, uint256, uint256, uint16, uint256));
+            _breedWithCrossCallCalback(_matronId, _matronChainId, _sireId, _sireChainId, _sireGeneration, _sireGenes);
+        }else if(compare(routeName, 'failedBreedCrossCallback')){
+            (uint256 _matronId) = abi.decode(payload, (uint256));
+            _failedBreedCrossCallback(_matronId);
+        }else if(compare(routeName, 'crossCallCreateKitty')){
+            (uint256 _matronId, uint256 _siringWithId, uint16 _generation, uint256 _genes, address _owner) = abi.decode(payload, (uint256, uint256, uint16, uint256, address));
+            _createKitty(_matronId, _siringWithId, _generation, _genes, _owner);
+        }
+        else{
+            revert("Invalid Route");
+        }
+
+    }
+
+    function compare(string memory str1, string memory str2) public pure returns (bool) {
+        return keccak256(abi.encodePacked(str1)) == keccak256(abi.encodePacked(str2));
     }
 }

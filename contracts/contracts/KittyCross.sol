@@ -1,13 +1,13 @@
 //SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.20;
 
-import "./KittyBase.sol";
+import "./CrossMessenger.sol";
 
-contract KittyCross is KittyBase {
+contract KittyCross is CrossMessenger {
 
     struct Permitted {
         uint256 chainID;
-        address permittedAddress;
+        address approvedAddress;
     }
 
     /// @dev A mapping from KittyIDs to an address that has been approved to use
@@ -19,23 +19,30 @@ contract KittyCross is KittyBase {
 
     /// @dev A kitty is blocked when cross-chain breeding is in process and a message is sent
     ///      It will be unblocked once the callback is successful
-    mapping (uint256 => bool) isBlocked;
+    mapping (uint256 => bool) isKittyCrossBlocked;
+
+    struct CrossSireData {
+        uint256 sireId;
+        uint256 sireChainId;
+        uint16 generation;
+        uint256 genes;
+    }
+
+    mapping(uint256 => CrossSireData) public crossSireData;
 
     uint256[] chainIDs;
 
-    constructor() {
-        chainIDs.push(42161); //Arbitrum
-        chainIDs.push(534352); //Scroll
-        chainIDs.push(1101); //Polygon ZKEVM
-        chainIDs.push(8453); //Base
-
-        
+    modifier onlyUnblocked(uint256 id) {
+        require(!isKittyCrossBlocked[id], "This kitten is currently blocked!");
+        _;
     }
 
-    modifier onlyUnblocked(uint256 id) {
-        require(!isBlocked[id], "This kitten is currently blocked!");
+    function blockKittyForCrossCall(uint256 id) internal {
+        isKittyCrossBlocked[id] = true;
+    }
 
-        _;
+    function unblockKittyForCrossCall(uint256 id) internal {
+        isKittyCrossBlocked[id] = false;
     }
 
     function setAddress(uint256 chainID, address contractAddress) public onlyCEO{
