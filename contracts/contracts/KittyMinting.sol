@@ -29,7 +29,37 @@ contract KittyMinting is KittyAuction {
         require(promoCreatedCount < PROMO_CREATION_LIMIT);
 
         promoCreatedCount++;
-        _createKitty(0, 0, 0, _genes, kittyOwner);
+
+        _createKitty(0, 0, 0, modifyGene(_genes), kittyOwner);
+    }
+
+    function modifyGene(uint256 genes) public view returns (uint256) {
+        uint256 mainGenes = genes >> 16; // Shift right to remove the last 16 bits (4 bits per chain ID * 4)
+        mainGenes = mainGenes << 16; // Shift left to restore to original size, but with last 16 bits cleared
+
+        // Get current chain ID and three other random chain IDs
+        uint8 currentChainID = uint8(block.chainid);
+        uint8[] memory randomChainIDs = new uint8[](3);
+        randomChainIDs[0] = 0;
+        randomChainIDs[1] = 1;
+        randomChainIDs[2] = 2;
+
+        uint8 index = 0;
+        for (uint i = 0; i < chainIDs.length; i++){
+            if (chainIDs[i] == currentChainID) {
+                index = uint8(i);
+                break;
+            }
+        }
+
+        // Append chain IDs to the main genes
+        uint256 newGenes = mainGenes;
+        newGenes |= (index << (4 * 3));
+        for (uint i = 0; i < 3; i++) {
+            newGenes |= (uint256(randomChainIDs[i]) << (4 * i));
+        }
+
+        return newGenes;
     }
 
     /// @dev Creates a new gen0 kitty with the given genes and

@@ -14,7 +14,7 @@ interface KittyCoreInterface {
 
 /// @title GeneScience implements the trait calculation for new kitties
 /// @author Axiom Zen, Dieter Shirley <dete@axiomzen.co> (https://github.com/dete), Fabiano P. Soriani <fabianosoriani@gmail.com> (https://github.com/flockonus), Jordan Schalm <jordan.schalm@gmail.com> (https://github.com/jordanschalm), Abhishek Chadha <abhishek@dapperlabs.com> (https://github.com/achadha235)
-contract GeneScience is CrossGeneScienceInterface {
+contract CrossGeneScience is CrossGeneScienceInterface {
     uint256 internal constant maskLast8Bits = uint256(0xff);
     uint256 internal constant maskFirst248Bits = uint256(~uint256(0xff));
 
@@ -292,12 +292,13 @@ contract GeneScience is CrossGeneScienceInterface {
             rand = _sliceNumber(randomN, 100, randomIndex); // Using 100 to represent percentage
             randomIndex += 100;
             if (rand < 60 && chainIDLength > 0) {
-                // Ensure that new chain ID is different from both parents
+                uint256 newChainID;
                 do {
                     uint256 newChainIdIndex = _sliceNumber(randomN, _calculateBitsForChainID(), randomIndex) % chainIDLength;
                     randomIndex += _calculateBitsForChainID();
-                    babyArray[i] = uint8(newChainIdIndex);
-                } while (babyArray[i] == parentChainID1 || babyArray[i] == parentChainID2);
+                    newChainID = _kittyCore.getChainIDByIndex(newChainIdIndex);
+                } while (newChainID == _kittyCore.getChainIDByIndex(parentChainID1) || newChainID == _kittyCore.getChainIDByIndex(parentChainID2));
+                babyArray[i] = uint8(newChainID);
             } else {
                 // Inherit chain ID from one of the parents
                 rand = _sliceNumber(randomN, 1, randomIndex);

@@ -319,11 +319,11 @@ contract KittyBreeding is KittyERC721, IMessageRecipient {
     ///  are willing to pay the gas!), but the new kitten always goes to the mother's owner.
     
     function giveBirth(uint256 _matronId) external whenNotPaused() returns(uint256){
-        if(block.chainid == crossSireData[_matronId].sireChainId) {
-            _giveBirth(_matronId);
-        }else {
-            _giveBirthCrossChain(_matronId);
-        }    
+        //if(block.chainid == crossSireData[_matronId].sireChainId) {
+        //    _giveBirth(_matronId);
+        //}else {
+        _giveBirthCrossChain(_matronId);
+        //}    
     }
     
     function _giveBirth(uint256 _matronId)
@@ -379,6 +379,7 @@ contract KittyBreeding is KittyERC721, IMessageRecipient {
         external
         payable
         whenNotPaused
+        onlyUnblocked(_matronId)
     {
         // Checks for payment.
         require(msg.value >= autoBirthFee);

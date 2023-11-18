@@ -52,7 +52,7 @@ contract KittyCore is KittyMinting {
     /// @notice Creates the main CryptoKitties smart contract instance.
     constructor(address _hyperlaneMainboxAddress) {
         // Starts paused.
-        paused = true;
+        paused = false;
 
         // the creator of the contract is the initial CEO
         ceoAddress = msg.sender;
