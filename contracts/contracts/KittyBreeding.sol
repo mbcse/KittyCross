@@ -32,7 +32,7 @@ contract KittyBreeding is KittyERC721, IMessageRecipient {
     /// @notice The minimum payment required to use breedWithAuto(). This fee goes towards
     ///  the gas cost paid by whatever calls giveBirth(), and can be dynamically updated by
     ///  the COO role as the gas price changes.
-    uint256 public autoBirthFee = 0.002 ether;
+    uint256 public autoBirthFee = 0 ether;
 
     // Keeps track of number of pregnant kitties.
     uint256 public pregnantKitties;

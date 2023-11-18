@@ -61,6 +61,8 @@ contract KittyCore is KittyMinting {
         // the creator of the contract is also the initial COO
         cooAddress = msg.sender;
 
+        cfoAddress = msg.sender;
+
         setHyperlaneMailBox(IMailbox(_hyperlaneMainboxAddress));
 
         // start with the mythical kitten 0 - so we don't have generation-0 parent issues

@@ -97,8 +97,8 @@
       ]
     },
     "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/KittyBreeding.sol": {
-      "lastModificationDate": 1700301273811,
-      "contentHash": "25de9a6b37aa4558d186c7b377826bb8",
+      "lastModificationDate": 1700328818180,
+      "contentHash": "ccf8c47f20a813e1b274bcd789fe9f5a",
       "sourceName": "contracts/KittyBreeding.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -145,8 +145,8 @@
       ]
     },
     "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/KittyMinting.sol": {
-      "lastModificationDate": 1700267033036,
-      "contentHash": "9fabe931165384f64f8dc0a979f93adc",
+      "lastModificationDate": 1700328818181,
+      "contentHash": "ddae7b8a947a643d709ecbefae5b70b0",
       "sourceName": "contracts/KittyMinting.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -237,8 +237,8 @@
       ]
     },
     "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/KittyCross.sol": {
-      "lastModificationDate": 1700323427985,
-      "contentHash": "89135051a4b60e392abc7c1e901e1451",
+      "lastModificationDate": 1700328818180,
+      "contentHash": "50c80b3a90da28796d08dc588e3bd909",
       "sourceName": "contracts/KittyCross.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -283,8 +283,8 @@
       ]
     },
     "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/CrossMessenger.sol": {
-      "lastModificationDate": 1700297692953,
-      "contentHash": "6910c1b87e08bf9499baf3169867a766",
+      "lastModificationDate": 1700332162533,
+      "contentHash": "aa80180c2eae313d52f8097eefc66843",
       "sourceName": "contracts/CrossMessenger.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -326,7 +326,8 @@
       ],
       "artifacts": [
         "CrossMessenger",
-        "IMailbox"
+        "IMailbox",
+        "StandardHookMetadata"
       ]
     },
     "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/ClockAuction.sol": {
@@ -1243,8 +1244,8 @@
       ]
     },
     "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/CrossGeneScience.sol": {
-      "lastModificationDate": 1700301763081,
-      "contentHash": "004b16e3480a2c34799912bfb81c558a",
+      "lastModificationDate": 1700329275320,
+      "contentHash": "096504b477018e8a6536f1f3dbbac10e",
       "sourceName": "contracts/CrossGeneScience.sol",
       "solcConfig": {
         "version": "0.8.20",
