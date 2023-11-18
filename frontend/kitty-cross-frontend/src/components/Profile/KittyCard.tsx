@@ -48,7 +48,7 @@ export default function KittyCard({
 }) {
   const router = useRouter();
   // Generate Image at the Component Level
-  const API_LINK = "https://kitty-cross-server-2.onrender.com/kitties";
+  const API_LINK = "https://kittycross-api-server.onrender.com/kitties";
   const [getImgURL, setImgURL] = useState();
   const kittiesData = [
     {
@@ -68,11 +68,10 @@ export default function KittyCard({
             "Content-Type": "application/json",
           },
         });
-
         console.log(response.data);
-        const { imgKittyId, kittyImgURL } = response.data;
-        console.log(kittyImgURL);
-        setImgURL(kittyImgURL);
+        const respdata = response.data;
+        console.log("kittimgurl" + respdata[kittyId][1]);
+        setImgURL(respdata[kittyId][1]);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
