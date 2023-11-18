@@ -10,8 +10,12 @@ export default function Page() {
       <Navbar />
       <Layout>
         <p>Select Cat To Breed with</p>
-        <div>ChainId: {chainId}</div>
-        <div>KittyId: {kittyId}</div>
+        <div>Your Kitties ChainId: {chainId}</div>
+        <div>Your Kitties KittyId: {kittyId}</div>
+
+        <div>List of Kitties to pair with</div>
+
+
       </Layout>
     </>
   );
