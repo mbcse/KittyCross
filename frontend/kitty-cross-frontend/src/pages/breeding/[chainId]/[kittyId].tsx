@@ -15,6 +15,7 @@ export default function Page() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedChainId, setSelectedChainId] = useState(null);
+  const [txHash, setTxHash] = useState(null);
   const [selectedAddress, setSelectedAddress] = useState(null);
 
   useEffect(() => {
@@ -36,16 +37,10 @@ export default function Page() {
   };
 
   const onClickSiringApproval = async () => {
-    const res = useApproveSiring(
-      chainId,
-      kittyId,
-      selectedChainId,
-      selectedAddress
-    );
+    const tx = useApproveSiring(chainId, kittyId, selectedChainId, selectedAddress, setTxHash);
   };
 
   const isButtonSelected = (chainId) => selectedChainId === chainId;
-
 
   return (
     <>
@@ -53,14 +48,31 @@ export default function Page() {
       <Layout>
         {kittyData && (
           <Flex justifyContent="center" alignItems="center" gap={16}>
-            <KittyCard chainId={chainId} kittyId={kittyId.toString()} kitty={kittyData} />
+            <KittyCard
+              chainId={chainId}
+              kittyId={kittyId.toString()}
+              kitty={kittyData}
+            />
             <Flex direction={"column"} gap={4}>
               <Text fontSize="2xl" fontWeight="bold">
                 Select Chain For Siring:
               </Text>
               <Flex direction="column" align="center">
                 <Flex mb={4} gap={4}>
-                  <Button onClick={() => handleChainSelect(getChainIdForNetworkName("scroll-sepolia"))} opacity={isButtonSelected(getChainIdForNetworkName("scroll-sepolia")) ? 1 : 0.4}>
+                  <Button
+                    onClick={() =>
+                      handleChainSelect(
+                        getChainIdForNetworkName("scroll-sepolia")
+                      )
+                    }
+                    opacity={
+                      isButtonSelected(
+                        getChainIdForNetworkName("scroll-sepolia")
+                      )
+                        ? 1
+                        : 0.4
+                    }
+                  >
                     <Image
                       src="/scroll.jpeg"
                       alt="Scroll"
@@ -68,7 +80,20 @@ export default function Page() {
                       borderRadius={"50%"}
                     />
                   </Button>
-                  <Button onClick={() => handleChainSelect(getChainIdForNetworkName("arbitrum-goerli"))} opacity={isButtonSelected(getChainIdForNetworkName("arbitrum-goerli")) ? 1 : 0.4}>
+                  <Button
+                    onClick={() =>
+                      handleChainSelect(
+                        getChainIdForNetworkName("arbitrum-goerli")
+                      )
+                    }
+                    opacity={
+                      isButtonSelected(
+                        getChainIdForNetworkName("arbitrum-goerli")
+                      )
+                        ? 1
+                        : 0.4
+                    }
+                  >
                     <Image
                       src="/arbitrum.webp"
                       alt="Arbitrum"
@@ -76,7 +101,20 @@ export default function Page() {
                       borderRadius={"50%"}
                     />
                   </Button>
-                  <Button onClick={() => handleChainSelect(getChainIdForNetworkName("polygon-zkevm-testnet"))} opacity={isButtonSelected(getChainIdForNetworkName("polygon-zkevm-testnet")) ? 1 : 0.4}>
+                  <Button
+                    onClick={() =>
+                      handleChainSelect(
+                        getChainIdForNetworkName("polygon-zkevm-testnet")
+                      )
+                    }
+                    opacity={
+                      isButtonSelected(
+                        getChainIdForNetworkName("polygon-zkevm-testnet")
+                      )
+                        ? 1
+                        : 0.4
+                    }
+                  >
                     <Image
                       src="/polygon.png"
                       alt="Polygon"
@@ -84,7 +122,16 @@ export default function Page() {
                       borderRadius={"50%"}
                     />
                   </Button>
-                  <Button onClick={() => handleChainSelect(getChainIdForNetworkName("base-goerli"))} opacity={isButtonSelected(getChainIdForNetworkName("base-goerli")) ? 1 : 0.4}>
+                  <Button
+                    onClick={() =>
+                      handleChainSelect(getChainIdForNetworkName("base-goerli"))
+                    }
+                    opacity={
+                      isButtonSelected(getChainIdForNetworkName("base-goerli"))
+                        ? 1
+                        : 0.4
+                    }
+                  >
                     <Image
                       src="/base.png"
                       alt="Base"
@@ -104,13 +151,12 @@ export default function Page() {
                   Approve Siring For Address:
                 </Text>
                 <Input
-                  placeholder="0x address"
+                  placeholder="0x06012c8cf97BEaD5deAe237070F9587f8E7A266d"
                   size="md"
                   value={selectedAddress} // Set the input value from state
                   onChange={handleAddressChange}
                 />
               </Flex>
-
 
               <Button
                 isDisabled={!selectedChainId || !selectedAddress}
@@ -118,6 +164,16 @@ export default function Page() {
               >
                 Approve Siring
               </Button>
+              { txHash &&
+              <>
+              <Text fontSize="xs">
+                Transaction Hash: 
+              </Text>
+              <Text fontSize={"xs"}>
+                {txHash}
+              </Text>
+              </>
+}
             </Flex>
           </Flex>
         )}

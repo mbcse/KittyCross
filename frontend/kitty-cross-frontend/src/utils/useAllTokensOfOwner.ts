@@ -34,7 +34,7 @@ export function useAllTokensOfOwner(ownerAddress: Address) {
           const fetchTokensOfOwner = async () => {
             try {
               const rpcUrl = getRpcForChainId(getChainIdForNetworkName(chain));
-              const provider = new ethers.JsonRpcProvider(rpcUrl);
+              const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
               const contractAddress = contractAddresses[chain];
               const contract = new ethers.Contract(
                 contractAddress,
