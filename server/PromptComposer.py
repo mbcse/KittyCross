@@ -20,7 +20,7 @@ def decode_genes(gene):
 
 
 def compose(chain, gene):
-    attr = decode_genes(gene)
+    attr = decode_genes(int(gene))
 
     prompt = "Create a striking and vibrant illustration in the style of the Memphis Group, known for its 1980s postmodern design. The artwork should feature Memphis's signature aesthetic, characterized by bright, contrasting colors and graphic patterns. The image should have a sense of joyful, eclectic exuberance, with a mix of unconventional and abstract elements. The overall design should evoke a sense of playful irreverence, breaking traditional design norms with its daring use of color, pattern, and form. Aim for a composition that is both energetic and whimsically sophisticated, reflecting the Memphis Group's unique blend of modern and kitsch"
     prompt += "The subject of the illustration is a {} cat. ".format(breed[chain])
