@@ -138,7 +138,6 @@ export default function KittyDetailed({
             Auction
           </Button>
         </HStack>
-
         <Divider mt={10} />
         <HStack>
           <Heading fontSize={"l"} fontFamily={"body"} fontWeight={500}>
@@ -194,6 +193,15 @@ export default function KittyDetailed({
             #music
           </Badge>
         </Stack>
+        <Divider my={5}/>
+        <Heading fontSize={"sm"} fontFamily={"body"} fontWeight={500}>
+          Genes
+        </Heading>
+        <VStack align={"center"} justify={"center"} direction={"row"} mt={6}>
+          <Text fontWeight={500} fontSize={"l"}>
+            [11,12,22,4,5,6,3,2,3,55,3,3]
+          </Text>
+        </VStack>
 
         <Divider my={5}/>
         <Heading fontSize={"sm"} fontFamily={"body"} fontWeight={500}>
