@@ -78,7 +78,7 @@ export default function KittyDetailed({
           <Image
             rounded={"lg"}
             height={340}
-            width={480}
+            width={580}
             objectFit={"cover"}
             src={imgcat}
             alt="#"

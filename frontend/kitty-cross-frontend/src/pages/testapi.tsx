@@ -6,10 +6,7 @@ const IMAGE =
 
 const YourComponent = () => {
   const [getImgURLS, setImgURLS] = useState();
-  const data = {
-    "1000": "https://gateway.pinata.cloud/ipfs/QmPJ27vvxSW4qsrvdo7HhmewyFXPJgv7xCoSYXvMDg7FFt",
-    "1001": "https://gateway.pinata.cloud/ipfs/Qmdknj7czoU7coes8mdmzkeQoTVAgWV3oi6RZ4zC61VsJZ"
-};
+
   useEffect(() => {
     const API_LINK = "https://kitty-cross-server-2.onrender.com/kitties";
     const fetchData = async () => {
@@ -41,17 +38,18 @@ const YourComponent = () => {
     };
 
     fetchData();
-  }, []);
+  }, [KittyCard]);
 
   return (
     <div>
-      {data ? (
-        Object.entries(data).map(([id, imgUrl]) => (
+      {getImgURLS ? (
+        Object.entries(getImgURLS).map(([id, imgUrl]) => (
           <KittyCard key={id} kittyId={id} kittyImg={imgUrl? imgUrl as string : IMAGE} chainId={12}  />
         ))
       ) : (
         <div>Fetching Data</div>
       )}
+      Hello
     </div>
   );
 };
