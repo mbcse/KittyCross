@@ -19,7 +19,7 @@ export default function TaxiDriverStealsCatFailAlert() {
         textAlign="center"
         height="200px"
       >
-        <AlertIcon boxSize="40px" mr={0} />
+        <AlertIcon boxSize="20px" mr={0} />
         <FaTaxi size={"120px"}/>
         <AlertTitle mt={4} mb={1} fontSize="lg">
           Ohhh no! You got scammed! Taxi driver stole your cat away{" "}
