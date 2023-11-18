@@ -1,32 +1,38 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import ProfileColumn from "./ProfileColumn";
-export default function ProfileGrid({kittyData}: any) {
+import { useEffect } from "react";
+export default function ProfileGrid({ kittyData }: any) {
+  useEffect(() => {
+    console.log("1");
+    console.log(kittyData);
+    console.log("2");
+  }, [kittyData]);
   return (
     <>
       <Grid templateColumns="repeat(4, 1fr)" gap={8}>
         <ProfileColumn
           chainName="Scroll"
-          networkName="base"
+          networkName="scroll-sepolia"
           imageSource="scroll.jpeg"
-          kitties={kittyData["scroll"]}
+          kitties={kittyData["scroll-sepolia"]}
         />
         <ProfileColumn
           chainName="Polygon zkEVM"
-          networkName="base"
+          networkName="polygon-zkevm-testnet"
           imageSource="polygon.png"
-          kitties={kittyData["polygon-zkevm"]}
+          kitties={kittyData["polygon-zkevm-testnet"]}
         />
         <ProfileColumn
           chainName="Base"
-          networkName="base"
+          networkName="base-goerli"
           imageSource="base.png"
-          kitties={kittyData["base"]}
+          kitties={kittyData["base-goerli"]}
         />
         <ProfileColumn
           chainName="Arbitrum"
-          networkName="arbitrum"
+          networkName="arbitrum-goerli"
           imageSource="arbitrum.webp"
-          kitties={kittyData["arbitrum"]}
+          kitties={kittyData["arbitrum-goerli"]}
         />
       </Grid>
     </>

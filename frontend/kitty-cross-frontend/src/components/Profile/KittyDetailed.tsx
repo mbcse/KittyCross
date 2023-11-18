@@ -16,28 +16,39 @@ import {
   Wrap,
   WrapItem,
   VStack,
+  Link,
 } from "@chakra-ui/react";
 import { FaCat } from "react-icons/fa";
 import Brand from "../Brand";
+import { GetKittyDetails } from "../../utils/types";
+import { getImageSrc } from "../../utils/constants";
+import { useRouter } from "next/router";
 
 const IMAGE =
   "https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80";
 
 const imgcat =
-  "https://images.unsplash.com/photo-1592194996308-7b43878e84a6?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+"https://gateway.pinata.cloud/ipfs/QmPJ27vvxSW4qsrvdo7HhmewyFXPJgv7xCoSYXvMDg7FFt";
+  // "https://images.unsplash.com/photo-1592194996308-7b43878e84a6?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 export default function KittyDetailed({
   kittyId,
-  catImageURL,
-  cattributes,
-  status,
-  generation,
+  kitty,
+}: {
+  kitty: GetKittyDetails;
+  kittyId: string;
 }) {
+  const router = useRouter();
+  const { chainId } = router.query;
+  const unixTimestamp: any = Number(kitty.birthTime);
+  const date = new Date(unixTimestamp * 1e3); // 1e3 === 1000
+  const localizedTime = date.toLocaleDateString();
+
   return (
     <Center py={12}>
       <Box
         role={"group"}
         p={6}
-        maxW={"530px"}
+        maxW={"600px"}
         w={"full"}
         bg={useColorModeValue("white", "teal.800")}
         boxShadow={"2xl"}
@@ -49,7 +60,7 @@ export default function KittyDetailed({
           rounded={"lg"}
           mt={-10}
           pos={"relative"}
-          height={"330px"}
+          height={"580px"}
           _after={{
             transition: "all .3s ease",
             content: '""',
@@ -70,29 +81,42 @@ export default function KittyDetailed({
         >
           <Image
             rounded={"lg"}
-            height={340}
-            width={480}
+            height={540}
+            width={570}
             objectFit={"cover"}
             src={imgcat}
             alt="#"
           />
         </Box>
         <Stack pt={10} align={"center"}>
-          <Text color={"teal.500"} fontSize={"sm"} textTransform={"uppercase"}>
+          <Text color={"teal.500"} fontSize={"sm"} textTransform={"uppercase"} fontWeight={600}>
             Kitty: {kittyId}
           </Text>
           <Brand m={2} />
 
           <VStack direction={"row"} align={"center"}>
             <Text fontWeight={500} fontSize={"l"}>
-              Generation:
+              Generation: {kitty.generation.toString()}
             </Text>
-            <Text fontWeight={500} color={"teal.600"}>
-              Status:
-            </Text>
+            <Badge fontWeight={500} color={"teal.600"}>
+              Status:{" "}
+              {kitty.isGestating
+                ? "Gestating"
+                : kitty.isReady
+                ? "Ready"
+                : kitty.cooldownIndex}
+            </Badge>
           </VStack>
+          <VStack direction={"row"} align={"center"}>
+            <Text fontWeight={500} fontSize={"l"}>
+              Living On
+            </Text>
+            <Image src={getImageSrc(chainId)} boxSize={50} borderRadius={'50%'}></Image>
+          </VStack>
+
         </Stack>
         <HStack mt={8} direction={"row"} spacing={4}>
+          <Link href={"/breeding/" + chainId + "/" + kittyId}>
           <Button
             flex={1}
             fontSize={"sm"}
@@ -103,6 +127,7 @@ export default function KittyDetailed({
           >
             Breed
           </Button>
+          </Link>
           <Button
             flex={1}
             fontSize={"sm"}
@@ -112,6 +137,16 @@ export default function KittyDetailed({
             }}
           >
             Give Birth
+          </Button>
+          <Button
+            flex={1}
+            fontSize={"sm"}
+            rounded={"full"}
+            _focus={{
+              bg: "teal.200",
+            }}
+          >
+            Approve
           </Button>
           <Button
             flex={1}
@@ -132,7 +167,6 @@ export default function KittyDetailed({
             Auction
           </Button>
         </HStack>
-
         <Divider mt={10} />
         <HStack>
           <Heading fontSize={"l"} fontFamily={"body"} fontWeight={500}>
@@ -140,28 +174,44 @@ export default function KittyDetailed({
           </Heading>
 
           <Wrap>
-            <WrapItem>
-              <Avatar
-                name="Dan Abrahmov"
-                src="https://images.unsplash.com/photo-1574158622682-e40e69881006?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                mt={2}
-              />
-            </WrapItem>
-            <WrapItem>
-              <Avatar
-                name="Kola Tioluwani"
-                src="https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                mt={2}
-              />
-            </WrapItem>
+            {kitty.generation.toString() == "0" ? (
+              <p>No Parents</p>
+            ) : (
+              <>
+                <WrapItem>
+                  <Avatar
+                    name="Dan Abrahmov"
+                    src="https://images.unsplash.com/photo-1574158622682-e40e69881006?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    mt={2}
+                  />
+                </WrapItem>
+                <WrapItem>
+                  <Avatar
+                    name="Kola Tioluwani"
+                    src="https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    mt={2}
+                  />
+                </WrapItem>
+              </>
+            )}
           </Wrap>
         </HStack>
 
-        <Divider  mt={5}/>
+        <Divider my={5} />
+        <Heading fontSize={"sm"} fontFamily={"body"} fontWeight={500}>
+          Sire: {kitty.sireId.toString()}
+        </Heading>
+
+        <Divider my={5} />
+        <Heading fontSize={"sm"} fontFamily={"body"} fontWeight={500}>
+          Matron: {kitty.matronId.toString()}
+        </Heading>
+
+        <Divider my={5} />
+        <Heading fontSize={"sm"} fontFamily={"body"} fontWeight={500}>
+          Cattributes:
+        </Heading>
         <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
-          <Heading fontSize={"sm"} fontFamily={"body"} fontWeight={500}>
-            Cattributes:
-          </Heading>
           <Badge
             px={2}
             py={1}
@@ -187,6 +237,25 @@ export default function KittyDetailed({
             #music
           </Badge>
         </Stack>
+        <Divider my={5} />
+        <Heading fontSize={"sm"} fontFamily={"body"} fontWeight={500}>
+          Genes
+        </Heading>
+        <VStack align={"center"} justify={"center"} direction={"row"} mt={6}>
+          <Text fontWeight={600} fontSize={"xs"}>
+            {kitty.genes.toString()}
+          </Text>
+        </VStack>
+
+        <Divider my={5} />
+        <Heading fontSize={"sm"} fontFamily={"body"} fontWeight={500}>
+          Activity
+        </Heading>
+        <VStack align={"center"} justify={"center"} direction={"row"} mt={6}>
+          <Text fontWeight={500} fontSize={"l"}>
+            {localizedTime.toString()}
+          </Text>
+        </VStack>
       </Box>
     </Center>
   );
