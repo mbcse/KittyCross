@@ -86,7 +86,7 @@ export default function Navbar(){
                   variant="ghost"
                   leftIcon={<BsFillCameraVideoFill />}
                 >
-                  Videos
+                  Catalogue
                 </Button>
               </VStack>
             </Box>
@@ -96,7 +96,7 @@ export default function Navbar(){
               display="flex"
               alignItems="center"
             >
-                <FaCat size={30}/>
+                <FaCat size={30}/> Kitty Cross
               <VisuallyHidden>Choc</VisuallyHidden>
             </chakra.a>
 
@@ -117,7 +117,7 @@ export default function Navbar(){
                 leftIcon={<BsFillCameraVideoFill />}
                 size="sm"
               >
-                Videos
+                Catalouge
               </Button>
             </HStack>
           </HStack>
@@ -140,8 +140,8 @@ export default function Navbar(){
 
             <Avatar
               size="sm"
-              name="Dan Abrahmov"
-              src="https://bit.ly/dan-abramov"
+              name="Vitalik Buterin"
+              src="https://wikibioage.com/uploads/2021/05/vitalik-buterin-29395.jpg"
             />
           </HStack>
         </Flex>
