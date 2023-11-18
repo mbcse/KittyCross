@@ -3,6 +3,7 @@ pragma solidity 0.8.20;
 
 import "./CrossGeneScienceInterface.sol";
 
+
 interface KittyCoreInterface {
     function cooAddress() external returns(address);
 
@@ -287,7 +288,7 @@ contract CrossGeneScience is CrossGeneScienceInterface {
             // Mutation: Assign a new chain ID from the registered IDs with increased chance
             rand = _sliceNumber(randomN, 100, randomIndex); // Using 100 to represent percentage
             randomIndex += 100;
-            if (rand < 100 && _kittyCore.getChainIDLength() > 0) { // Increased mutation chance
+            if (rand < 70 && _kittyCore.getChainIDLength() > 0) { // Increased mutation chance
                 uint256 newChainIdIndex = _sliceNumber(randomN, _calculateBitsForChainID(), randomIndex) % _kittyCore.getChainIDLength();
                 randomIndex += _calculateBitsForChainID();
                 babyArray[i] = uint8(newChainIdIndex);

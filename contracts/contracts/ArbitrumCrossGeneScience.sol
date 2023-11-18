@@ -1,16 +1,33 @@
 //SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.20;
 
-import "./GeneScienceInterface.sol";
+import "./ArbitrumCrossGeneScienceInterface.sol";
+import "@chainlink/contracts/src/v0.8/VRFV2WrapperConsumerBase.sol";
 
-interface KittyCoreInterface {
+interface KittyCoreInterface{
     function cooAddress() external returns(address);
+
+    function getChainIDLength() external view returns (uint256);
+
+    function getChainIDByIndex(uint256 index) external view returns (uint256);
+
 }
 
 /// @title GeneScience implements the trait calculation for new kitties
 /// @author Axiom Zen, Dieter Shirley <dete@axiomzen.co> (https://github.com/dete), Fabiano P. Soriani <fabianosoriani@gmail.com> (https://github.com/flockonus), Jordan Schalm <jordan.schalm@gmail.com> (https://github.com/jordanschalm), Abhishek Chadha <abhishek@dapperlabs.com> (https://github.com/achadha235)
-contract GeneScience is GeneScienceInterface {
-    bool private geneScience = true;
+contract ArbitrumCrossGeneScience is VRFV2WrapperConsumerBase, ArbitrumCrossGeneScienceInterface {
+
+    struct ChainLinkRandomNumber {
+        uint256 randomness;
+        uint256 kittyID;
+        bool used;
+        bool ready;
+    }
+
+    /// @dev mapping from requestID to the random number. Can only be used exactly once.
+    mapping (uint256 => ChainLinkRandomNumber) public randomNumbers;
+    /// @dev mapping from kittyID to requestID. Should prevent the user from being able to generate randomness again.
+    mapping (uint256 => uint256) public randomnessGenerated;
 
     uint256 internal constant maskLast8Bits = uint256(0xff);
     uint256 internal constant maskFirst248Bits = uint256(~uint256(0xff));
@@ -21,14 +38,67 @@ contract GeneScience is GeneScienceInterface {
     uint256 public privilegedBirtherWindowSize = 5;
     KittyCoreInterface _kittyCore;
 
-    constructor(address _privilegedBirtherAddress, address _kittyCoreAddress) {
+    uint256 internal fee;
+
+    constructor(address _privilegedBirtherAddress, address _kittyCoreAddress) 
+        VRFV2WrapperConsumerBase(
+            0xd14838A68E8AFBAdE5efb411d5871ea0011AFd28, // LINK Token
+            0x674Cda1Fef7b3aA28c535693D658B42424bb7dBD
+        )
+    {
         require(_kittyCoreAddress != address(0));
         _kittyCore = KittyCoreInterface(_kittyCoreAddress);
         _privilegedBirther = _privilegedBirtherAddress;
+
+        fee = 0.25 * 10**18;
     }
 
-    function isGeneScience() public override view returns (bool) {
-        return geneScience;
+
+    function generateRandomness(uint _kittyID) external {
+        require(
+            msg.sender == address(_kittyCore),
+            "Can only be called from Kitty contract!"
+        );
+
+        require(
+            LINK.balanceOf(address(this)) > fee,
+            "Not enough LINK - fill contract with faucet"
+        );
+
+        require(
+            randomnessGenerated[_kittyID] == 0 ||
+            randomNumbers[randomnessGenerated[_kittyID]].used,
+            "Your kitty hasn't used the generated randomness yet!"
+        );
+
+        uint256 requestId = requestRandomness(
+            100000,
+            3,
+            1
+        );
+
+        randomNumbers[requestId] = ChainLinkRandomNumber({
+            randomness: 0,
+            kittyID: _kittyID,
+            used: false,
+            ready: false
+        });
+
+        randomnessGenerated[_kittyID] = requestId;
+    }
+
+    function fulfillRandomWords(
+        uint256 _requestId,
+        uint256[] memory _randomWords
+    ) internal override {
+        uint256 number = _randomWords[0];
+
+        randomNumbers[_requestId].randomness = number;
+        randomNumbers[_requestId].ready = true;
+    }
+
+    function isGeneScience() public override pure returns (bool) {
+        return true;
     }
 
     /// @dev set the privileged birther address
@@ -90,25 +160,43 @@ contract GeneScience is GeneScienceInterface {
         return uint8(_sliceNumber(_input, uint256(5), _slot * 5));
     }
 
+    function _get4Bits(uint256 _input, uint256 _slot) internal pure returns(uint8) {
+        return uint8(_sliceNumber(_input, uint256(4), _slot * 4));
+    }
+
     /// @dev Parse a kitten gene and returns all of 12 "trait stack" that makes the characteristics
     /// @param _genes kitten gene
     /// @return the 48 traits that composes the genetic code, logically divided in stacks of 4, where only the first trait of each stack may express
     function decode(uint256 _genes) public pure returns(uint8[] memory) {
-        uint8[] memory traits = new uint8[](48);
+        uint8[] memory traits = new uint8[](52);
         uint256 i;
-        for(i = 0; i < 48; i++) {
-            traits[i] = _get5Bits(_genes, i);
+        for(i = 0; i < 52; i++) {
+            if (i < 48) {
+                traits[i] = _get5Bits(_genes, i);
+            } else {
+                traits[i] = _get4Bits(_genes, i); // Add a new function to get 4 bits
+            }
         }
         return traits;
     }
 
-    /// @dev Given an array of traits return the number that represent genes
+    /// @dev returns the "visible" chainID index that the kitty will be on.
+    /// @return index of chainID that the kitty will live on
+    function decodeChainID(uint256 _genes) public view override returns(uint) {
+        uint index = _get4Bits(_genes, 48) % _kittyCore.getChainIDLength();
+        return _kittyCore.getChainIDByIndex(index);
+    }
+
     function encode(uint8[] memory _traits) public pure returns (uint256 _genes) {
         _genes = 0;
-        for(uint256 i = 0; i < 48; i++) {
-            _genes = _genes << 5;
-            // bitwise OR trait with _genes
-            _genes = _genes | _traits[47 - i];
+        for(uint256 i = 0; i < 52; i++) {
+            if (i < 48) {
+                _genes = _genes << 5;
+                _genes = _genes | _traits[47 - i];
+            } else {
+                _genes = _genes << 4;
+                _genes = _genes | _traits[51 - i]; // Encode the new 4-bit traits
+            }
         }
         return _genes;
     }
@@ -123,8 +211,8 @@ contract GeneScience is GeneScienceInterface {
         return express;
     }
 
-    /// @dev the function as defined in the breeding contract - as defined in CK bible
-    function mixGenes(uint256 _genes1, uint256 _genes2, uint256 _targetBlock) public view override returns (uint256) {
+    /// @dev randomness for a kittyID must have been generated and not used yet before calling this function
+    function mixGenes(uint256 _genes1, uint256 _genes2, uint256 _targetBlock, uint256 kittyID) public override returns (uint256) {
         if (_privilegedBirther == address(0) || tx.origin == _privilegedBirther) {
             // Allow immediate births if there is no privileged birther, or if the originator
             // of the transaction is the privileged birther
@@ -132,13 +220,18 @@ contract GeneScience is GeneScienceInterface {
         } else {
             require(block.number > _targetBlock + privilegedBirtherWindowSize);
         }
+        
+        uint requestID = randomnessGenerated[kittyID];
 
+        require(
+            !randomNumbers[requestID].used &&
+            randomNumbers[requestID].ready,
+            "Your random number was already used or is not ready yet!"
+        );
 
-        // Try to grab the hash of the "target block". This should be available the vast
-        // majority of the time (it will only fail if no-one calls giveBirth() within 256
-        // blocks of the target block, which is about 40 minutes. Since anyone can call
-        // giveBirth() and they are rewarded with ether if it succeeds, this is quite unlikely.)
-        uint256 randomN = uint256(blockhash(_targetBlock));
+        randomNumbers[requestID].used = true;
+
+        uint randomN = randomNumbers[requestID].randomness;
 
         if (randomN == 0) {
             // We don't want to completely bail if the target block is no-longer available,
@@ -170,7 +263,7 @@ contract GeneScience is GeneScienceInterface {
         uint8[] memory genes1Array = decode(_genes1);
         uint8[] memory genes2Array = decode(_genes2);
         // All traits that will belong to baby
-        uint8[] memory babyArray = new uint8[](48);
+        uint8[] memory babyArray = new uint8[](52);
         // A pointer to the trait we are dealing with currently
         uint256 traitPos;
         // Trait swap value holder
@@ -261,6 +354,35 @@ contract GeneScience is GeneScienceInterface {
             }
         }
 
+        // Chain ID trait mixing
+        for (uint256 i = 48; i < 52; i++) {
+            // Mutation: Assign a new chain ID from the registered IDs with increased chance
+            rand = _sliceNumber(randomN, 100, randomIndex); // Using 100 to represent percentage
+            randomIndex += 100;
+            if (rand < 70 && _kittyCore.getChainIDLength() > 0) { // Increased mutation chance
+                uint256 newChainIdIndex = _sliceNumber(randomN, _calculateBitsForChainID(), randomIndex) % _kittyCore.getChainIDLength();
+                randomIndex += _calculateBitsForChainID();
+                babyArray[i] = uint8(newChainIdIndex);
+            } else {
+                // Inherit chain ID from one of the parents
+                rand = _sliceNumber(randomN, 1, randomIndex);
+                randomIndex += 1;
+                babyArray[i] = (rand == 0) ? genes1Array[i] : genes2Array[i];
+            }
+        }
+
+
         return encode(babyArray);
+    }
+
+    // Calculate the number of bits needed to represent the chainID array length
+    function _calculateBitsForChainID() internal view returns (uint256) {
+        uint256 bits = 0;
+        uint256 value = _kittyCore.getChainIDLength();
+        while (value > 0) {
+            bits++;
+            value = value >> 1;
+        }
+        return bits;
     }
 }
