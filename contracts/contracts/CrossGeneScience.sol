@@ -116,7 +116,7 @@ contract CrossGeneScience is CrossGeneScienceInterface {
     /// @dev returns the "visible" chainID index that the kitty will be on.
     /// @return index of chainID that the kitty will live on
     function decodeChainID(uint256 _genes) public view override returns(uint) {
-        uint index = _get4Bits(_genes, 48);
+        uint index = _get4Bits(_genes, 48) % _kittyCore.getChainIDLength();
         return _kittyCore.getChainIDByIndex(index);
     }
 
