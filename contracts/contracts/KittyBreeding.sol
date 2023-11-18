@@ -50,13 +50,16 @@ contract KittyBreeding is KittyERC721 {
     /// @dev Check if a sire has authorized breeding with this matron. True if both sire
     ///  and matron have the same owner, or if the sire has given siring permission to
     ///  the matron's owner (via approveSiring()).
-    function _isSiringPermitted(uint256 _sireId, uint256 _matronId) internal view returns (bool) {
+    function _isSiringPermitted(uint256 _sireId, uint256 _matronId, uint256 srcChain) internal view returns (bool) {
         address matronOwner = kittyIndexToOwner[_matronId];
         address sireOwner = kittyIndexToOwner[_sireId];
 
         // Siring is okay if they have same owner, or if the matron's owner was given
         // permission to breed with this sire.
-        return (matronOwner == sireOwner || sireAllowedToAddress[_sireId] == matronOwner);
+        return (matronOwner == sireOwner || 
+            (sireAllowedToAddress[_sireId].permittedAddress == matronOwner && 
+            sireAllowedToAddress[_sireId].chainID == srcChain)
+        );
     }
 
     /// @dev Set the cooldownEndTime for the given Kitty, based on its current cooldownIndex.
@@ -83,7 +86,10 @@ contract KittyBreeding is KittyERC721 {
         whenNotPaused
     {
         require(_owns(msg.sender, _sireId));
-        sireAllowedToAddress[_sireId] = _addr;
+        sireAllowedToAddress[_sireId] = Permitted({
+            chainID: chainID,
+            permittedAddress: _addr
+        });
     }
 
     /// @dev Updates the minimum payment required for calling giveBirthAuto(). Can only
@@ -189,7 +195,7 @@ contract KittyBreeding is KittyERC721 {
     ///  TODO: Shouldn't this check pregnancy and cooldowns?!?
     /// @param _matronId The ID of the proposed matron.
     /// @param _sireId The ID of the proposed sire.
-    function canBreedWith(uint256 _matronId, uint256 _sireId)
+    function canBreedWith(uint256 _matronId, uint256 _sireId, uint256 _srcChain)
         external
         view
         returns(bool)
@@ -199,7 +205,7 @@ contract KittyBreeding is KittyERC721 {
         Kitty storage matron = kitties[_matronId];
         Kitty storage sire = kitties[_sireId];
         return _isValidMatingPair(matron, _matronId, sire, _sireId) &&
-            _isSiringPermitted(_sireId, _matronId);
+            _isSiringPermitted(_sireId, _matronId, _srcChain);
     }
 
     /// @dev Internal utility function to initiate breeding, assumes that all breeding
@@ -234,7 +240,7 @@ contract KittyBreeding is KittyERC721 {
     ///  fail entirely. Requires a pre-payment of the fee given out to the first caller of giveBirth()
     /// @param _matronId The ID of the Kitty acting as matron (will end up pregnant if successful)
     /// @param _sireId The ID of the Kitty acting as sire (will begin its siring cooldown if successful)
-    function breedWithAuto(uint256 _matronId, uint256 _sireId)
+    function breedWithAuto(uint256 _matronId, uint256 _sireId, uint256 _chainID)
         external
         payable
         whenNotPaused
@@ -259,7 +265,7 @@ contract KittyBreeding is KittyERC721 {
         // Check that matron and sire are both owned by caller, or that the sire
         // has given siring permission to caller (i.e. matron's owner).
         // Will fail for _sireId = 0
-        require(_isSiringPermitted(_sireId, _matronId));
+        require(_isSiringPermitted(_sireId, _matronId, _chainID));
 
         // Grab a reference to the potential matron
         Kitty storage matron = kitties[_matronId];
@@ -369,7 +375,8 @@ contract KittyBreeding is KittyERC721 {
         // Check that matron and sire are both owned by caller, or that the sire
         // has given siring permission to caller (i.e. matron's owner).
         // Will fail for _sireId = 0
-        require(_isSiringPermitted(_sireId, _matronId));
+        /// @dev _matronChainId needs to be the source chain ID here (which should always be the matron chain I assume?)
+        require(_isSiringPermitted(_sireId, _matronId, _matronChainId));
 
         // Grab a reference to the potential matron
         Kitty storage matron = kitties[_matronId];
