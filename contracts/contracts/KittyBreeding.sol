@@ -32,16 +32,17 @@ contract KittyBreeding is KittyERC721, IMessageRecipient {
     /// @dev whenever a kitty is born, regardless of the destination chain, this event will be emitted
     event KittyBorn(uint256 matronId, uint256 sireId, uint256 matronChainId, uint256 sireChainId, uint256 kittyChainId, uint256 childGenes, address owner);
 
+    /// @dev this event will be emitted when the sire cannot breed and breeding is reverted in the matron
+    event BreedingReverted(uint256 matronId, uint256 sireId, uint256 sireChainId);
+
     /// @notice The minimum payment required to use breedWithAuto(). This fee goes towards
-    ///  the gas cost paid by whatever calls giveBirth(), and can be dynamically updated by
-    ///  the COO role as the gas price changes.
+    ///  the gas cost paid by whatever calls giveBirth().
     uint256 public autoBirthFee = 0 ether;
 
     // Keeps track of number of pregnant kitties.
     uint256 public pregnantKitties;
 
-    /// @dev The address of the sibling contract that is used to implement the sooper-sekret
-    ///  genetic combination algorithm.
+    /// @dev The address of the sibling contract that is used to implement the genetic combination algorithm.
     CrossGeneScienceInterface public geneScience;
 
     /// @dev Update the address of the genetic contract, can only be called by the CEO.
@@ -450,10 +451,8 @@ contract KittyBreeding is KittyERC721, IMessageRecipient {
 
     function _failedBreedCrossCallback(uint256 _matronId) internal {
         unblockKittyForCrossCall(_matronId);
+        emit BreedingReverted(_matronId, crossSireData[_matronId].sireId, crossSireData[_matronId].sireChainId);
     }
-
-
-    
 
 
     function _hasSireApprovedAndReadyCrossCallCheck(uint256 _matronId, address _matronOwner, uint256 _matronChainId, uint256 _sireId) internal {
