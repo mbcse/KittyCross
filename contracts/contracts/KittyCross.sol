@@ -38,4 +38,8 @@ contract KittyCross is KittyBase {
         setAddress(chainID, contractAddress);
     }
 
+    function getChainIDLength() external view returns (uint256) {
+        return chainIDs.length;
+    }
+
 }

@@ -39,4 +39,4 @@ role-based access control
 - removed `bid()` from `ClockAuction` (also exists in `SiringClockAuction` ?)
 - `KittyCore.sol`: `_createKitty(..)` with 0 instead of -1
 - changed L163 of GenScience to encode parameters for keccak
-- 
+- decide where chainIDs goes
