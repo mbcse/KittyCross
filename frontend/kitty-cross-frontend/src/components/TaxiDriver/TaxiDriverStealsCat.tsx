@@ -25,7 +25,7 @@ export default function TaxiDriverStealsCatFailAlert() {
           Ohhh no! You got scammed! 
         </AlertTitle>
         <AlertDescription maxWidth="sm">
-          You can't cross breed you cat
+          You can't cross breed your cat
           anymore. Try again please.
         </AlertDescription>
       </Alert>
