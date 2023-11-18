@@ -1,49 +1,60 @@
 import { useEffect, useState } from "react";
-import { KittesPerChain, contractABI, contractAddresses, supportedChains } from "./constants";
+import {
+  KittesPerChain,
+  contractABI,
+  contractAddresses,
+  getChainIdForNetworkName,
+  getNetworkNameForChainId,
+  getRpcForChainId,
+  supportedChains,
+} from "./constants";
 import { Address, useContractRead } from "wagmi";
+import { ethers } from "ethers";
 
 export function useAllTokensOfOwner(ownerAddress: Address) {
   const [kittiesPerChain, setKittiesPerChain] = useState<KittesPerChain>({
     "polygon-zkevm": [],
-    "scroll": [],
-    "arbitrum": [],
-    "base": [],
+    scroll: [],
+    arbitrum: [],
+    base: [],
   });
 
   useEffect(() => {
     const fetchKitties = async () => {
       const result = {
         "polygon-zkevm": [],
-        "scroll": [],
-        "arbitrum": [],
-        "base": [],
+        scroll: [],
+        arbitrum: [],
+        base: [],
       };
 
       for (const chain in contractAddresses) {
+        const chain = "homestead";
         if (contractAddresses.hasOwnProperty(chain)) {
-          const address = contractAddresses[chain];
-          const { data, isError, isLoading } = useContractRead({
-            address,
-            abi: contractABI,
-            functionName: "tokensOfOwner",
-            args: [ownerAddress],
-            chainId: supportedChains.find((c) => c.network === chain).id,
-          });
-
-
-          if (!isError && kittesToAddressMapping) {
-            result[chain] = kittesToAddressMapping
-              .filter((kitty) => kitty.owner === ownerAddress)
-              .map((kitty) => kitty.kittyId);
-          }
+          const fetchTokensOfOwner = async () => {
+            try {
+              const rpcUrl = getRpcForChainId(getChainIdForNetworkName(chain));
+              const provider = new ethers.JsonRpcProvider(rpcUrl);
+              const contractAddress = contractAddresses[chain];
+              const contract = new ethers.Contract(
+                contractAddress,
+                contractABI,
+                provider
+              );
+              const tokensOfOwner = await contract.tokensOfOwner(ownerAddress);
+              return tokensOfOwner;
+            } catch (err) {
+              console.error("Error fetching kitty data:", err);
+            }
+          };
+          const data = await fetchTokensOfOwner();
+          setKittiesPerChain(data);
         }
       }
-      setKittiesPerChain(result);
     };
 
     fetchKitties();
   }, [ownerAddress]);
 
   return kittiesPerChain;
-
 }

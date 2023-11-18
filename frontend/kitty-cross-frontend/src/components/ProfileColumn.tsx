@@ -13,8 +13,6 @@ export default function ProfileGrid({
   const chainId = getChainIdForNetworkName(networkName);
   const kittiesData = useGetAllKittiesData(chainId, kitties);
 
-
-
   return (
     <>
       <GridItem w="100%">
