@@ -119,9 +119,11 @@ export default function Navbar() {
               >
                 Catalogue
               </Button>
+              <Link href="/auction">
               <Button variant="ghost" leftIcon={<BsShopWindow />} size="sm">
                 Auction
               </Button>
+              </Link>
               <Button
                 variant="solid"
                 colorScheme="pink"

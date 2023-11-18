@@ -53,7 +53,7 @@ export default function Page() {
       <Layout>
         {kittyData && (
           <Flex justifyContent="center" alignItems="center" gap={16}>
-            <KittyCard kittyId={kittyId.toString()} kitty={kittyData} />
+            <KittyCard chainId={chainId} kittyId={kittyId.toString()} kitty={kittyData} />
             <Flex direction={"column"} gap={4}>
               <Text fontSize="2xl" fontWeight="bold">
                 Select Chain For Siring:
@@ -99,6 +99,7 @@ export default function Page() {
                   value={selectedChainId}
                   readOnly
                 />
+
                 <Text fontSize="2xl" fontWeight="bold">
                   Approve Siring For Address:
                 </Text>
@@ -109,6 +110,7 @@ export default function Page() {
                   onChange={handleAddressChange}
                 />
               </Flex>
+
 
               <Button
                 isDisabled={!selectedChainId || !selectedAddress}

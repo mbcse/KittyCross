@@ -30,7 +30,7 @@ export interface KittesPerChain {
 
 export const contractAddresses: ContractAddresses = {
   // just placeholders for now
-//   homestead: "0x06012c8cf97BEaD5deAe237070F9587f8E7A266d",
+  homestead: "0x06012c8cf97BEaD5deAe237070F9587f8E7A266d",
   "polygon-zkevm-testnet": "0x7C12cd69Ab858313C4f2E1547eC3fA861E0bd808",
   "scroll-sepolia": "0x86D4fC6698FE93dF34A138bf319D48Ed913bDEE9",
   "arbitrum-goerli": "0x4458Bd6E2A8aBd2Ee3EeEaA5E1AeAeA0098f9Cf7",

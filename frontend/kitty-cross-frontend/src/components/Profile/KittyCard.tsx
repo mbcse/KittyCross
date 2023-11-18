@@ -21,6 +21,7 @@ import { FaCat } from "react-icons/fa";
 import Brand from "../Brand";
 import Cat from "../../lib/Types";
 import { GetKittyDetails } from "../../utils/types";
+import { useRouter } from "next/router";
 
 const IMAGE =
   "https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80";
@@ -28,17 +29,28 @@ const IMAGE =
 const imgcat =
   "https://images.unsplash.com/photo-1592194996308-7b43878e84a6?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 export default function KittyCard({
+  chainId,
   kitty,
   kittyId,
   kittyImg
 }: {
+  chainId: any;
   kitty: GetKittyDetails;
   kittyId: string;
   kittyImg: string;
 }) {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push('/kitty/' + chainId + '/' + kittyId);
+  };
+
   return (
-    <Center py={12}>
+    <>
+    {kitty  && <Center py={12}>
       <Box
+      onClick={handleClick} // Add onClick event
+      cursor="pointer" // Change cursor to indicate it's clickable
         role={"group"}
         p={6}
         maxW={"230px"}
@@ -89,14 +101,16 @@ export default function KittyCard({
 
           <VStack direction={"row"} align={"center"}>
             <Text fontWeight={500} fontSize={"l"}>
-              Generation: {kitty.generation.toString()}
+              Generation: {kitty && kitty.generation.toString()}
             </Text>
             <Badge fontWeight={500} color={"teal.600"}>
-              Status: {kitty.isGestating? "Gestating": kitty.isReady ? "Ready": kitty.cooldownIndex}
+              Status: {kitty && kitty.isGestating? "Gestating": kitty.isReady ? "Ready": kitty.cooldownIndex}
             </Badge>
           </VStack>
         </Stack>
       </Box>
     </Center>
+        }
+        </>
   );
 }

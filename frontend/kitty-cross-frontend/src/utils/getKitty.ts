@@ -36,3 +36,24 @@ export async function getKitty(
     setIsLoading(false);
   }
 }
+
+export async function getSingleKitty(
+  chainId,
+  kittyId,
+) {
+  try {
+    const rpcUrl = getRpcForChainId(chainId);
+    const provider = new ethers.JsonRpcProvider(rpcUrl);
+    const contractAddress =
+      contractAddresses[getNetworkNameForChainId(chainId)];
+    const contract = new ethers.Contract(
+      contractAddress,
+      contractABI,
+      provider
+    );
+    const kittyData = await contract.getKitty(kittyId);
+    return kittyData;
+  } catch (err) {
+    console.error("Error fetching kitty data:", err);
+  } 
+}
