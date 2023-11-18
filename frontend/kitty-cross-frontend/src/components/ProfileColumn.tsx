@@ -20,7 +20,7 @@ export default function ProfileGrid({ chainName, networkName, imageSource, kitti
 
         {kitties && kitties.map((kitty) => (
           <Flex key={kitty} justifyContent="center" alignItems="center">
-            <KittyCard kittyId={kitty} />
+            {/* <KittyCard kittyId={kitty} /> */}
           </Flex>
         ))}
       </GridItem>
