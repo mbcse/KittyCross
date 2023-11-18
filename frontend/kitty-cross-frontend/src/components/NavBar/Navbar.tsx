@@ -13,6 +13,7 @@ import {
   IconButton,
   CloseButton,
   Avatar,
+  Link,
 } from "@chakra-ui/react";
 import {
   AiOutlineMenu,
@@ -20,11 +21,11 @@ import {
   AiOutlineInbox,
   AiFillBell,
 } from "react-icons/ai";
-import { BsFillCameraVideoFill, BsPlus } from "react-icons/bs";
+import { BsFillCameraVideoFill, BsPlus, BsShopWindow } from "react-icons/bs";
 import ConnectButton from "../WalletConnect/WalletConnectButtons";
 import { FaCat } from "react-icons/fa";
 
-export default function Navbar(){
+export default function Navbar() {
   const bg = useColorModeValue("gray.100", "gray.800");
   const mobileNav = useDisclosure();
 
@@ -71,7 +72,7 @@ export default function Navbar(){
                   onClick={mobileNav.onClose}
                 />
                 <Button w="full" variant="ghost" leftIcon={<AiFillHome />}>
-                  Dashboard
+                  My Kitties
                 </Button>
                 <Button
                   w="full"
@@ -96,13 +97,30 @@ export default function Navbar(){
               display="flex"
               alignItems="center"
             >
-                <FaCat size={30}/> Kitty Cross
+              <FaCat size={30} /> Kitty Cross
               <VisuallyHidden>Choc</VisuallyHidden>
             </chakra.a>
 
             <HStack spacing={3} display={{ base: "none", md: "inline-flex" }}>
-              <Button variant="ghost" leftIcon={<AiFillHome />} size="sm">
-                Dashboard
+              <Link href="/myKitties">
+                <Button
+                  variant="ghost"
+                  leftIcon={<AiFillHome />}
+                  size="sm"
+                >
+                  My Kitties
+                </Button>
+              </Link>
+
+              <Button
+                variant="ghost"
+                leftIcon={<BsFillCameraVideoFill />}
+                size="sm"
+              >
+                Catalogue
+              </Button>
+              <Button variant="ghost" leftIcon={<BsShopWindow />} size="sm">
+                Auction
               </Button>
               <Button
                 variant="solid"
@@ -112,13 +130,6 @@ export default function Navbar(){
               >
                 Inbox
               </Button>
-              <Button
-                variant="ghost"
-                leftIcon={<BsFillCameraVideoFill />}
-                size="sm"
-              >
-                Catalouge
-              </Button>
             </HStack>
           </HStack>
           <HStack
@@ -126,7 +137,7 @@ export default function Navbar(){
             display={mobileNav.isOpen ? "none" : "flex"}
             alignItems="center"
           >
-            <ConnectButton/>
+            <ConnectButton />
             <chakra.a
               p={3}
               color="gray.800"
@@ -148,4 +159,4 @@ export default function Navbar(){
       </chakra.header>
     </React.Fragment>
   );
-};
+}

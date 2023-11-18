@@ -2,7 +2,7 @@ import { useContractRead } from "wagmi";
 import { contractABI, contractAddresses, supportedChains } from "./constants";
 import { GetKittyDetails } from "./types";
 
-function useGetKitty(chainId, kittyId) {
+export function useGetKitty(chainId, kittyId) {
   const getNetworkNameForChainId = (chainId) => {
     const chain = supportedChains.find((c) => c.id === chainId);
     return chain ? chain.network : undefined;

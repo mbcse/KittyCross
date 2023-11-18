@@ -57,12 +57,12 @@ export default function LandingPageComponent() {
           </Button>
         </Stack>
         <HStack>
-          <Image
+          {/* <Image
             src="logo.png"
             width={500}
             height={500}
             alt="Picture of the author"
-          />
+          /> */}
         </HStack>
        
       </Stack>
