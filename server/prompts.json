@@ -1,146 +1,137 @@
 [
   {
-    "name": "breed",
-    "prompt": "Create a picture of a {} cat. ",
-    "options": {
-      "orange tabby": 34,
-      "bengal": 33,
-      "tuxedo": 33
-    }
-  },
-  {
     "name": "eye color",
     "prompt": "The cat has {} eyes. ",
     "options": {
-      "green": 15,
-      "yellow": 5,
-      "azure": 5,
-      "ice blue": 5,
-      "hazel": 15,
-      "red": 5,
-      "amber": 5,
-      "brown": 15,
-      "aqua": 5,
-      "pink": 5,
-      "lilac": 5,
-      "copper": 5,
-      "gold": 2,
-      "white": 3,
-      "black": 3,
-      "rainbow": 2
+      "green": 3,
+      "yellow": 2,
+      "azure": 2,
+      "ice blue": 2,
+      "hazel": 3,
+      "red": 2,
+      "amber": 2,
+      "brown": 3,
+      "aqua": 2,
+      "pink": 2,
+      "lilac": 2,
+      "copper": 2,
+      "gold": 1,
+      "white": 1,
+      "black": 1,
+      "rainbow": 1
     }
   },
   {
     "name": "accessory",
     "prompt": "The cat is wearing a {} with the ethereum chain logo. ",
     "options": {
-      "eyepatch": 10,
-      "collar": 10,
-      "headband": 10,
-      "shirt": 10,
-      "scarf": 10,
-      "sheriff badge": 10,
-      "gangster chain": 10
+      "eyepatch": 3,
+      "collar": 3,
+      "headband": 3,
+      "shirt": 3,
+      "scarf": 3,
+      "sheriff badge": 3,
+      "gangster chain": 3
     }
   },
   {
     "name": "hat",
     "prompt": "The cat is also wearing a {} on its head. ",
     "options": {
-      "moped helmet": 10,
-      "turkish hat": 10,
-      "crown": 5,
-      "baseball cap": 10,
-      "beanie": 10,
-      "sombrero": 5,
-      "tophat": 5,
-      "fedora": 5,
-      "cowboy hat": 5,
-      "ski goggles": 5,
-      "pirate hat": 5,
-      "halo": 5
+      "moped helmet": 4,
+      "turkish hat": 4,
+      "crown": 1,
+      "baseball cap": 4,
+      "beanie": 2,
+      "sombrero": 2,
+      "tophat": 2,
+      "fedora": 2,
+      "cowboy hat": 2,
+      "ski goggles": 2,
+      "pirate hat": 2,
+      "halo": 1
     }
   },
   {
     "name": "seat",
     "prompt": "The cat is sitting alertly on a {}. The cat is pictured in its entirety and facing the camera. The tail of the cat is curled around the feet. ",
     "options": {
-      "worn concrete pillar": 15,
-      "shabby carboard box": 15,
-      "shiny marble pedestal": 5,
-      "intricate manhole cover": 10,
-      "oriental flying carpet": 5,
-      "fancy keyboard": 10,
-      "comfy armchair": 10,
-      "pile of gold bars": 5,
-      "cheap wooden crate": 10,
-      "tri-level podium": 5,
-      "wooden stool": 10
+      "worn concrete pillar": 5,
+      "shabby carboard box": 5,
+      "shiny marble pedestal": 1,
+      "intricate manhole cover": 3,
+      "oriental flying carpet": 2,
+      "fancy keyboard": 3,
+      "comfy armchair": 3,
+      "pile of gold bars": 1,
+      "cheap wooden crate": 3,
+      "tri-level podium": 2,
+      "wooden stool": 3
     }
   },
   {
     "name": "wild",
     "prompt": "The cat has {}. ",
     "options": {
-      "three eyes": 5,
-      "the zombie virus": 5,
-      "cybernetic implants": 5,
-      "battle scars": 5,
-      "glowing eyes": 5
+      "three eyes": 2,
+      "the zombie virus": 2,
+      "cybernetic implants": 2,
+      "battle scars": 2,
+      "glowing eyes": 2
     }
   },
   {
     "name": "weather",
     "prompt": "The lighting of the scene is like a {}. ",
     "options": {
-      "sunny day": 20,
-      "rainy day": 15,
-      "sunset": 10,
-      "moonlit night": 20,
-      "rainy night": 15,
-      "aurora borealis": 5,
-      "rainbow": 5,
-      "apocalypse": 5,
-      "disco": 5
+      "sunny day": 6,
+      "rainy day": 4,
+      "sunset": 3,
+      "moonlit night": 6,
+      "rainy night": 4,
+      "aurora borealis": 2,
+      "rainbow": 2,
+      "apocalypse": 2,
+      "disco": 2
     }
   },
   {
     "name": "art style",
     "prompt": "The picture is in the {} art style. ",
     "options": {
-      "colorful memphis": 10,
-      "grimy dieselpunk": 10,
-      "scifi cyberpunk": 10,
-      "futuristic vaporwave": 10,
-      "fantasy gothic": 10,
-      "sketched lineart": 10,
-      "retro pixelart": 10,
-      "energetic anime": 10,
-      "loriot comic style": 10,
-      "abstract art": 10
+      "colorful memphis": 4,
+      "grimy dieselpunk": 3,
+      "scifi cyberpunk": 3,
+      "futuristic vaporwave": 3,
+      "fantasy gothic": 3,
+      "sketched lineart": 3,
+      "retro pixelart": 3,
+      "energetic anime": 3,
+      "loriot comic style": 3,
+      "abstract art": 3
     }
   },
   {
     "name": "background",
     "prompt": "In the background is {}. ",
     "options": {
-      "desert": 10,
-      "forest": 10,
-      "grassy hills": 10,
-      "stonehenge": 5,
-      "hagia sophia": 5,
-      "galata tower": 5,
-      "statue of liberty": 5,
-      "eiffel tower": 5,
-      "egyptian pyramids": 5,
-      "japanese torii": 5,
-      "brandenburg gate": 5,
-      "burj kalifa": 5,
-      "chinese wall": 5,
-      "colosseum": 5,
-      "taj mahal": 5,
-      "christ the redeemer": 5,
-      "petra": 5
+      "desert": 5,
+      "forest": 5,
+      "grassy hills": 5,
+      "stonehenge": 1,
+      "hagia sophia": 2,
+      "galata tower": 2,
+      "statue of liberty": 1,
+      "eiffel tower": 1,
+      "egyptian pyramids": 1,
+      "japanese torii": 1,
+      "brandenburg gate": 1,
+      "burj kalifa": 1,
+      "chinese wall": 1,
+      "colosseum": 1,
+      "taj mahal": 1,
+      "christ the redeemer": 1,
+      "petra": 1
     }
   }
 ]

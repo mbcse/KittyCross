@@ -27,10 +27,6 @@ const imgcat =
   "https://images.unsplash.com/photo-1592194996308-7b43878e84a6?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 export default function KittyDetailed({
   kittyId,
-  catImageURL,
-  cattributes,
-  status,
-  generation,
 }) {
   return (
     <Center py={12}>
@@ -87,9 +83,9 @@ export default function KittyDetailed({
             <Text fontWeight={500} fontSize={"l"}>
               Generation:
             </Text>
-            <Text fontWeight={500} color={"teal.600"}>
+            <Badge fontWeight={500} color={"teal.600"}>
               Status:
-            </Text>
+            </Badge>
           </VStack>
         </Stack>
         <HStack mt={8} direction={"row"} spacing={4}>
@@ -112,6 +108,16 @@ export default function KittyDetailed({
             }}
           >
             Give Birth
+          </Button>
+          <Button
+            flex={1}
+            fontSize={"sm"}
+            rounded={"full"}
+            _focus={{
+              bg: "teal.200",
+            }}
+          >
+            Approve
           </Button>
           <Button
             flex={1}
@@ -157,11 +163,12 @@ export default function KittyDetailed({
           </Wrap>
         </HStack>
 
-        <Divider  mt={5}/>
-        <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
-          <Heading fontSize={"sm"} fontFamily={"body"} fontWeight={500}>
+        <Divider my={5} />
+        <Heading fontSize={"sm"} fontFamily={"body"} fontWeight={500}>
             Cattributes:
           </Heading>
+        <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
+          
           <Badge
             px={2}
             py={1}
@@ -187,6 +194,16 @@ export default function KittyDetailed({
             #music
           </Badge>
         </Stack>
+
+        <Divider my={5}/>
+        <Heading fontSize={"sm"} fontFamily={"body"} fontWeight={500}>
+          Activity
+        </Heading>
+        <VStack align={"center"} justify={"center"} direction={"row"} mt={6}>
+          <Text fontWeight={500} fontSize={"l"}>
+            Nov 14, 2023 - 4:50pm UTC Birthday hatched by: 0xC79Fd9Be...{" "}
+          </Text>
+        </VStack>
       </Box>
     </Center>
   );
