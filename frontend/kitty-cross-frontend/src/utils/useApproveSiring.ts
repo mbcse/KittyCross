@@ -1,33 +1,24 @@
+import { useEffect, useState } from 'react';
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
-import {
-  contractABI,
-  contractAddresses,
-  getNetworkNameForChainId,
-} from "./constants";
+import { contractABI, contractAddresses, getNetworkNameForChainId } from "./constants";
+import { ethers } from 'ethers';
 
-export async function useApproveSiring(
-  originChainId,
-  originKittyId,
-  desintationChainId,
-  destinationAddress
-) {
-  const { config } = usePrepareContractWrite({
-    address: contractAddresses[getNetworkNameForChainId(originChainId)],
-    // TODO: adapt ABI
-    abi: contractABI,
-    // TODO: will be called crosschain something xD
-    functionName: "approveSiring",
-    // TODO: adapt args
-    args: [destinationAddress, originKittyId, desintationChainId],
-    // TODO: to what chains is the TX sent?
-    chainId: originChainId,
+export async function useApproveSiring(originChainId,originKittyId,destinationChainId,destinationAddress, setTxHash) {
+
+  const ethereum = (window as any).ethereum;
+  const accounts = await ethereum.request({
+    method: "eth_requestAccounts",
   });
-  const { data, isLoading, isSuccess, write } = useContractWrite(config);
 
-  // Check if the request was successful
-  if (!isSuccess) {
-    throw new Error(`Error approving siring`);
-  }
+  const provider = new ethers.providers.Web3Provider(ethereum)
+  const walletAddress = accounts[0]    // first account in MetaMask
+  const signer = provider.getSigner(walletAddress)
 
-  return data;
+  const contractAddress = contractAddresses[getNetworkNameForChainId(originChainId)]
+  const contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+  const tx = await contract.approveSiring(destinationAddress, originKittyId, destinationChainId);
+  setTxHash(tx.hash);
+  console.log(tx);
+  return tx;
 }

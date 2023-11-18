@@ -19,7 +19,7 @@ export async function getKitty(
   try {
     setIsLoading(true);
     const rpcUrl = getRpcForChainId(chainId);
-    const provider = new ethers.JsonRpcProvider(rpcUrl);
+    const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
     const contractAddress =
       contractAddresses[getNetworkNameForChainId(chainId)];
     const contract = new ethers.Contract(
@@ -43,7 +43,7 @@ export async function getSingleKitty(
 ) {
   try {
     const rpcUrl = getRpcForChainId(chainId);
-    const provider = new ethers.JsonRpcProvider(rpcUrl);
+    const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
     const contractAddress =
       contractAddresses[getNetworkNameForChainId(chainId)];
     const contract = new ethers.Contract(

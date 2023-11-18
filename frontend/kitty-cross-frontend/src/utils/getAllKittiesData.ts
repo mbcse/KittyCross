@@ -4,7 +4,7 @@ import { contractABI, contractAddresses, getNetworkNameForChainId, getRpcForChai
 export async function getAllKittiesData(chainId, kittyIds) {
     try {
       const rpcUrl = getRpcForChainId(chainId);
-      const provider = new ethers.JsonRpcProvider(rpcUrl);
+      const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
       const contractAddress = contractAddresses[getNetworkNameForChainId(chainId)];
       const contract = new ethers.Contract(contractAddress, contractABI, provider);
   
