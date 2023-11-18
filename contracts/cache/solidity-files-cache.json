@@ -734,8 +734,8 @@
         "SiringClockAuction"
       ]
     },
-    "/Users/quantadrian/workspace/ethglobal_istanbul_23/KittyCross/contracts/contracts/KittyBase.sol": {
-      "lastModificationDate": 1700262905828,
+    "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/KittyBase.sol": {
+      "lastModificationDate": 1700267033033,
       "contentHash": "21657336c6a0e085b9befa2b87f11dbb",
       "sourceName": "contracts/KittyBase.sol",
       "solcConfig": {
@@ -873,54 +873,8 @@
         "SaleClockAuction"
       ]
     },
-    "/Users/quantadrian/workspace/ethglobal_istanbul_23/KittyCross/contracts/contracts/KittyCross.sol": {
-      "lastModificationDate": 1700293802618,
-      "contentHash": "a20dd5e78081ec08f10acd3078ea067e",
-      "sourceName": "contracts/KittyCross.sol",
-      "solcConfig": {
-        "version": "0.8.20",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout",
-                "devdoc",
-                "userdoc",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "./KittyBase.sol"
-      ],
-      "versionPragmas": [
-        "0.8.20"
-      ],
-      "artifacts": [
-        "KittyCross"
-      ]
-    },
-    "/Users/quantadrian/workspace/ethglobal_istanbul_23/KittyCross/contracts/contracts/KittyERC721.sol": {
-      "lastModificationDate": 1700262133017,
+    "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/KittyERC721.sol": {
+      "lastModificationDate": 1700267033035,
       "contentHash": "1b18111861f736c826bdd7c760af7829",
       "sourceName": "contracts/KittyERC721.sol",
       "solcConfig": {
@@ -1011,9 +965,9 @@
         "ERC721Metadata"
       ]
     },
-    "/Users/quantadrian/workspace/ethglobal_istanbul_23/KittyCross/contracts/contracts/KittyBreeding.sol": {
-      "lastModificationDate": 1700265673674,
-      "contentHash": "51d6da21ad5550656c031846b946f0d2",
+    "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/KittyBreeding.sol": {
+      "lastModificationDate": 1700295555298,
+      "contentHash": "aa43f8b1219e4cad7bd6ccc8d7d28091",
       "sourceName": "contracts/KittyBreeding.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -1055,6 +1009,7 @@
         "0.8.20"
       ],
       "artifacts": [
+        "IMessageRecipient",
         "KittyBreeding"
       ]
     },
@@ -1195,8 +1150,8 @@
         "KittyAuction"
       ]
     },
-    "/Users/quantadrian/workspace/ethglobal_istanbul_23/KittyCross/contracts/contracts/KittyMinting.sol": {
-      "lastModificationDate": 1700259793736,
+    "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/KittyMinting.sol": {
+      "lastModificationDate": 1700267033036,
       "contentHash": "9fabe931165384f64f8dc0a979f93adc",
       "sourceName": "contracts/KittyMinting.sol",
       "solcConfig": {
@@ -1241,8 +1196,8 @@
         "KittyMinting"
       ]
     },
-    "/Users/quantadrian/workspace/ethglobal_istanbul_23/KittyCross/contracts/contracts/KittyCore.sol": {
-      "lastModificationDate": 1700260405734,
+    "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/KittyCore.sol": {
+      "lastModificationDate": 1700267033034,
       "contentHash": "7a385a423fa8ee935fd6d0ef9f0ef763",
       "sourceName": "contracts/KittyCore.sol",
       "solcConfig": {
@@ -1287,10 +1242,10 @@
         "KittyCore"
       ]
     },
-    "/Users/quantadrian/workspace/ethglobal_istanbul_23/KittyCross/contracts/contracts/CrossGeneScience.sol": {
-      "lastModificationDate": 1700294520070,
-      "contentHash": "79a8864f4868778a1f953ece9410c130",
-      "sourceName": "contracts/CrossGeneScience.sol",
+    "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/KittyCross.sol": {
+      "lastModificationDate": 1700295591667,
+      "contentHash": "f5b184c3ee594916d9c1fdd22cb8fcf6",
+      "sourceName": "contracts/KittyCross.sol",
       "solcConfig": {
         "version": "0.8.20",
         "settings": {
@@ -1324,20 +1279,19 @@
         }
       },
       "imports": [
-        "./CrossGeneScienceInterface.sol"
+        "./CrossMessenger.sol"
       ],
       "versionPragmas": [
         "0.8.20"
       ],
       "artifacts": [
-        "GeneScience",
-        "KittyCoreInterface"
+        "KittyCross"
       ]
     },
-    "/Users/quantadrian/workspace/ethglobal_istanbul_23/KittyCross/contracts/contracts/CrossGeneScienceInterface.sol": {
-      "lastModificationDate": 1700294529602,
-      "contentHash": "a8f4c15bcbbbd04bf8bd347ff6e43968",
-      "sourceName": "contracts/CrossGeneScienceInterface.sol",
+    "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/CrossMessenger.sol": {
+      "lastModificationDate": 1700295584879,
+      "contentHash": "6910c1b87e08bf9499baf3169867a766",
+      "sourceName": "contracts/CrossMessenger.sol",
       "solcConfig": {
         "version": "0.8.20",
         "settings": {
@@ -1370,12 +1324,15 @@
           }
         }
       },
-      "imports": [],
+      "imports": [
+        "./KittyBase.sol"
+      ],
       "versionPragmas": [
         "0.8.20"
       ],
       "artifacts": [
-        "CrossGeneScienceInterface"
+        "CrossMessenger",
+        "IMailbox"
       ]
     }
   }

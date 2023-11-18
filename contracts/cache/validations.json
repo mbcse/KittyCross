@@ -677,78 +677,137 @@
           "flat": true
         }
       },
-      "contracts/CrossGeneScience.sol:GeneScience": {
-        "src": "contracts/CrossGeneScience.sol:14",
+      "contracts/CrossMessenger.sol:CrossMessenger": {
+        "src": "contracts/CrossMessenger.sol:19",
         "version": {
-          "withMetadata": "aad956052660c628820e4b1c06cd4e4bc69eb42a9fc87e7400e17625e6a7a5c6",
-          "withoutMetadata": "ca168733e0e3098ccdf72871d631234b2fb670c739751a067216c52be332a7b8",
-          "linkedWithoutMetadata": "ca168733e0e3098ccdf72871d631234b2fb670c739751a067216c52be332a7b8"
+          "withMetadata": "a7b11a6c8f9b8d0979f926e5370fc5da487fc60d2bd7d06a69deabf534279d74",
+          "withoutMetadata": "4483fb78251876eaede976761c87043fb63befeafd162a62e66150631ed75b77",
+          "linkedWithoutMetadata": "4483fb78251876eaede976761c87043fb63befeafd162a62e66150631ed75b77"
         },
         "inherit": [
-          "contracts/CrossGeneScienceInterface.sol:CrossGeneScienceInterface"
+          "contracts/KittyBase.sol:KittyBase",
+          "contracts/KittyAccessControl.sol:KittyAccessControl"
         ],
         "libraries": [],
         "methods": [
-          "(address,address)",
-          "isGeneScience()",
-          "setPrivilegedBirther(address)",
-          "decode(uint256)",
-          "decodeChainID(uint256)",
-          "encode(uint8[])",
-          "expressingTraits(uint256)",
-          "mixGenes(uint256,uint256,uint256)"
+          "setHyperlaneMailBox(address)",
+          "setHyperlaneChainDomain(uint256,uint32)"
         ],
         "linkReferences": [],
-        "errors": [
-          {
-            "kind": "constructor",
-            "contract": "GeneScience",
-            "src": "contracts/CrossGeneScience.sol:26"
-          },
-          {
-            "kind": "state-variable-assignment",
-            "name": "geneScience",
-            "src": "contracts/CrossGeneScience.sol:15"
-          },
-          {
-            "kind": "state-variable-assignment",
-            "name": "privilegedBirtherWindowSize",
-            "src": "contracts/CrossGeneScience.sol:23"
-          }
-        ],
+        "errors": [],
         "layout": {
           "storage": [
             {
-              "label": "geneScience",
+              "label": "ceoAddress",
               "offset": 0,
-              "slot": "0",
-              "type": "t_bool",
-              "contract": "GeneScience",
-              "src": "contracts/CrossGeneScience.sol:15"
-            },
-            {
-              "label": "_privilegedBirther",
-              "offset": 1,
               "slot": "0",
               "type": "t_address",
-              "contract": "GeneScience",
-              "src": "contracts/CrossGeneScience.sol:21"
+              "contract": "KittyAccessControl",
+              "src": "contracts/KittyAccessControl.sol:31"
             },
             {
-              "label": "privilegedBirtherWindowSize",
+              "label": "cfoAddress",
               "offset": 0,
               "slot": "1",
-              "type": "t_uint256",
-              "contract": "GeneScience",
-              "src": "contracts/CrossGeneScience.sol:23"
+              "type": "t_address",
+              "contract": "KittyAccessControl",
+              "src": "contracts/KittyAccessControl.sol:32"
             },
             {
-              "label": "_kittyCore",
+              "label": "cooAddress",
               "offset": 0,
               "slot": "2",
-              "type": "t_contract(KittyCoreInterface)3556",
-              "contract": "GeneScience",
-              "src": "contracts/CrossGeneScience.sol:24"
+              "type": "t_address",
+              "contract": "KittyAccessControl",
+              "src": "contracts/KittyAccessControl.sol:33"
+            },
+            {
+              "label": "paused",
+              "offset": 20,
+              "slot": "2",
+              "type": "t_bool",
+              "contract": "KittyAccessControl",
+              "src": "contracts/KittyAccessControl.sol:36"
+            },
+            {
+              "label": "cooldowns",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_array(t_uint32)14_storage",
+              "contract": "KittyBase",
+              "src": "contracts/KittyBase.sol:80"
+            },
+            {
+              "label": "secondsPerBlock",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_uint256",
+              "contract": "KittyBase",
+              "src": "contracts/KittyBase.sol:98"
+            },
+            {
+              "label": "kitties",
+              "offset": 0,
+              "slot": "6",
+              "type": "t_array(t_struct(Kitty)4297_storage)dyn_storage",
+              "contract": "KittyBase",
+              "src": "contracts/KittyBase.sol:107"
+            },
+            {
+              "label": "kittyIndexToOwner",
+              "offset": 0,
+              "slot": "7",
+              "type": "t_mapping(t_uint256,t_address)",
+              "contract": "KittyBase",
+              "src": "contracts/KittyBase.sol:111"
+            },
+            {
+              "label": "ownershipTokenCount",
+              "offset": 0,
+              "slot": "8",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "KittyBase",
+              "src": "contracts/KittyBase.sol:115"
+            },
+            {
+              "label": "kittyIndexToApproved",
+              "offset": 0,
+              "slot": "9",
+              "type": "t_mapping(t_uint256,t_address)",
+              "contract": "KittyBase",
+              "src": "contracts/KittyBase.sol:120"
+            },
+            {
+              "label": "saleAuction",
+              "offset": 0,
+              "slot": "10",
+              "type": "t_contract(SaleClockAuction)7227",
+              "contract": "KittyBase",
+              "src": "contracts/KittyBase.sol:125"
+            },
+            {
+              "label": "siringAuction",
+              "offset": 0,
+              "slot": "11",
+              "type": "t_contract(SiringClockAuction)7379",
+              "contract": "KittyBase",
+              "src": "contracts/KittyBase.sol:130"
+            },
+            {
+              "label": "hyperlaneMailBox",
+              "offset": 0,
+              "slot": "12",
+              "type": "t_contract(IMailbox)3566",
+              "contract": "CrossMessenger",
+              "src": "contracts/CrossMessenger.sol:22"
+            },
+            {
+              "label": "hyperlaneChainDomain",
+              "offset": 0,
+              "slot": "13",
+              "type": "t_mapping(t_uint256,t_uint32)",
+              "contract": "CrossMessenger",
+              "src": "contracts/CrossMessenger.sol:23"
             }
           ],
           "types": {
@@ -756,48 +815,124 @@
               "label": "address",
               "numberOfBytes": "20"
             },
+            "t_array(t_struct(Kitty)4297_storage)dyn_storage": {
+              "label": "struct KittyBase.Kitty[]",
+              "numberOfBytes": "32"
+            },
+            "t_array(t_uint32)14_storage": {
+              "label": "uint32[14]",
+              "numberOfBytes": "64"
+            },
             "t_bool": {
               "label": "bool",
               "numberOfBytes": "1"
             },
-            "t_contract(KittyCoreInterface)3556": {
-              "label": "contract KittyCoreInterface",
+            "t_contract(IMailbox)3566": {
+              "label": "contract IMailbox",
               "numberOfBytes": "20"
+            },
+            "t_contract(SaleClockAuction)7227": {
+              "label": "contract SaleClockAuction",
+              "numberOfBytes": "20"
+            },
+            "t_contract(SiringClockAuction)7379": {
+              "label": "contract SiringClockAuction",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_uint256,t_address)": {
+              "label": "mapping(uint256 => address)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_uint256,t_uint32)": {
+              "label": "mapping(uint256 => uint32)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(Kitty)4297_storage": {
+              "label": "struct KittyBase.Kitty",
+              "members": [
+                {
+                  "label": "genes",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "birthTime",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "1"
+                },
+                {
+                  "label": "cooldownEndBlock",
+                  "type": "t_uint64",
+                  "offset": 0,
+                  "slot": "2"
+                },
+                {
+                  "label": "matronId",
+                  "type": "t_uint32",
+                  "offset": 8,
+                  "slot": "2"
+                },
+                {
+                  "label": "sireId",
+                  "type": "t_uint32",
+                  "offset": 12,
+                  "slot": "2"
+                },
+                {
+                  "label": "siringWithId",
+                  "type": "t_uint32",
+                  "offset": 16,
+                  "slot": "2"
+                },
+                {
+                  "label": "cooldownIndex",
+                  "type": "t_uint16",
+                  "offset": 20,
+                  "slot": "2"
+                },
+                {
+                  "label": "generation",
+                  "type": "t_uint16",
+                  "offset": 22,
+                  "slot": "2"
+                }
+              ],
+              "numberOfBytes": "96"
+            },
+            "t_uint16": {
+              "label": "uint16",
+              "numberOfBytes": "2"
             },
             "t_uint256": {
               "label": "uint256",
               "numberOfBytes": "32"
+            },
+            "t_uint32": {
+              "label": "uint32",
+              "numberOfBytes": "4"
+            },
+            "t_uint64": {
+              "label": "uint64",
+              "numberOfBytes": "8"
             }
           },
           "layoutVersion": "1.2",
           "flat": true
         }
       },
-      "contracts/CrossGeneScience.sol:KittyCoreInterface": {
-        "src": "contracts/CrossGeneScience.sol:6",
+      "contracts/CrossMessenger.sol:IMailbox": {
+        "src": "contracts/CrossMessenger.sol:6",
         "inherit": [],
         "libraries": [],
         "methods": [
-          "cooAddress()",
-          "getChainIDLength()"
-        ],
-        "linkReferences": [],
-        "errors": [],
-        "layout": {
-          "storage": [],
-          "types": {},
-          "layoutVersion": "1.2",
-          "flat": false
-        }
-      },
-      "contracts/CrossGeneScienceInterface.sol:CrossGeneScienceInterface": {
-        "src": "contracts/CrossGeneScienceInterface.sol:4",
-        "inherit": [],
-        "libraries": [],
-        "methods": [
-          "isGeneScience()",
-          "mixGenes(uint256,uint256,uint256)",
-          "decodeChainID(uint256)"
+          "quoteDispatch(uint32,bytes32,bytes)",
+          "dispatch(uint32,bytes32,bytes)"
         ],
         "linkReferences": [],
         "errors": [],
@@ -922,12 +1057,13 @@
       "contracts/KittyAuction.sol:KittyAuction": {
         "src": "contracts/KittyAuction.sol:9",
         "version": {
-          "withMetadata": "7cb77c6cc3e9b1c1d61309161ade6e0c5ef76b11df2701c98a4e5e7f911a26d4",
-          "withoutMetadata": "1f46d1cedc7b7d67d60598dc8f524eba020ffd5f2d612c442c03b66997658387",
-          "linkedWithoutMetadata": "1f46d1cedc7b7d67d60598dc8f524eba020ffd5f2d612c442c03b66997658387"
+          "withMetadata": "6f666dbc7761d9ad3004d6c0ce00c42d12945cd777aedbcb228b25d2fcf81c9f",
+          "withoutMetadata": "67678c9e0498f7d2c647c68f8474ab5e073bd84e916351da777d0cff6fd663c9",
+          "linkedWithoutMetadata": "67678c9e0498f7d2c647c68f8474ab5e073bd84e916351da777d0cff6fd663c9"
         },
         "inherit": [
           "contracts/KittyBreeding.sol:KittyBreeding",
+          "contracts/KittyBreeding.sol:IMessageRecipient",
           "contracts/KittyERC721.sol:KittyERC721",
           "@openzeppelin/contracts/token/ERC721/ERC721.sol:ERC721",
           "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol:IERC721Metadata",
@@ -936,6 +1072,7 @@
           "@openzeppelin/contracts/utils/introspection/IERC165.sol:IERC165",
           "@openzeppelin/contracts/utils/Context.sol:Context",
           "contracts/KittyCross.sol:KittyCross",
+          "contracts/CrossMessenger.sol:CrossMessenger",
           "contracts/KittyBase.sol:KittyBase",
           "contracts/KittyAccessControl.sol:KittyAccessControl"
         ],
@@ -1004,7 +1141,7 @@
               "label": "kitties",
               "offset": 0,
               "slot": "6",
-              "type": "t_array(t_struct(Kitty)5106_storage)dyn_storage",
+              "type": "t_array(t_struct(Kitty)4297_storage)dyn_storage",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:107"
             },
@@ -1036,7 +1173,7 @@
               "label": "saleAuction",
               "offset": 0,
               "slot": "10",
-              "type": "t_contract(SaleClockAuction)7604",
+              "type": "t_contract(SaleClockAuction)7227",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:125"
             },
@@ -1044,30 +1181,46 @@
               "label": "siringAuction",
               "offset": 0,
               "slot": "11",
-              "type": "t_contract(SiringClockAuction)7756",
+              "type": "t_contract(SiringClockAuction)7379",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:130"
             },
             {
-              "label": "sireAllowedToAddress",
+              "label": "hyperlaneMailBox",
               "offset": 0,
               "slot": "12",
-              "type": "t_mapping(t_uint256,t_struct(Permitted)6366_storage)",
+              "type": "t_contract(IMailbox)3566",
+              "contract": "CrossMessenger",
+              "src": "contracts/CrossMessenger.sol:22"
+            },
+            {
+              "label": "hyperlaneChainDomain",
+              "offset": 0,
+              "slot": "13",
+              "type": "t_mapping(t_uint256,t_uint32)",
+              "contract": "CrossMessenger",
+              "src": "contracts/CrossMessenger.sol:23"
+            },
+            {
+              "label": "sireAllowedToAddress",
+              "offset": 0,
+              "slot": "14",
+              "type": "t_mapping(t_uint256,t_struct(Approved)5974_storage)",
               "contract": "KittyCross",
               "src": "contracts/KittyCross.sol:16"
             },
             {
               "label": "crossContractAddresses",
               "offset": 0,
-              "slot": "13",
+              "slot": "15",
               "type": "t_mapping(t_uint256,t_address)",
               "contract": "KittyCross",
               "src": "contracts/KittyCross.sol:18"
             },
             {
-              "label": "isBlocked",
+              "label": "isKittyCrossBlocked",
               "offset": 0,
-              "slot": "14",
+              "slot": "16",
               "type": "t_mapping(t_uint256,t_bool)",
               "contract": "KittyCross",
               "src": "contracts/KittyCross.sol:22"
@@ -1075,15 +1228,15 @@
             {
               "label": "chainIDs",
               "offset": 0,
-              "slot": "15",
+              "slot": "17",
               "type": "t_array(t_uint256)dyn_storage",
               "contract": "KittyCross",
-              "src": "contracts/KittyCross.sol:24"
+              "src": "contracts/KittyCross.sol:25"
             },
             {
               "label": "_name",
               "offset": 0,
-              "slot": "16",
+              "slot": "18",
               "type": "t_string_storage",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:24"
@@ -1091,7 +1244,7 @@
             {
               "label": "_symbol",
               "offset": 0,
-              "slot": "17",
+              "slot": "19",
               "type": "t_string_storage",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:27"
@@ -1099,7 +1252,7 @@
             {
               "label": "_owners",
               "offset": 0,
-              "slot": "18",
+              "slot": "20",
               "type": "t_mapping(t_uint256,t_address)",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:30"
@@ -1107,7 +1260,7 @@
             {
               "label": "_balances",
               "offset": 0,
-              "slot": "19",
+              "slot": "21",
               "type": "t_mapping(t_address,t_uint256)",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:33"
@@ -1115,7 +1268,7 @@
             {
               "label": "_tokenApprovals",
               "offset": 0,
-              "slot": "20",
+              "slot": "22",
               "type": "t_mapping(t_uint256,t_address)",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:36"
@@ -1123,7 +1276,7 @@
             {
               "label": "_operatorApprovals",
               "offset": 0,
-              "slot": "21",
+              "slot": "23",
               "type": "t_mapping(t_address,t_mapping(t_address,t_bool))",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:39"
@@ -1131,34 +1284,34 @@
             {
               "label": "erc721Metadata",
               "offset": 0,
-              "slot": "22",
-              "type": "t_contract(ERC721Metadata)4617",
+              "slot": "24",
+              "type": "t_contract(ERC721Metadata)3808",
               "contract": "KittyERC721",
               "src": "contracts/KittyERC721.sol:18"
             },
             {
               "label": "autoBirthFee",
               "offset": 0,
-              "slot": "23",
+              "slot": "25",
               "type": "t_uint256",
               "contract": "KittyBreeding",
-              "src": "contracts/KittyBreeding.sol:19"
+              "src": "contracts/KittyBreeding.sol:35"
             },
             {
               "label": "pregnantKitties",
               "offset": 0,
-              "slot": "24",
+              "slot": "26",
               "type": "t_uint256",
               "contract": "KittyBreeding",
-              "src": "contracts/KittyBreeding.sol:22"
+              "src": "contracts/KittyBreeding.sol:38"
             },
             {
               "label": "geneScience",
               "offset": 0,
-              "slot": "25",
-              "type": "t_contract(GeneScienceInterface)4638",
+              "slot": "27",
+              "type": "t_contract(GeneScienceInterface)3829",
               "contract": "KittyBreeding",
-              "src": "contracts/KittyBreeding.sol:26"
+              "src": "contracts/KittyBreeding.sol:42"
             }
           ],
           "types": {
@@ -1166,7 +1319,7 @@
               "label": "address",
               "numberOfBytes": "20"
             },
-            "t_array(t_struct(Kitty)5106_storage)dyn_storage": {
+            "t_array(t_struct(Kitty)4297_storage)dyn_storage": {
               "label": "struct KittyBase.Kitty[]",
               "numberOfBytes": "32"
             },
@@ -1182,19 +1335,23 @@
               "label": "bool",
               "numberOfBytes": "1"
             },
-            "t_contract(ERC721Metadata)4617": {
+            "t_contract(ERC721Metadata)3808": {
               "label": "contract ERC721Metadata",
               "numberOfBytes": "20"
             },
-            "t_contract(GeneScienceInterface)4638": {
+            "t_contract(GeneScienceInterface)3829": {
               "label": "contract GeneScienceInterface",
               "numberOfBytes": "20"
             },
-            "t_contract(SaleClockAuction)7604": {
+            "t_contract(IMailbox)3566": {
+              "label": "contract IMailbox",
+              "numberOfBytes": "20"
+            },
+            "t_contract(SaleClockAuction)7227": {
               "label": "contract SaleClockAuction",
               "numberOfBytes": "20"
             },
-            "t_contract(SiringClockAuction)7756": {
+            "t_contract(SiringClockAuction)7379": {
               "label": "contract SiringClockAuction",
               "numberOfBytes": "20"
             },
@@ -1218,15 +1375,37 @@
               "label": "mapping(uint256 => bool)",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_uint256,t_struct(Permitted)6366_storage)": {
-              "label": "mapping(uint256 => struct KittyCross.Permitted)",
+            "t_mapping(t_uint256,t_struct(Approved)5974_storage)": {
+              "label": "mapping(uint256 => struct KittyCross.Approved)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_uint256,t_uint32)": {
+              "label": "mapping(uint256 => uint32)",
               "numberOfBytes": "32"
             },
             "t_string_storage": {
               "label": "string",
               "numberOfBytes": "32"
             },
-            "t_struct(Kitty)5106_storage": {
+            "t_struct(Approved)5974_storage": {
+              "label": "struct KittyCross.Approved",
+              "members": [
+                {
+                  "label": "chainID",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "approvedAddress",
+                  "type": "t_address",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_struct(Kitty)4297_storage": {
               "label": "struct KittyBase.Kitty",
               "members": [
                 {
@@ -1279,24 +1458,6 @@
                 }
               ],
               "numberOfBytes": "96"
-            },
-            "t_struct(Permitted)6366_storage": {
-              "label": "struct KittyCross.Permitted",
-              "members": [
-                {
-                  "label": "chainID",
-                  "type": "t_uint256",
-                  "offset": 0,
-                  "slot": "0"
-                },
-                {
-                  "label": "permittedAddress",
-                  "type": "t_address",
-                  "offset": 0,
-                  "slot": "1"
-                }
-              ],
-              "numberOfBytes": "64"
             },
             "t_uint16": {
               "label": "uint16",
@@ -1400,7 +1561,7 @@
               "label": "kitties",
               "offset": 0,
               "slot": "6",
-              "type": "t_array(t_struct(Kitty)5106_storage)dyn_storage",
+              "type": "t_array(t_struct(Kitty)4297_storage)dyn_storage",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:107"
             },
@@ -1432,7 +1593,7 @@
               "label": "saleAuction",
               "offset": 0,
               "slot": "10",
-              "type": "t_contract(SaleClockAuction)7604",
+              "type": "t_contract(SaleClockAuction)7227",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:125"
             },
@@ -1440,7 +1601,7 @@
               "label": "siringAuction",
               "offset": 0,
               "slot": "11",
-              "type": "t_contract(SiringClockAuction)7756",
+              "type": "t_contract(SiringClockAuction)7379",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:130"
             }
@@ -1450,7 +1611,7 @@
               "label": "address",
               "numberOfBytes": "20"
             },
-            "t_array(t_struct(Kitty)5106_storage)dyn_storage": {
+            "t_array(t_struct(Kitty)4297_storage)dyn_storage": {
               "label": "struct KittyBase.Kitty[]",
               "numberOfBytes": "32"
             },
@@ -1462,11 +1623,11 @@
               "label": "bool",
               "numberOfBytes": "1"
             },
-            "t_contract(SaleClockAuction)7604": {
+            "t_contract(SaleClockAuction)7227": {
               "label": "contract SaleClockAuction",
               "numberOfBytes": "20"
             },
-            "t_contract(SiringClockAuction)7756": {
+            "t_contract(SiringClockAuction)7379": {
               "label": "contract SiringClockAuction",
               "numberOfBytes": "20"
             },
@@ -1478,7 +1639,7 @@
               "label": "mapping(uint256 => address)",
               "numberOfBytes": "32"
             },
-            "t_struct(Kitty)5106_storage": {
+            "t_struct(Kitty)4297_storage": {
               "label": "struct KittyBase.Kitty",
               "members": [
                 {
@@ -1553,14 +1714,31 @@
           "flat": true
         }
       },
+      "contracts/KittyBreeding.sol:IMessageRecipient": {
+        "src": "contracts/KittyBreeding.sol:8",
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "handle(uint32,bytes32,bytes)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false
+        }
+      },
       "contracts/KittyBreeding.sol:KittyBreeding": {
-        "src": "contracts/KittyBreeding.sol:10",
+        "src": "contracts/KittyBreeding.sol:26",
         "version": {
-          "withMetadata": "870002f2d370aace14907d938e181cb489d374a9fb1b10482688420ab125311d",
-          "withoutMetadata": "e17026515691d55869cf55bb7c04276ff4fe85e1b67038b167e12bf400a7b5b3",
-          "linkedWithoutMetadata": "e17026515691d55869cf55bb7c04276ff4fe85e1b67038b167e12bf400a7b5b3"
+          "withMetadata": "3be95e54ea612d17a14660bbbc42a1724ae61555f88f38670ddae9357bab2def",
+          "withoutMetadata": "9beba9ad7d567fc15132afdeaaaa0f904ab72253fdf148b45fc5d865bb97699f",
+          "linkedWithoutMetadata": "9beba9ad7d567fc15132afdeaaaa0f904ab72253fdf148b45fc5d865bb97699f"
         },
         "inherit": [
+          "contracts/KittyBreeding.sol:IMessageRecipient",
           "contracts/KittyERC721.sol:KittyERC721",
           "@openzeppelin/contracts/token/ERC721/ERC721.sol:ERC721",
           "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol:IERC721Metadata",
@@ -1569,6 +1747,7 @@
           "@openzeppelin/contracts/utils/introspection/IERC165.sol:IERC165",
           "@openzeppelin/contracts/utils/Context.sol:Context",
           "contracts/KittyCross.sol:KittyCross",
+          "contracts/CrossMessenger.sol:CrossMessenger",
           "contracts/KittyBase.sol:KittyBase",
           "contracts/KittyAccessControl.sol:KittyAccessControl"
         ],
@@ -1579,17 +1758,20 @@
           "setAutoBirthFee(uint256)",
           "isReadyToBreed(uint256)",
           "isPregnant(uint256)",
-          "canBreedWith(uint256,uint256,uint256)",
-          "breedWithAuto(uint256,uint256,uint256)",
+          "canBreedWith(uint256,uint256)",
+          "breedWithAuto(uint256,uint256)",
           "giveBirth(uint256)",
-          "breedWithAutoCrossChain(uint256,uint256,uint256,uint256)"
+          "breedWithAutoCrossChain(uint256,uint256,uint256,uint256)",
+          "giveBirthCrossChain(uint256)",
+          "handle(uint32,bytes32,bytes)",
+          "compare(string,string)"
         ],
         "linkReferences": [],
         "errors": [
           {
             "kind": "state-variable-assignment",
             "name": "autoBirthFee",
-            "src": "contracts/KittyBreeding.sol:19"
+            "src": "contracts/KittyBreeding.sol:35"
           }
         ],
         "layout": {
@@ -1646,7 +1828,7 @@
               "label": "kitties",
               "offset": 0,
               "slot": "6",
-              "type": "t_array(t_struct(Kitty)5106_storage)dyn_storage",
+              "type": "t_array(t_struct(Kitty)4297_storage)dyn_storage",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:107"
             },
@@ -1678,7 +1860,7 @@
               "label": "saleAuction",
               "offset": 0,
               "slot": "10",
-              "type": "t_contract(SaleClockAuction)7604",
+              "type": "t_contract(SaleClockAuction)7227",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:125"
             },
@@ -1686,30 +1868,46 @@
               "label": "siringAuction",
               "offset": 0,
               "slot": "11",
-              "type": "t_contract(SiringClockAuction)7756",
+              "type": "t_contract(SiringClockAuction)7379",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:130"
             },
             {
-              "label": "sireAllowedToAddress",
+              "label": "hyperlaneMailBox",
               "offset": 0,
               "slot": "12",
-              "type": "t_mapping(t_uint256,t_struct(Permitted)6366_storage)",
+              "type": "t_contract(IMailbox)3566",
+              "contract": "CrossMessenger",
+              "src": "contracts/CrossMessenger.sol:22"
+            },
+            {
+              "label": "hyperlaneChainDomain",
+              "offset": 0,
+              "slot": "13",
+              "type": "t_mapping(t_uint256,t_uint32)",
+              "contract": "CrossMessenger",
+              "src": "contracts/CrossMessenger.sol:23"
+            },
+            {
+              "label": "sireAllowedToAddress",
+              "offset": 0,
+              "slot": "14",
+              "type": "t_mapping(t_uint256,t_struct(Approved)5974_storage)",
               "contract": "KittyCross",
               "src": "contracts/KittyCross.sol:16"
             },
             {
               "label": "crossContractAddresses",
               "offset": 0,
-              "slot": "13",
+              "slot": "15",
               "type": "t_mapping(t_uint256,t_address)",
               "contract": "KittyCross",
               "src": "contracts/KittyCross.sol:18"
             },
             {
-              "label": "isBlocked",
+              "label": "isKittyCrossBlocked",
               "offset": 0,
-              "slot": "14",
+              "slot": "16",
               "type": "t_mapping(t_uint256,t_bool)",
               "contract": "KittyCross",
               "src": "contracts/KittyCross.sol:22"
@@ -1717,15 +1915,15 @@
             {
               "label": "chainIDs",
               "offset": 0,
-              "slot": "15",
+              "slot": "17",
               "type": "t_array(t_uint256)dyn_storage",
               "contract": "KittyCross",
-              "src": "contracts/KittyCross.sol:24"
+              "src": "contracts/KittyCross.sol:25"
             },
             {
               "label": "_name",
               "offset": 0,
-              "slot": "16",
+              "slot": "18",
               "type": "t_string_storage",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:24"
@@ -1733,7 +1931,7 @@
             {
               "label": "_symbol",
               "offset": 0,
-              "slot": "17",
+              "slot": "19",
               "type": "t_string_storage",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:27"
@@ -1741,7 +1939,7 @@
             {
               "label": "_owners",
               "offset": 0,
-              "slot": "18",
+              "slot": "20",
               "type": "t_mapping(t_uint256,t_address)",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:30"
@@ -1749,7 +1947,7 @@
             {
               "label": "_balances",
               "offset": 0,
-              "slot": "19",
+              "slot": "21",
               "type": "t_mapping(t_address,t_uint256)",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:33"
@@ -1757,7 +1955,7 @@
             {
               "label": "_tokenApprovals",
               "offset": 0,
-              "slot": "20",
+              "slot": "22",
               "type": "t_mapping(t_uint256,t_address)",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:36"
@@ -1765,7 +1963,7 @@
             {
               "label": "_operatorApprovals",
               "offset": 0,
-              "slot": "21",
+              "slot": "23",
               "type": "t_mapping(t_address,t_mapping(t_address,t_bool))",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:39"
@@ -1773,34 +1971,34 @@
             {
               "label": "erc721Metadata",
               "offset": 0,
-              "slot": "22",
-              "type": "t_contract(ERC721Metadata)4617",
+              "slot": "24",
+              "type": "t_contract(ERC721Metadata)3808",
               "contract": "KittyERC721",
               "src": "contracts/KittyERC721.sol:18"
             },
             {
               "label": "autoBirthFee",
               "offset": 0,
-              "slot": "23",
+              "slot": "25",
               "type": "t_uint256",
               "contract": "KittyBreeding",
-              "src": "contracts/KittyBreeding.sol:19"
+              "src": "contracts/KittyBreeding.sol:35"
             },
             {
               "label": "pregnantKitties",
               "offset": 0,
-              "slot": "24",
+              "slot": "26",
               "type": "t_uint256",
               "contract": "KittyBreeding",
-              "src": "contracts/KittyBreeding.sol:22"
+              "src": "contracts/KittyBreeding.sol:38"
             },
             {
               "label": "geneScience",
               "offset": 0,
-              "slot": "25",
-              "type": "t_contract(GeneScienceInterface)4638",
+              "slot": "27",
+              "type": "t_contract(GeneScienceInterface)3829",
               "contract": "KittyBreeding",
-              "src": "contracts/KittyBreeding.sol:26"
+              "src": "contracts/KittyBreeding.sol:42"
             }
           ],
           "types": {
@@ -1808,7 +2006,7 @@
               "label": "address",
               "numberOfBytes": "20"
             },
-            "t_array(t_struct(Kitty)5106_storage)dyn_storage": {
+            "t_array(t_struct(Kitty)4297_storage)dyn_storage": {
               "label": "struct KittyBase.Kitty[]",
               "numberOfBytes": "32"
             },
@@ -1824,19 +2022,23 @@
               "label": "bool",
               "numberOfBytes": "1"
             },
-            "t_contract(ERC721Metadata)4617": {
+            "t_contract(ERC721Metadata)3808": {
               "label": "contract ERC721Metadata",
               "numberOfBytes": "20"
             },
-            "t_contract(GeneScienceInterface)4638": {
+            "t_contract(GeneScienceInterface)3829": {
               "label": "contract GeneScienceInterface",
               "numberOfBytes": "20"
             },
-            "t_contract(SaleClockAuction)7604": {
+            "t_contract(IMailbox)3566": {
+              "label": "contract IMailbox",
+              "numberOfBytes": "20"
+            },
+            "t_contract(SaleClockAuction)7227": {
               "label": "contract SaleClockAuction",
               "numberOfBytes": "20"
             },
-            "t_contract(SiringClockAuction)7756": {
+            "t_contract(SiringClockAuction)7379": {
               "label": "contract SiringClockAuction",
               "numberOfBytes": "20"
             },
@@ -1860,15 +2062,37 @@
               "label": "mapping(uint256 => bool)",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_uint256,t_struct(Permitted)6366_storage)": {
-              "label": "mapping(uint256 => struct KittyCross.Permitted)",
+            "t_mapping(t_uint256,t_struct(Approved)5974_storage)": {
+              "label": "mapping(uint256 => struct KittyCross.Approved)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_uint256,t_uint32)": {
+              "label": "mapping(uint256 => uint32)",
               "numberOfBytes": "32"
             },
             "t_string_storage": {
               "label": "string",
               "numberOfBytes": "32"
             },
-            "t_struct(Kitty)5106_storage": {
+            "t_struct(Approved)5974_storage": {
+              "label": "struct KittyCross.Approved",
+              "members": [
+                {
+                  "label": "chainID",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "approvedAddress",
+                  "type": "t_address",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_struct(Kitty)4297_storage": {
               "label": "struct KittyBase.Kitty",
               "members": [
                 {
@@ -1922,24 +2146,6 @@
               ],
               "numberOfBytes": "96"
             },
-            "t_struct(Permitted)6366_storage": {
-              "label": "struct KittyCross.Permitted",
-              "members": [
-                {
-                  "label": "chainID",
-                  "type": "t_uint256",
-                  "offset": 0,
-                  "slot": "0"
-                },
-                {
-                  "label": "permittedAddress",
-                  "type": "t_address",
-                  "offset": 0,
-                  "slot": "1"
-                }
-              ],
-              "numberOfBytes": "64"
-            },
             "t_uint16": {
               "label": "uint16",
               "numberOfBytes": "2"
@@ -1964,14 +2170,15 @@
       "contracts/KittyCore.sol:KittyCore": {
         "src": "contracts/KittyCore.sol:9",
         "version": {
-          "withMetadata": "0d6b22fbbefd007b47e73ac436281e499dc5de64b8e0f3fb95d568f3c8edf9f3",
-          "withoutMetadata": "3771e751fdb41e919e5124b76f9e190afd78db8fb87baf11b9892cb37f8ffd32",
-          "linkedWithoutMetadata": "3771e751fdb41e919e5124b76f9e190afd78db8fb87baf11b9892cb37f8ffd32"
+          "withMetadata": "47e4a1f0d93e3b08457a8f041aa954840e9d81ce99fc0e65c0da6948c239f8d4",
+          "withoutMetadata": "57e547787c8717a4e1d9c0ccebe6f65c5994c124fcf1b22ec482723607923659",
+          "linkedWithoutMetadata": "57e547787c8717a4e1d9c0ccebe6f65c5994c124fcf1b22ec482723607923659"
         },
         "inherit": [
           "contracts/KittyMinting.sol:KittyMinting",
           "contracts/KittyAuction.sol:KittyAuction",
           "contracts/KittyBreeding.sol:KittyBreeding",
+          "contracts/KittyBreeding.sol:IMessageRecipient",
           "contracts/KittyERC721.sol:KittyERC721",
           "@openzeppelin/contracts/token/ERC721/ERC721.sol:ERC721",
           "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol:IERC721Metadata",
@@ -1980,6 +2187,7 @@
           "@openzeppelin/contracts/utils/introspection/IERC165.sol:IERC165",
           "@openzeppelin/contracts/utils/Context.sol:Context",
           "contracts/KittyCross.sol:KittyCross",
+          "contracts/CrossMessenger.sol:CrossMessenger",
           "contracts/KittyBase.sol:KittyBase",
           "contracts/KittyAccessControl.sol:KittyAccessControl"
         ],
@@ -2054,7 +2262,7 @@
               "label": "kitties",
               "offset": 0,
               "slot": "6",
-              "type": "t_array(t_struct(Kitty)5106_storage)dyn_storage",
+              "type": "t_array(t_struct(Kitty)4297_storage)dyn_storage",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:107"
             },
@@ -2086,7 +2294,7 @@
               "label": "saleAuction",
               "offset": 0,
               "slot": "10",
-              "type": "t_contract(SaleClockAuction)7604",
+              "type": "t_contract(SaleClockAuction)7227",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:125"
             },
@@ -2094,30 +2302,46 @@
               "label": "siringAuction",
               "offset": 0,
               "slot": "11",
-              "type": "t_contract(SiringClockAuction)7756",
+              "type": "t_contract(SiringClockAuction)7379",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:130"
             },
             {
-              "label": "sireAllowedToAddress",
+              "label": "hyperlaneMailBox",
               "offset": 0,
               "slot": "12",
-              "type": "t_mapping(t_uint256,t_struct(Permitted)6366_storage)",
+              "type": "t_contract(IMailbox)3566",
+              "contract": "CrossMessenger",
+              "src": "contracts/CrossMessenger.sol:22"
+            },
+            {
+              "label": "hyperlaneChainDomain",
+              "offset": 0,
+              "slot": "13",
+              "type": "t_mapping(t_uint256,t_uint32)",
+              "contract": "CrossMessenger",
+              "src": "contracts/CrossMessenger.sol:23"
+            },
+            {
+              "label": "sireAllowedToAddress",
+              "offset": 0,
+              "slot": "14",
+              "type": "t_mapping(t_uint256,t_struct(Approved)5974_storage)",
               "contract": "KittyCross",
               "src": "contracts/KittyCross.sol:16"
             },
             {
               "label": "crossContractAddresses",
               "offset": 0,
-              "slot": "13",
+              "slot": "15",
               "type": "t_mapping(t_uint256,t_address)",
               "contract": "KittyCross",
               "src": "contracts/KittyCross.sol:18"
             },
             {
-              "label": "isBlocked",
+              "label": "isKittyCrossBlocked",
               "offset": 0,
-              "slot": "14",
+              "slot": "16",
               "type": "t_mapping(t_uint256,t_bool)",
               "contract": "KittyCross",
               "src": "contracts/KittyCross.sol:22"
@@ -2125,15 +2349,15 @@
             {
               "label": "chainIDs",
               "offset": 0,
-              "slot": "15",
+              "slot": "17",
               "type": "t_array(t_uint256)dyn_storage",
               "contract": "KittyCross",
-              "src": "contracts/KittyCross.sol:24"
+              "src": "contracts/KittyCross.sol:25"
             },
             {
               "label": "_name",
               "offset": 0,
-              "slot": "16",
+              "slot": "18",
               "type": "t_string_storage",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:24"
@@ -2141,7 +2365,7 @@
             {
               "label": "_symbol",
               "offset": 0,
-              "slot": "17",
+              "slot": "19",
               "type": "t_string_storage",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:27"
@@ -2149,7 +2373,7 @@
             {
               "label": "_owners",
               "offset": 0,
-              "slot": "18",
+              "slot": "20",
               "type": "t_mapping(t_uint256,t_address)",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:30"
@@ -2157,7 +2381,7 @@
             {
               "label": "_balances",
               "offset": 0,
-              "slot": "19",
+              "slot": "21",
               "type": "t_mapping(t_address,t_uint256)",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:33"
@@ -2165,7 +2389,7 @@
             {
               "label": "_tokenApprovals",
               "offset": 0,
-              "slot": "20",
+              "slot": "22",
               "type": "t_mapping(t_uint256,t_address)",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:36"
@@ -2173,7 +2397,7 @@
             {
               "label": "_operatorApprovals",
               "offset": 0,
-              "slot": "21",
+              "slot": "23",
               "type": "t_mapping(t_address,t_mapping(t_address,t_bool))",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:39"
@@ -2181,39 +2405,39 @@
             {
               "label": "erc721Metadata",
               "offset": 0,
-              "slot": "22",
-              "type": "t_contract(ERC721Metadata)4617",
+              "slot": "24",
+              "type": "t_contract(ERC721Metadata)3808",
               "contract": "KittyERC721",
               "src": "contracts/KittyERC721.sol:18"
             },
             {
               "label": "autoBirthFee",
               "offset": 0,
-              "slot": "23",
+              "slot": "25",
               "type": "t_uint256",
               "contract": "KittyBreeding",
-              "src": "contracts/KittyBreeding.sol:19"
+              "src": "contracts/KittyBreeding.sol:35"
             },
             {
               "label": "pregnantKitties",
               "offset": 0,
-              "slot": "24",
+              "slot": "26",
               "type": "t_uint256",
               "contract": "KittyBreeding",
-              "src": "contracts/KittyBreeding.sol:22"
+              "src": "contracts/KittyBreeding.sol:38"
             },
             {
               "label": "geneScience",
               "offset": 0,
-              "slot": "25",
-              "type": "t_contract(GeneScienceInterface)4638",
+              "slot": "27",
+              "type": "t_contract(GeneScienceInterface)3829",
               "contract": "KittyBreeding",
-              "src": "contracts/KittyBreeding.sol:26"
+              "src": "contracts/KittyBreeding.sol:42"
             },
             {
               "label": "promoCreatedCount",
               "offset": 0,
-              "slot": "26",
+              "slot": "28",
               "type": "t_uint256",
               "contract": "KittyMinting",
               "src": "contracts/KittyMinting.sol:18"
@@ -2221,7 +2445,7 @@
             {
               "label": "gen0CreatedCount",
               "offset": 0,
-              "slot": "27",
+              "slot": "29",
               "type": "t_uint256",
               "contract": "KittyMinting",
               "src": "contracts/KittyMinting.sol:19"
@@ -2229,7 +2453,7 @@
             {
               "label": "newContractAddress",
               "offset": 0,
-              "slot": "28",
+              "slot": "30",
               "type": "t_address",
               "contract": "KittyCore",
               "src": "contracts/KittyCore.sol:50"
@@ -2240,7 +2464,7 @@
               "label": "address",
               "numberOfBytes": "20"
             },
-            "t_array(t_struct(Kitty)5106_storage)dyn_storage": {
+            "t_array(t_struct(Kitty)4297_storage)dyn_storage": {
               "label": "struct KittyBase.Kitty[]",
               "numberOfBytes": "32"
             },
@@ -2256,19 +2480,23 @@
               "label": "bool",
               "numberOfBytes": "1"
             },
-            "t_contract(ERC721Metadata)4617": {
+            "t_contract(ERC721Metadata)3808": {
               "label": "contract ERC721Metadata",
               "numberOfBytes": "20"
             },
-            "t_contract(GeneScienceInterface)4638": {
+            "t_contract(GeneScienceInterface)3829": {
               "label": "contract GeneScienceInterface",
               "numberOfBytes": "20"
             },
-            "t_contract(SaleClockAuction)7604": {
+            "t_contract(IMailbox)3566": {
+              "label": "contract IMailbox",
+              "numberOfBytes": "20"
+            },
+            "t_contract(SaleClockAuction)7227": {
               "label": "contract SaleClockAuction",
               "numberOfBytes": "20"
             },
-            "t_contract(SiringClockAuction)7756": {
+            "t_contract(SiringClockAuction)7379": {
               "label": "contract SiringClockAuction",
               "numberOfBytes": "20"
             },
@@ -2292,15 +2520,37 @@
               "label": "mapping(uint256 => bool)",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_uint256,t_struct(Permitted)6366_storage)": {
-              "label": "mapping(uint256 => struct KittyCross.Permitted)",
+            "t_mapping(t_uint256,t_struct(Approved)5974_storage)": {
+              "label": "mapping(uint256 => struct KittyCross.Approved)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_uint256,t_uint32)": {
+              "label": "mapping(uint256 => uint32)",
               "numberOfBytes": "32"
             },
             "t_string_storage": {
               "label": "string",
               "numberOfBytes": "32"
             },
-            "t_struct(Kitty)5106_storage": {
+            "t_struct(Approved)5974_storage": {
+              "label": "struct KittyCross.Approved",
+              "members": [
+                {
+                  "label": "chainID",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "approvedAddress",
+                  "type": "t_address",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_struct(Kitty)4297_storage": {
               "label": "struct KittyBase.Kitty",
               "members": [
                 {
@@ -2354,24 +2604,6 @@
               ],
               "numberOfBytes": "96"
             },
-            "t_struct(Permitted)6366_storage": {
-              "label": "struct KittyCross.Permitted",
-              "members": [
-                {
-                  "label": "chainID",
-                  "type": "t_uint256",
-                  "offset": 0,
-                  "slot": "0"
-                },
-                {
-                  "label": "permittedAddress",
-                  "type": "t_address",
-                  "offset": 0,
-                  "slot": "1"
-                }
-              ],
-              "numberOfBytes": "64"
-            },
             "t_uint16": {
               "label": "uint16",
               "numberOfBytes": "2"
@@ -2396,19 +2628,19 @@
       "contracts/KittyCross.sol:KittyCross": {
         "src": "contracts/KittyCross.sol:6",
         "version": {
-          "withMetadata": "0a7ff63cf4a1eb777fc0b923c7a1589295185c9be95591169d543ea7d660ca5c",
-          "withoutMetadata": "505838aa3407c719e34f6e61099890ecbb4884a71cc8ce4064d48dc56533bebd",
-          "linkedWithoutMetadata": "505838aa3407c719e34f6e61099890ecbb4884a71cc8ce4064d48dc56533bebd"
+          "withMetadata": "47f6d985143db655cc7c6f352495c91fb3b6657645ba25e689b91b7118f1ab24",
+          "withoutMetadata": "65b3047394c3287ac0bc1d57fe9c14bef8c8772d9b862e073aba8d64a35d18b6",
+          "linkedWithoutMetadata": "65b3047394c3287ac0bc1d57fe9c14bef8c8772d9b862e073aba8d64a35d18b6"
         },
         "inherit": [
+          "contracts/CrossMessenger.sol:CrossMessenger",
           "contracts/KittyBase.sol:KittyBase",
           "contracts/KittyAccessControl.sol:KittyAccessControl"
         ],
         "libraries": [],
         "methods": [
           "setAddress(uint256,address)",
-          "addChain(uint256,address)",
-          "getChainIDLength()"
+          "addChain(uint256,address)"
         ],
         "linkReferences": [],
         "errors": [],
@@ -2466,7 +2698,7 @@
               "label": "kitties",
               "offset": 0,
               "slot": "6",
-              "type": "t_array(t_struct(Kitty)5106_storage)dyn_storage",
+              "type": "t_array(t_struct(Kitty)4297_storage)dyn_storage",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:107"
             },
@@ -2498,7 +2730,7 @@
               "label": "saleAuction",
               "offset": 0,
               "slot": "10",
-              "type": "t_contract(SaleClockAuction)7604",
+              "type": "t_contract(SaleClockAuction)7227",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:125"
             },
@@ -2506,30 +2738,46 @@
               "label": "siringAuction",
               "offset": 0,
               "slot": "11",
-              "type": "t_contract(SiringClockAuction)7756",
+              "type": "t_contract(SiringClockAuction)7379",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:130"
             },
             {
-              "label": "sireAllowedToAddress",
+              "label": "hyperlaneMailBox",
               "offset": 0,
               "slot": "12",
-              "type": "t_mapping(t_uint256,t_struct(Permitted)6366_storage)",
+              "type": "t_contract(IMailbox)3566",
+              "contract": "CrossMessenger",
+              "src": "contracts/CrossMessenger.sol:22"
+            },
+            {
+              "label": "hyperlaneChainDomain",
+              "offset": 0,
+              "slot": "13",
+              "type": "t_mapping(t_uint256,t_uint32)",
+              "contract": "CrossMessenger",
+              "src": "contracts/CrossMessenger.sol:23"
+            },
+            {
+              "label": "sireAllowedToAddress",
+              "offset": 0,
+              "slot": "14",
+              "type": "t_mapping(t_uint256,t_struct(Approved)5974_storage)",
               "contract": "KittyCross",
               "src": "contracts/KittyCross.sol:16"
             },
             {
               "label": "crossContractAddresses",
               "offset": 0,
-              "slot": "13",
+              "slot": "15",
               "type": "t_mapping(t_uint256,t_address)",
               "contract": "KittyCross",
               "src": "contracts/KittyCross.sol:18"
             },
             {
-              "label": "isBlocked",
+              "label": "isKittyCrossBlocked",
               "offset": 0,
-              "slot": "14",
+              "slot": "16",
               "type": "t_mapping(t_uint256,t_bool)",
               "contract": "KittyCross",
               "src": "contracts/KittyCross.sol:22"
@@ -2537,10 +2785,10 @@
             {
               "label": "chainIDs",
               "offset": 0,
-              "slot": "15",
+              "slot": "17",
               "type": "t_array(t_uint256)dyn_storage",
               "contract": "KittyCross",
-              "src": "contracts/KittyCross.sol:24"
+              "src": "contracts/KittyCross.sol:25"
             }
           ],
           "types": {
@@ -2548,7 +2796,7 @@
               "label": "address",
               "numberOfBytes": "20"
             },
-            "t_array(t_struct(Kitty)5106_storage)dyn_storage": {
+            "t_array(t_struct(Kitty)4297_storage)dyn_storage": {
               "label": "struct KittyBase.Kitty[]",
               "numberOfBytes": "32"
             },
@@ -2564,11 +2812,15 @@
               "label": "bool",
               "numberOfBytes": "1"
             },
-            "t_contract(SaleClockAuction)7604": {
+            "t_contract(IMailbox)3566": {
+              "label": "contract IMailbox",
+              "numberOfBytes": "20"
+            },
+            "t_contract(SaleClockAuction)7227": {
               "label": "contract SaleClockAuction",
               "numberOfBytes": "20"
             },
-            "t_contract(SiringClockAuction)7756": {
+            "t_contract(SiringClockAuction)7379": {
               "label": "contract SiringClockAuction",
               "numberOfBytes": "20"
             },
@@ -2584,11 +2836,33 @@
               "label": "mapping(uint256 => bool)",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_uint256,t_struct(Permitted)6366_storage)": {
-              "label": "mapping(uint256 => struct KittyCross.Permitted)",
+            "t_mapping(t_uint256,t_struct(Approved)5974_storage)": {
+              "label": "mapping(uint256 => struct KittyCross.Approved)",
               "numberOfBytes": "32"
             },
-            "t_struct(Kitty)5106_storage": {
+            "t_mapping(t_uint256,t_uint32)": {
+              "label": "mapping(uint256 => uint32)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(Approved)5974_storage": {
+              "label": "struct KittyCross.Approved",
+              "members": [
+                {
+                  "label": "chainID",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "approvedAddress",
+                  "type": "t_address",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_struct(Kitty)4297_storage": {
               "label": "struct KittyBase.Kitty",
               "members": [
                 {
@@ -2642,24 +2916,6 @@
               ],
               "numberOfBytes": "96"
             },
-            "t_struct(Permitted)6366_storage": {
-              "label": "struct KittyCross.Permitted",
-              "members": [
-                {
-                  "label": "chainID",
-                  "type": "t_uint256",
-                  "offset": 0,
-                  "slot": "0"
-                },
-                {
-                  "label": "permittedAddress",
-                  "type": "t_address",
-                  "offset": 0,
-                  "slot": "1"
-                }
-              ],
-              "numberOfBytes": "64"
-            },
             "t_uint16": {
               "label": "uint16",
               "numberOfBytes": "2"
@@ -2684,9 +2940,9 @@
       "contracts/KittyERC721.sol:KittyERC721": {
         "src": "contracts/KittyERC721.sol:12",
         "version": {
-          "withMetadata": "b5102d5ee350871a084132ad7a2d582c0cd68f5ced31422470afa68e01a928ec",
-          "withoutMetadata": "e747390e6db691022853ceebad986c04a00a9c69bda5ce78336d071bb080d675",
-          "linkedWithoutMetadata": "e747390e6db691022853ceebad986c04a00a9c69bda5ce78336d071bb080d675"
+          "withMetadata": "a106de631bbf53d6d242cffd2b14ce5eb86fd23ce2d1fce2259b9aba4a4647fc",
+          "withoutMetadata": "e16496bd55a7bdbc7efde98781c6bd174c93e31de5063c136ae37b90ff87d68b",
+          "linkedWithoutMetadata": "e16496bd55a7bdbc7efde98781c6bd174c93e31de5063c136ae37b90ff87d68b"
         },
         "inherit": [
           "@openzeppelin/contracts/token/ERC721/ERC721.sol:ERC721",
@@ -2696,6 +2952,7 @@
           "@openzeppelin/contracts/utils/introspection/IERC165.sol:IERC165",
           "@openzeppelin/contracts/utils/Context.sol:Context",
           "contracts/KittyCross.sol:KittyCross",
+          "contracts/CrossMessenger.sol:CrossMessenger",
           "contracts/KittyBase.sol:KittyBase",
           "contracts/KittyAccessControl.sol:KittyAccessControl"
         ],
@@ -2775,7 +3032,7 @@
               "label": "kitties",
               "offset": 0,
               "slot": "6",
-              "type": "t_array(t_struct(Kitty)5106_storage)dyn_storage",
+              "type": "t_array(t_struct(Kitty)4297_storage)dyn_storage",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:107"
             },
@@ -2807,7 +3064,7 @@
               "label": "saleAuction",
               "offset": 0,
               "slot": "10",
-              "type": "t_contract(SaleClockAuction)7604",
+              "type": "t_contract(SaleClockAuction)7227",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:125"
             },
@@ -2815,30 +3072,46 @@
               "label": "siringAuction",
               "offset": 0,
               "slot": "11",
-              "type": "t_contract(SiringClockAuction)7756",
+              "type": "t_contract(SiringClockAuction)7379",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:130"
             },
             {
-              "label": "sireAllowedToAddress",
+              "label": "hyperlaneMailBox",
               "offset": 0,
               "slot": "12",
-              "type": "t_mapping(t_uint256,t_struct(Permitted)6366_storage)",
+              "type": "t_contract(IMailbox)3566",
+              "contract": "CrossMessenger",
+              "src": "contracts/CrossMessenger.sol:22"
+            },
+            {
+              "label": "hyperlaneChainDomain",
+              "offset": 0,
+              "slot": "13",
+              "type": "t_mapping(t_uint256,t_uint32)",
+              "contract": "CrossMessenger",
+              "src": "contracts/CrossMessenger.sol:23"
+            },
+            {
+              "label": "sireAllowedToAddress",
+              "offset": 0,
+              "slot": "14",
+              "type": "t_mapping(t_uint256,t_struct(Approved)5974_storage)",
               "contract": "KittyCross",
               "src": "contracts/KittyCross.sol:16"
             },
             {
               "label": "crossContractAddresses",
               "offset": 0,
-              "slot": "13",
+              "slot": "15",
               "type": "t_mapping(t_uint256,t_address)",
               "contract": "KittyCross",
               "src": "contracts/KittyCross.sol:18"
             },
             {
-              "label": "isBlocked",
+              "label": "isKittyCrossBlocked",
               "offset": 0,
-              "slot": "14",
+              "slot": "16",
               "type": "t_mapping(t_uint256,t_bool)",
               "contract": "KittyCross",
               "src": "contracts/KittyCross.sol:22"
@@ -2846,15 +3119,15 @@
             {
               "label": "chainIDs",
               "offset": 0,
-              "slot": "15",
+              "slot": "17",
               "type": "t_array(t_uint256)dyn_storage",
               "contract": "KittyCross",
-              "src": "contracts/KittyCross.sol:24"
+              "src": "contracts/KittyCross.sol:25"
             },
             {
               "label": "_name",
               "offset": 0,
-              "slot": "16",
+              "slot": "18",
               "type": "t_string_storage",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:24"
@@ -2862,7 +3135,7 @@
             {
               "label": "_symbol",
               "offset": 0,
-              "slot": "17",
+              "slot": "19",
               "type": "t_string_storage",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:27"
@@ -2870,7 +3143,7 @@
             {
               "label": "_owners",
               "offset": 0,
-              "slot": "18",
+              "slot": "20",
               "type": "t_mapping(t_uint256,t_address)",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:30"
@@ -2878,7 +3151,7 @@
             {
               "label": "_balances",
               "offset": 0,
-              "slot": "19",
+              "slot": "21",
               "type": "t_mapping(t_address,t_uint256)",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:33"
@@ -2886,7 +3159,7 @@
             {
               "label": "_tokenApprovals",
               "offset": 0,
-              "slot": "20",
+              "slot": "22",
               "type": "t_mapping(t_uint256,t_address)",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:36"
@@ -2894,7 +3167,7 @@
             {
               "label": "_operatorApprovals",
               "offset": 0,
-              "slot": "21",
+              "slot": "23",
               "type": "t_mapping(t_address,t_mapping(t_address,t_bool))",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:39"
@@ -2902,8 +3175,8 @@
             {
               "label": "erc721Metadata",
               "offset": 0,
-              "slot": "22",
-              "type": "t_contract(ERC721Metadata)4617",
+              "slot": "24",
+              "type": "t_contract(ERC721Metadata)3808",
               "contract": "KittyERC721",
               "src": "contracts/KittyERC721.sol:18"
             }
@@ -2913,7 +3186,7 @@
               "label": "address",
               "numberOfBytes": "20"
             },
-            "t_array(t_struct(Kitty)5106_storage)dyn_storage": {
+            "t_array(t_struct(Kitty)4297_storage)dyn_storage": {
               "label": "struct KittyBase.Kitty[]",
               "numberOfBytes": "32"
             },
@@ -2929,15 +3202,19 @@
               "label": "bool",
               "numberOfBytes": "1"
             },
-            "t_contract(ERC721Metadata)4617": {
+            "t_contract(ERC721Metadata)3808": {
               "label": "contract ERC721Metadata",
               "numberOfBytes": "20"
             },
-            "t_contract(SaleClockAuction)7604": {
+            "t_contract(IMailbox)3566": {
+              "label": "contract IMailbox",
+              "numberOfBytes": "20"
+            },
+            "t_contract(SaleClockAuction)7227": {
               "label": "contract SaleClockAuction",
               "numberOfBytes": "20"
             },
-            "t_contract(SiringClockAuction)7756": {
+            "t_contract(SiringClockAuction)7379": {
               "label": "contract SiringClockAuction",
               "numberOfBytes": "20"
             },
@@ -2961,15 +3238,37 @@
               "label": "mapping(uint256 => bool)",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_uint256,t_struct(Permitted)6366_storage)": {
-              "label": "mapping(uint256 => struct KittyCross.Permitted)",
+            "t_mapping(t_uint256,t_struct(Approved)5974_storage)": {
+              "label": "mapping(uint256 => struct KittyCross.Approved)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_uint256,t_uint32)": {
+              "label": "mapping(uint256 => uint32)",
               "numberOfBytes": "32"
             },
             "t_string_storage": {
               "label": "string",
               "numberOfBytes": "32"
             },
-            "t_struct(Kitty)5106_storage": {
+            "t_struct(Approved)5974_storage": {
+              "label": "struct KittyCross.Approved",
+              "members": [
+                {
+                  "label": "chainID",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "approvedAddress",
+                  "type": "t_address",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_struct(Kitty)4297_storage": {
               "label": "struct KittyBase.Kitty",
               "members": [
                 {
@@ -3023,24 +3322,6 @@
               ],
               "numberOfBytes": "96"
             },
-            "t_struct(Permitted)6366_storage": {
-              "label": "struct KittyCross.Permitted",
-              "members": [
-                {
-                  "label": "chainID",
-                  "type": "t_uint256",
-                  "offset": 0,
-                  "slot": "0"
-                },
-                {
-                  "label": "permittedAddress",
-                  "type": "t_address",
-                  "offset": 0,
-                  "slot": "1"
-                }
-              ],
-              "numberOfBytes": "64"
-            },
             "t_uint16": {
               "label": "uint16",
               "numberOfBytes": "2"
@@ -3065,13 +3346,14 @@
       "contracts/KittyMinting.sol:KittyMinting": {
         "src": "contracts/KittyMinting.sol:7",
         "version": {
-          "withMetadata": "ac6b635e6ef762ac07abb6ca4cacd15fe987b16b231701b9bba729c9af193c15",
-          "withoutMetadata": "7e2b0d4b1f82bb66454717d8fde27e9c57755614303b03f59b7acf882e8cd306",
-          "linkedWithoutMetadata": "7e2b0d4b1f82bb66454717d8fde27e9c57755614303b03f59b7acf882e8cd306"
+          "withMetadata": "495c1aa6ad7755ed1e2522f6a0b532f676794232ee866e14a1e9d5893d3e4320",
+          "withoutMetadata": "f4f94efed6212ab11c03c7704f2a00002f20f3701f0d081a0fe2f49eefe8ad37",
+          "linkedWithoutMetadata": "f4f94efed6212ab11c03c7704f2a00002f20f3701f0d081a0fe2f49eefe8ad37"
         },
         "inherit": [
           "contracts/KittyAuction.sol:KittyAuction",
           "contracts/KittyBreeding.sol:KittyBreeding",
+          "contracts/KittyBreeding.sol:IMessageRecipient",
           "contracts/KittyERC721.sol:KittyERC721",
           "@openzeppelin/contracts/token/ERC721/ERC721.sol:ERC721",
           "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol:IERC721Metadata",
@@ -3080,6 +3362,7 @@
           "@openzeppelin/contracts/utils/introspection/IERC165.sol:IERC165",
           "@openzeppelin/contracts/utils/Context.sol:Context",
           "contracts/KittyCross.sol:KittyCross",
+          "contracts/CrossMessenger.sol:CrossMessenger",
           "contracts/KittyBase.sol:KittyBase",
           "contracts/KittyAccessControl.sol:KittyAccessControl"
         ],
@@ -3144,7 +3427,7 @@
               "label": "kitties",
               "offset": 0,
               "slot": "6",
-              "type": "t_array(t_struct(Kitty)5106_storage)dyn_storage",
+              "type": "t_array(t_struct(Kitty)4297_storage)dyn_storage",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:107"
             },
@@ -3176,7 +3459,7 @@
               "label": "saleAuction",
               "offset": 0,
               "slot": "10",
-              "type": "t_contract(SaleClockAuction)7604",
+              "type": "t_contract(SaleClockAuction)7227",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:125"
             },
@@ -3184,30 +3467,46 @@
               "label": "siringAuction",
               "offset": 0,
               "slot": "11",
-              "type": "t_contract(SiringClockAuction)7756",
+              "type": "t_contract(SiringClockAuction)7379",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:130"
             },
             {
-              "label": "sireAllowedToAddress",
+              "label": "hyperlaneMailBox",
               "offset": 0,
               "slot": "12",
-              "type": "t_mapping(t_uint256,t_struct(Permitted)6366_storage)",
+              "type": "t_contract(IMailbox)3566",
+              "contract": "CrossMessenger",
+              "src": "contracts/CrossMessenger.sol:22"
+            },
+            {
+              "label": "hyperlaneChainDomain",
+              "offset": 0,
+              "slot": "13",
+              "type": "t_mapping(t_uint256,t_uint32)",
+              "contract": "CrossMessenger",
+              "src": "contracts/CrossMessenger.sol:23"
+            },
+            {
+              "label": "sireAllowedToAddress",
+              "offset": 0,
+              "slot": "14",
+              "type": "t_mapping(t_uint256,t_struct(Approved)5974_storage)",
               "contract": "KittyCross",
               "src": "contracts/KittyCross.sol:16"
             },
             {
               "label": "crossContractAddresses",
               "offset": 0,
-              "slot": "13",
+              "slot": "15",
               "type": "t_mapping(t_uint256,t_address)",
               "contract": "KittyCross",
               "src": "contracts/KittyCross.sol:18"
             },
             {
-              "label": "isBlocked",
+              "label": "isKittyCrossBlocked",
               "offset": 0,
-              "slot": "14",
+              "slot": "16",
               "type": "t_mapping(t_uint256,t_bool)",
               "contract": "KittyCross",
               "src": "contracts/KittyCross.sol:22"
@@ -3215,15 +3514,15 @@
             {
               "label": "chainIDs",
               "offset": 0,
-              "slot": "15",
+              "slot": "17",
               "type": "t_array(t_uint256)dyn_storage",
               "contract": "KittyCross",
-              "src": "contracts/KittyCross.sol:24"
+              "src": "contracts/KittyCross.sol:25"
             },
             {
               "label": "_name",
               "offset": 0,
-              "slot": "16",
+              "slot": "18",
               "type": "t_string_storage",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:24"
@@ -3231,7 +3530,7 @@
             {
               "label": "_symbol",
               "offset": 0,
-              "slot": "17",
+              "slot": "19",
               "type": "t_string_storage",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:27"
@@ -3239,7 +3538,7 @@
             {
               "label": "_owners",
               "offset": 0,
-              "slot": "18",
+              "slot": "20",
               "type": "t_mapping(t_uint256,t_address)",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:30"
@@ -3247,7 +3546,7 @@
             {
               "label": "_balances",
               "offset": 0,
-              "slot": "19",
+              "slot": "21",
               "type": "t_mapping(t_address,t_uint256)",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:33"
@@ -3255,7 +3554,7 @@
             {
               "label": "_tokenApprovals",
               "offset": 0,
-              "slot": "20",
+              "slot": "22",
               "type": "t_mapping(t_uint256,t_address)",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:36"
@@ -3263,7 +3562,7 @@
             {
               "label": "_operatorApprovals",
               "offset": 0,
-              "slot": "21",
+              "slot": "23",
               "type": "t_mapping(t_address,t_mapping(t_address,t_bool))",
               "contract": "ERC721",
               "src": "@openzeppelin/contracts/token/ERC721/ERC721.sol:39"
@@ -3271,39 +3570,39 @@
             {
               "label": "erc721Metadata",
               "offset": 0,
-              "slot": "22",
-              "type": "t_contract(ERC721Metadata)4617",
+              "slot": "24",
+              "type": "t_contract(ERC721Metadata)3808",
               "contract": "KittyERC721",
               "src": "contracts/KittyERC721.sol:18"
             },
             {
               "label": "autoBirthFee",
               "offset": 0,
-              "slot": "23",
+              "slot": "25",
               "type": "t_uint256",
               "contract": "KittyBreeding",
-              "src": "contracts/KittyBreeding.sol:19"
+              "src": "contracts/KittyBreeding.sol:35"
             },
             {
               "label": "pregnantKitties",
               "offset": 0,
-              "slot": "24",
+              "slot": "26",
               "type": "t_uint256",
               "contract": "KittyBreeding",
-              "src": "contracts/KittyBreeding.sol:22"
+              "src": "contracts/KittyBreeding.sol:38"
             },
             {
               "label": "geneScience",
               "offset": 0,
-              "slot": "25",
-              "type": "t_contract(GeneScienceInterface)4638",
+              "slot": "27",
+              "type": "t_contract(GeneScienceInterface)3829",
               "contract": "KittyBreeding",
-              "src": "contracts/KittyBreeding.sol:26"
+              "src": "contracts/KittyBreeding.sol:42"
             },
             {
               "label": "promoCreatedCount",
               "offset": 0,
-              "slot": "26",
+              "slot": "28",
               "type": "t_uint256",
               "contract": "KittyMinting",
               "src": "contracts/KittyMinting.sol:18"
@@ -3311,7 +3610,7 @@
             {
               "label": "gen0CreatedCount",
               "offset": 0,
-              "slot": "27",
+              "slot": "29",
               "type": "t_uint256",
               "contract": "KittyMinting",
               "src": "contracts/KittyMinting.sol:19"
@@ -3322,7 +3621,7 @@
               "label": "address",
               "numberOfBytes": "20"
             },
-            "t_array(t_struct(Kitty)5106_storage)dyn_storage": {
+            "t_array(t_struct(Kitty)4297_storage)dyn_storage": {
               "label": "struct KittyBase.Kitty[]",
               "numberOfBytes": "32"
             },
@@ -3338,19 +3637,23 @@
               "label": "bool",
               "numberOfBytes": "1"
             },
-            "t_contract(ERC721Metadata)4617": {
+            "t_contract(ERC721Metadata)3808": {
               "label": "contract ERC721Metadata",
               "numberOfBytes": "20"
             },
-            "t_contract(GeneScienceInterface)4638": {
+            "t_contract(GeneScienceInterface)3829": {
               "label": "contract GeneScienceInterface",
               "numberOfBytes": "20"
             },
-            "t_contract(SaleClockAuction)7604": {
+            "t_contract(IMailbox)3566": {
+              "label": "contract IMailbox",
+              "numberOfBytes": "20"
+            },
+            "t_contract(SaleClockAuction)7227": {
               "label": "contract SaleClockAuction",
               "numberOfBytes": "20"
             },
-            "t_contract(SiringClockAuction)7756": {
+            "t_contract(SiringClockAuction)7379": {
               "label": "contract SiringClockAuction",
               "numberOfBytes": "20"
             },
@@ -3374,15 +3677,37 @@
               "label": "mapping(uint256 => bool)",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_uint256,t_struct(Permitted)6366_storage)": {
-              "label": "mapping(uint256 => struct KittyCross.Permitted)",
+            "t_mapping(t_uint256,t_struct(Approved)5974_storage)": {
+              "label": "mapping(uint256 => struct KittyCross.Approved)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_uint256,t_uint32)": {
+              "label": "mapping(uint256 => uint32)",
               "numberOfBytes": "32"
             },
             "t_string_storage": {
               "label": "string",
               "numberOfBytes": "32"
             },
-            "t_struct(Kitty)5106_storage": {
+            "t_struct(Approved)5974_storage": {
+              "label": "struct KittyCross.Approved",
+              "members": [
+                {
+                  "label": "chainID",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "approvedAddress",
+                  "type": "t_address",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_struct(Kitty)4297_storage": {
               "label": "struct KittyBase.Kitty",
               "members": [
                 {
@@ -3435,24 +3760,6 @@
                 }
               ],
               "numberOfBytes": "96"
-            },
-            "t_struct(Permitted)6366_storage": {
-              "label": "struct KittyCross.Permitted",
-              "members": [
-                {
-                  "label": "chainID",
-                  "type": "t_uint256",
-                  "offset": 0,
-                  "slot": "0"
-                },
-                {
-                  "label": "permittedAddress",
-                  "type": "t_address",
-                  "offset": 0,
-                  "slot": "1"
-                }
-              ],
-              "numberOfBytes": "64"
             },
             "t_uint16": {
               "label": "uint16",
@@ -4510,117 +4817,6 @@
           "flat": false
         }
       },
-      "contracts/GeneScience.sol:GeneScience": {
-        "src": "contracts/GeneScience.sol:12",
-        "version": {
-          "withMetadata": "bc8bac7062f365ac7e9911238c7397601f4e1ffe9da51799888f5695ec18770f",
-          "withoutMetadata": "51604c6a8ade211a69ee1414fdc0d6d7e58e7118254eba0707fbfb38729efc5b",
-          "linkedWithoutMetadata": "51604c6a8ade211a69ee1414fdc0d6d7e58e7118254eba0707fbfb38729efc5b"
-        },
-        "inherit": [
-          "contracts/GeneScienceInterface.sol:GeneScienceInterface"
-        ],
-        "libraries": [],
-        "methods": [
-          "(address,address)",
-          "isGeneScience()",
-          "setPrivilegedBirther(address)",
-          "decode(uint256)",
-          "encode(uint8[])",
-          "expressingTraits(uint256)",
-          "mixGenes(uint256,uint256,uint256)"
-        ],
-        "linkReferences": [],
-        "errors": [
-          {
-            "kind": "constructor",
-            "contract": "GeneScience",
-            "src": "contracts/GeneScience.sol:24"
-          },
-          {
-            "kind": "state-variable-assignment",
-            "name": "geneScience",
-            "src": "contracts/GeneScience.sol:13"
-          },
-          {
-            "kind": "state-variable-assignment",
-            "name": "privilegedBirtherWindowSize",
-            "src": "contracts/GeneScience.sol:21"
-          }
-        ],
-        "layout": {
-          "storage": [
-            {
-              "label": "geneScience",
-              "offset": 0,
-              "slot": "0",
-              "type": "t_bool",
-              "contract": "GeneScience",
-              "src": "contracts/GeneScience.sol:13"
-            },
-            {
-              "label": "_privilegedBirther",
-              "offset": 1,
-              "slot": "0",
-              "type": "t_address",
-              "contract": "GeneScience",
-              "src": "contracts/GeneScience.sol:19"
-            },
-            {
-              "label": "privilegedBirtherWindowSize",
-              "offset": 0,
-              "slot": "1",
-              "type": "t_uint256",
-              "contract": "GeneScience",
-              "src": "contracts/GeneScience.sol:21"
-            },
-            {
-              "label": "_kittyCore",
-              "offset": 0,
-              "slot": "2",
-              "type": "t_contract(KittyCoreInterface)3639",
-              "contract": "GeneScience",
-              "src": "contracts/GeneScience.sol:22"
-            }
-          ],
-          "types": {
-            "t_address": {
-              "label": "address",
-              "numberOfBytes": "20"
-            },
-            "t_bool": {
-              "label": "bool",
-              "numberOfBytes": "1"
-            },
-            "t_contract(KittyCoreInterface)3639": {
-              "label": "contract KittyCoreInterface",
-              "numberOfBytes": "20"
-            },
-            "t_uint256": {
-              "label": "uint256",
-              "numberOfBytes": "32"
-            }
-          },
-          "layoutVersion": "1.2",
-          "flat": true
-        }
-      },
-      "contracts/GeneScience.sol:KittyCoreInterface": {
-        "src": "contracts/GeneScience.sol:6",
-        "inherit": [],
-        "libraries": [],
-        "methods": [
-          "cooAddress()"
-        ],
-        "linkReferences": [],
-        "errors": [],
-        "layout": {
-          "storage": [],
-          "types": {},
-          "layoutVersion": "1.2",
-          "flat": false
-        }
-      },
       "contracts/GeneScienceInterface.sol:GeneScienceInterface": {
         "src": "contracts/GeneScienceInterface.sol:4",
         "inherit": [],
@@ -4714,9 +4910,9 @@
       "contracts/KittyAuction.sol:KittyAuction": {
         "src": "contracts/KittyAuction.sol:9",
         "version": {
-          "withMetadata": "52f246be0f53cff365c580be57e1c9da842318c60c7adb0c1252d40f99eea133",
-          "withoutMetadata": "298a2bb6b1450b294c6099186d0d66979855aededdc7285dad4dc4e5bb67a802",
-          "linkedWithoutMetadata": "298a2bb6b1450b294c6099186d0d66979855aededdc7285dad4dc4e5bb67a802"
+          "withMetadata": "1fc24891f2b66e77d5ff4c0e11763362abc7c9872ac8ed5f7a9dbbd92355d81d",
+          "withoutMetadata": "fd4a8ce7016199900e22b7d152f73df13405a33be75e178add27b82b14917f3f",
+          "linkedWithoutMetadata": "fd4a8ce7016199900e22b7d152f73df13405a33be75e178add27b82b14917f3f"
         },
         "inherit": [
           "contracts/KittyBreeding.sol:KittyBreeding",
@@ -4796,7 +4992,7 @@
               "label": "kitties",
               "offset": 0,
               "slot": "6",
-              "type": "t_array(t_struct(Kitty)4877_storage)dyn_storage",
+              "type": "t_array(t_struct(Kitty)4119_storage)dyn_storage",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:107"
             },
@@ -4828,7 +5024,7 @@
               "label": "saleAuction",
               "offset": 0,
               "slot": "10",
-              "type": "t_contract(SaleClockAuction)7366",
+              "type": "t_contract(SaleClockAuction)6591",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:125"
             },
@@ -4836,7 +5032,7 @@
               "label": "siringAuction",
               "offset": 0,
               "slot": "11",
-              "type": "t_contract(SiringClockAuction)7518",
+              "type": "t_contract(SiringClockAuction)6743",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:130"
             },
@@ -4844,7 +5040,7 @@
               "label": "sireAllowedToAddress",
               "offset": 0,
               "slot": "12",
-              "type": "t_mapping(t_uint256,t_struct(Permitted)6137_storage)",
+              "type": "t_mapping(t_uint256,t_struct(Approved)5362_storage)",
               "contract": "KittyCross",
               "src": "contracts/KittyCross.sol:16"
             },
@@ -4948,7 +5144,7 @@
               "label": "geneScience",
               "offset": 0,
               "slot": "25",
-              "type": "t_contract(GeneScienceInterface)4409",
+              "type": "t_contract(GeneScienceInterface)3651",
               "contract": "KittyBreeding",
               "src": "contracts/KittyBreeding.sol:26"
             }
@@ -4958,7 +5154,7 @@
               "label": "address",
               "numberOfBytes": "20"
             },
-            "t_array(t_struct(Kitty)4877_storage)dyn_storage": {
+            "t_array(t_struct(Kitty)4119_storage)dyn_storage": {
               "label": "struct KittyBase.Kitty[]",
               "numberOfBytes": "32"
             },
@@ -4978,15 +5174,15 @@
               "label": "contract ERC721Metadata",
               "numberOfBytes": "20"
             },
-            "t_contract(GeneScienceInterface)4409": {
+            "t_contract(GeneScienceInterface)3651": {
               "label": "contract GeneScienceInterface",
               "numberOfBytes": "20"
             },
-            "t_contract(SaleClockAuction)7366": {
+            "t_contract(SaleClockAuction)6591": {
               "label": "contract SaleClockAuction",
               "numberOfBytes": "20"
             },
-            "t_contract(SiringClockAuction)7518": {
+            "t_contract(SiringClockAuction)6743": {
               "label": "contract SiringClockAuction",
               "numberOfBytes": "20"
             },
@@ -5010,15 +5206,33 @@
               "label": "mapping(uint256 => bool)",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_uint256,t_struct(Permitted)6137_storage)": {
-              "label": "mapping(uint256 => struct KittyCross.Permitted)",
+            "t_mapping(t_uint256,t_struct(Approved)5362_storage)": {
+              "label": "mapping(uint256 => struct KittyCross.Approved)",
               "numberOfBytes": "32"
             },
             "t_string_storage": {
               "label": "string",
               "numberOfBytes": "32"
             },
-            "t_struct(Kitty)4877_storage": {
+            "t_struct(Approved)5362_storage": {
+              "label": "struct KittyCross.Approved",
+              "members": [
+                {
+                  "label": "chainID",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "approvedAddress",
+                  "type": "t_address",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_struct(Kitty)4119_storage": {
               "label": "struct KittyBase.Kitty",
               "members": [
                 {
@@ -5071,24 +5285,6 @@
                 }
               ],
               "numberOfBytes": "96"
-            },
-            "t_struct(Permitted)6137_storage": {
-              "label": "struct KittyCross.Permitted",
-              "members": [
-                {
-                  "label": "chainID",
-                  "type": "t_uint256",
-                  "offset": 0,
-                  "slot": "0"
-                },
-                {
-                  "label": "permittedAddress",
-                  "type": "t_address",
-                  "offset": 0,
-                  "slot": "1"
-                }
-              ],
-              "numberOfBytes": "64"
             },
             "t_uint16": {
               "label": "uint16",
@@ -5192,7 +5388,7 @@
               "label": "kitties",
               "offset": 0,
               "slot": "6",
-              "type": "t_array(t_struct(Kitty)4877_storage)dyn_storage",
+              "type": "t_array(t_struct(Kitty)4119_storage)dyn_storage",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:107"
             },
@@ -5224,7 +5420,7 @@
               "label": "saleAuction",
               "offset": 0,
               "slot": "10",
-              "type": "t_contract(SaleClockAuction)7366",
+              "type": "t_contract(SaleClockAuction)6591",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:125"
             },
@@ -5232,7 +5428,7 @@
               "label": "siringAuction",
               "offset": 0,
               "slot": "11",
-              "type": "t_contract(SiringClockAuction)7518",
+              "type": "t_contract(SiringClockAuction)6743",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:130"
             }
@@ -5242,7 +5438,7 @@
               "label": "address",
               "numberOfBytes": "20"
             },
-            "t_array(t_struct(Kitty)4877_storage)dyn_storage": {
+            "t_array(t_struct(Kitty)4119_storage)dyn_storage": {
               "label": "struct KittyBase.Kitty[]",
               "numberOfBytes": "32"
             },
@@ -5254,11 +5450,11 @@
               "label": "bool",
               "numberOfBytes": "1"
             },
-            "t_contract(SaleClockAuction)7366": {
+            "t_contract(SaleClockAuction)6591": {
               "label": "contract SaleClockAuction",
               "numberOfBytes": "20"
             },
-            "t_contract(SiringClockAuction)7518": {
+            "t_contract(SiringClockAuction)6743": {
               "label": "contract SiringClockAuction",
               "numberOfBytes": "20"
             },
@@ -5270,7 +5466,7 @@
               "label": "mapping(uint256 => address)",
               "numberOfBytes": "32"
             },
-            "t_struct(Kitty)4877_storage": {
+            "t_struct(Kitty)4119_storage": {
               "label": "struct KittyBase.Kitty",
               "members": [
                 {
@@ -5348,9 +5544,9 @@
       "contracts/KittyBreeding.sol:KittyBreeding": {
         "src": "contracts/KittyBreeding.sol:10",
         "version": {
-          "withMetadata": "ae39df4bb7dc1e90c4d88687f85e8a3b31d62be4299efe3b8ab558bbe494b252",
-          "withoutMetadata": "8e1528146dc8fd2f521629ab40cd2c5cd565bbebc9d52aa6c60aa2152663b32c",
-          "linkedWithoutMetadata": "8e1528146dc8fd2f521629ab40cd2c5cd565bbebc9d52aa6c60aa2152663b32c"
+          "withMetadata": "48c2bbaecb026882b217aade8f34b0e2dcfec1fba84bd8459995b55346d79f37",
+          "withoutMetadata": "06ab1a899ef64de83bef620ca20df43637ada4e91bb8ac98faeb18f0ee7afe84",
+          "linkedWithoutMetadata": "06ab1a899ef64de83bef620ca20df43637ada4e91bb8ac98faeb18f0ee7afe84"
         },
         "inherit": [
           "contracts/KittyERC721.sol:KittyERC721",
@@ -5371,8 +5567,8 @@
           "setAutoBirthFee(uint256)",
           "isReadyToBreed(uint256)",
           "isPregnant(uint256)",
-          "canBreedWith(uint256,uint256,uint256)",
-          "breedWithAuto(uint256,uint256,uint256)",
+          "canBreedWith(uint256,uint256)",
+          "breedWithAuto(uint256,uint256)",
           "giveBirth(uint256)",
           "breedWithAutoCrossChain(uint256,uint256,uint256,uint256)"
         ],
@@ -5438,7 +5634,7 @@
               "label": "kitties",
               "offset": 0,
               "slot": "6",
-              "type": "t_array(t_struct(Kitty)4877_storage)dyn_storage",
+              "type": "t_array(t_struct(Kitty)4119_storage)dyn_storage",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:107"
             },
@@ -5470,7 +5666,7 @@
               "label": "saleAuction",
               "offset": 0,
               "slot": "10",
-              "type": "t_contract(SaleClockAuction)7366",
+              "type": "t_contract(SaleClockAuction)6591",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:125"
             },
@@ -5478,7 +5674,7 @@
               "label": "siringAuction",
               "offset": 0,
               "slot": "11",
-              "type": "t_contract(SiringClockAuction)7518",
+              "type": "t_contract(SiringClockAuction)6743",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:130"
             },
@@ -5486,7 +5682,7 @@
               "label": "sireAllowedToAddress",
               "offset": 0,
               "slot": "12",
-              "type": "t_mapping(t_uint256,t_struct(Permitted)6137_storage)",
+              "type": "t_mapping(t_uint256,t_struct(Approved)5362_storage)",
               "contract": "KittyCross",
               "src": "contracts/KittyCross.sol:16"
             },
@@ -5590,7 +5786,7 @@
               "label": "geneScience",
               "offset": 0,
               "slot": "25",
-              "type": "t_contract(GeneScienceInterface)4409",
+              "type": "t_contract(GeneScienceInterface)3651",
               "contract": "KittyBreeding",
               "src": "contracts/KittyBreeding.sol:26"
             }
@@ -5600,7 +5796,7 @@
               "label": "address",
               "numberOfBytes": "20"
             },
-            "t_array(t_struct(Kitty)4877_storage)dyn_storage": {
+            "t_array(t_struct(Kitty)4119_storage)dyn_storage": {
               "label": "struct KittyBase.Kitty[]",
               "numberOfBytes": "32"
             },
@@ -5620,15 +5816,15 @@
               "label": "contract ERC721Metadata",
               "numberOfBytes": "20"
             },
-            "t_contract(GeneScienceInterface)4409": {
+            "t_contract(GeneScienceInterface)3651": {
               "label": "contract GeneScienceInterface",
               "numberOfBytes": "20"
             },
-            "t_contract(SaleClockAuction)7366": {
+            "t_contract(SaleClockAuction)6591": {
               "label": "contract SaleClockAuction",
               "numberOfBytes": "20"
             },
-            "t_contract(SiringClockAuction)7518": {
+            "t_contract(SiringClockAuction)6743": {
               "label": "contract SiringClockAuction",
               "numberOfBytes": "20"
             },
@@ -5652,15 +5848,33 @@
               "label": "mapping(uint256 => bool)",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_uint256,t_struct(Permitted)6137_storage)": {
-              "label": "mapping(uint256 => struct KittyCross.Permitted)",
+            "t_mapping(t_uint256,t_struct(Approved)5362_storage)": {
+              "label": "mapping(uint256 => struct KittyCross.Approved)",
               "numberOfBytes": "32"
             },
             "t_string_storage": {
               "label": "string",
               "numberOfBytes": "32"
             },
-            "t_struct(Kitty)4877_storage": {
+            "t_struct(Approved)5362_storage": {
+              "label": "struct KittyCross.Approved",
+              "members": [
+                {
+                  "label": "chainID",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "approvedAddress",
+                  "type": "t_address",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_struct(Kitty)4119_storage": {
               "label": "struct KittyBase.Kitty",
               "members": [
                 {
@@ -5714,24 +5928,6 @@
               ],
               "numberOfBytes": "96"
             },
-            "t_struct(Permitted)6137_storage": {
-              "label": "struct KittyCross.Permitted",
-              "members": [
-                {
-                  "label": "chainID",
-                  "type": "t_uint256",
-                  "offset": 0,
-                  "slot": "0"
-                },
-                {
-                  "label": "permittedAddress",
-                  "type": "t_address",
-                  "offset": 0,
-                  "slot": "1"
-                }
-              ],
-              "numberOfBytes": "64"
-            },
             "t_uint16": {
               "label": "uint16",
               "numberOfBytes": "2"
@@ -5756,9 +5952,9 @@
       "contracts/KittyCore.sol:KittyCore": {
         "src": "contracts/KittyCore.sol:9",
         "version": {
-          "withMetadata": "17aadd78dd9aab440c51255528559036bebb9e3f01444ba86f3e6b982c085d21",
-          "withoutMetadata": "ea21babe6bf317749bf96e1d9bb9786a08e3d913a53d3ab71b95ced6155ffb32",
-          "linkedWithoutMetadata": "ea21babe6bf317749bf96e1d9bb9786a08e3d913a53d3ab71b95ced6155ffb32"
+          "withMetadata": "011169f8a1df9e1cae373568e214efd5f8bc8bdfe3491632fd7189e434a034b0",
+          "withoutMetadata": "a8bbe4be063cbc4f1601c8007fba1ec222311ab56a3a52f93fa1f58887f76c82",
+          "linkedWithoutMetadata": "a8bbe4be063cbc4f1601c8007fba1ec222311ab56a3a52f93fa1f58887f76c82"
         },
         "inherit": [
           "contracts/KittyMinting.sol:KittyMinting",
@@ -5846,7 +6042,7 @@
               "label": "kitties",
               "offset": 0,
               "slot": "6",
-              "type": "t_array(t_struct(Kitty)4877_storage)dyn_storage",
+              "type": "t_array(t_struct(Kitty)4119_storage)dyn_storage",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:107"
             },
@@ -5878,7 +6074,7 @@
               "label": "saleAuction",
               "offset": 0,
               "slot": "10",
-              "type": "t_contract(SaleClockAuction)7366",
+              "type": "t_contract(SaleClockAuction)6591",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:125"
             },
@@ -5886,7 +6082,7 @@
               "label": "siringAuction",
               "offset": 0,
               "slot": "11",
-              "type": "t_contract(SiringClockAuction)7518",
+              "type": "t_contract(SiringClockAuction)6743",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:130"
             },
@@ -5894,7 +6090,7 @@
               "label": "sireAllowedToAddress",
               "offset": 0,
               "slot": "12",
-              "type": "t_mapping(t_uint256,t_struct(Permitted)6137_storage)",
+              "type": "t_mapping(t_uint256,t_struct(Approved)5362_storage)",
               "contract": "KittyCross",
               "src": "contracts/KittyCross.sol:16"
             },
@@ -5998,7 +6194,7 @@
               "label": "geneScience",
               "offset": 0,
               "slot": "25",
-              "type": "t_contract(GeneScienceInterface)4409",
+              "type": "t_contract(GeneScienceInterface)3651",
               "contract": "KittyBreeding",
               "src": "contracts/KittyBreeding.sol:26"
             },
@@ -6032,7 +6228,7 @@
               "label": "address",
               "numberOfBytes": "20"
             },
-            "t_array(t_struct(Kitty)4877_storage)dyn_storage": {
+            "t_array(t_struct(Kitty)4119_storage)dyn_storage": {
               "label": "struct KittyBase.Kitty[]",
               "numberOfBytes": "32"
             },
@@ -6052,15 +6248,15 @@
               "label": "contract ERC721Metadata",
               "numberOfBytes": "20"
             },
-            "t_contract(GeneScienceInterface)4409": {
+            "t_contract(GeneScienceInterface)3651": {
               "label": "contract GeneScienceInterface",
               "numberOfBytes": "20"
             },
-            "t_contract(SaleClockAuction)7366": {
+            "t_contract(SaleClockAuction)6591": {
               "label": "contract SaleClockAuction",
               "numberOfBytes": "20"
             },
-            "t_contract(SiringClockAuction)7518": {
+            "t_contract(SiringClockAuction)6743": {
               "label": "contract SiringClockAuction",
               "numberOfBytes": "20"
             },
@@ -6084,15 +6280,33 @@
               "label": "mapping(uint256 => bool)",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_uint256,t_struct(Permitted)6137_storage)": {
-              "label": "mapping(uint256 => struct KittyCross.Permitted)",
+            "t_mapping(t_uint256,t_struct(Approved)5362_storage)": {
+              "label": "mapping(uint256 => struct KittyCross.Approved)",
               "numberOfBytes": "32"
             },
             "t_string_storage": {
               "label": "string",
               "numberOfBytes": "32"
             },
-            "t_struct(Kitty)4877_storage": {
+            "t_struct(Approved)5362_storage": {
+              "label": "struct KittyCross.Approved",
+              "members": [
+                {
+                  "label": "chainID",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "approvedAddress",
+                  "type": "t_address",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_struct(Kitty)4119_storage": {
               "label": "struct KittyBase.Kitty",
               "members": [
                 {
@@ -6146,24 +6360,6 @@
               ],
               "numberOfBytes": "96"
             },
-            "t_struct(Permitted)6137_storage": {
-              "label": "struct KittyCross.Permitted",
-              "members": [
-                {
-                  "label": "chainID",
-                  "type": "t_uint256",
-                  "offset": 0,
-                  "slot": "0"
-                },
-                {
-                  "label": "permittedAddress",
-                  "type": "t_address",
-                  "offset": 0,
-                  "slot": "1"
-                }
-              ],
-              "numberOfBytes": "64"
-            },
             "t_uint16": {
               "label": "uint16",
               "numberOfBytes": "2"
@@ -6188,7 +6384,7 @@
       "contracts/KittyCross.sol:KittyCross": {
         "src": "contracts/KittyCross.sol:6",
         "version": {
-          "withMetadata": "5e2385e58463161eda46df89ec09de318dce7236787f614b56159146e1bd598e",
+          "withMetadata": "13aa3e8a1bab86b4cdcb2b6d7e1cd1a4eead1987c1ee2320772880e398fb9e81",
           "withoutMetadata": "df8f76b62e9d3572965b497d8ff0cfdc941f7600944fab290b852850cc99b514",
           "linkedWithoutMetadata": "df8f76b62e9d3572965b497d8ff0cfdc941f7600944fab290b852850cc99b514"
         },
@@ -6257,7 +6453,7 @@
               "label": "kitties",
               "offset": 0,
               "slot": "6",
-              "type": "t_array(t_struct(Kitty)4877_storage)dyn_storage",
+              "type": "t_array(t_struct(Kitty)4119_storage)dyn_storage",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:107"
             },
@@ -6289,7 +6485,7 @@
               "label": "saleAuction",
               "offset": 0,
               "slot": "10",
-              "type": "t_contract(SaleClockAuction)7366",
+              "type": "t_contract(SaleClockAuction)6591",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:125"
             },
@@ -6297,7 +6493,7 @@
               "label": "siringAuction",
               "offset": 0,
               "slot": "11",
-              "type": "t_contract(SiringClockAuction)7518",
+              "type": "t_contract(SiringClockAuction)6743",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:130"
             },
@@ -6305,7 +6501,7 @@
               "label": "sireAllowedToAddress",
               "offset": 0,
               "slot": "12",
-              "type": "t_mapping(t_uint256,t_struct(Permitted)6137_storage)",
+              "type": "t_mapping(t_uint256,t_struct(Approved)5362_storage)",
               "contract": "KittyCross",
               "src": "contracts/KittyCross.sol:16"
             },
@@ -6339,7 +6535,7 @@
               "label": "address",
               "numberOfBytes": "20"
             },
-            "t_array(t_struct(Kitty)4877_storage)dyn_storage": {
+            "t_array(t_struct(Kitty)4119_storage)dyn_storage": {
               "label": "struct KittyBase.Kitty[]",
               "numberOfBytes": "32"
             },
@@ -6355,11 +6551,11 @@
               "label": "bool",
               "numberOfBytes": "1"
             },
-            "t_contract(SaleClockAuction)7366": {
+            "t_contract(SaleClockAuction)6591": {
               "label": "contract SaleClockAuction",
               "numberOfBytes": "20"
             },
-            "t_contract(SiringClockAuction)7518": {
+            "t_contract(SiringClockAuction)6743": {
               "label": "contract SiringClockAuction",
               "numberOfBytes": "20"
             },
@@ -6375,11 +6571,29 @@
               "label": "mapping(uint256 => bool)",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_uint256,t_struct(Permitted)6137_storage)": {
-              "label": "mapping(uint256 => struct KittyCross.Permitted)",
+            "t_mapping(t_uint256,t_struct(Approved)5362_storage)": {
+              "label": "mapping(uint256 => struct KittyCross.Approved)",
               "numberOfBytes": "32"
             },
-            "t_struct(Kitty)4877_storage": {
+            "t_struct(Approved)5362_storage": {
+              "label": "struct KittyCross.Approved",
+              "members": [
+                {
+                  "label": "chainID",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "approvedAddress",
+                  "type": "t_address",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_struct(Kitty)4119_storage": {
               "label": "struct KittyBase.Kitty",
               "members": [
                 {
@@ -6433,24 +6647,6 @@
               ],
               "numberOfBytes": "96"
             },
-            "t_struct(Permitted)6137_storage": {
-              "label": "struct KittyCross.Permitted",
-              "members": [
-                {
-                  "label": "chainID",
-                  "type": "t_uint256",
-                  "offset": 0,
-                  "slot": "0"
-                },
-                {
-                  "label": "permittedAddress",
-                  "type": "t_address",
-                  "offset": 0,
-                  "slot": "1"
-                }
-              ],
-              "numberOfBytes": "64"
-            },
             "t_uint16": {
               "label": "uint16",
               "numberOfBytes": "2"
@@ -6475,7 +6671,7 @@
       "contracts/KittyERC721.sol:KittyERC721": {
         "src": "contracts/KittyERC721.sol:12",
         "version": {
-          "withMetadata": "e6a832a9ff7e7446f27c0abce181194629f90aa267b70dfe0f4c41ec01cede34",
+          "withMetadata": "25bf359d001db68db149791322561d85647435f009409dfd05142535ed055866",
           "withoutMetadata": "f6664b1500825e87bcccee7a1618005178e2ee873162982c6e6ca3ce21af4279",
           "linkedWithoutMetadata": "f6664b1500825e87bcccee7a1618005178e2ee873162982c6e6ca3ce21af4279"
         },
@@ -6566,7 +6762,7 @@
               "label": "kitties",
               "offset": 0,
               "slot": "6",
-              "type": "t_array(t_struct(Kitty)4877_storage)dyn_storage",
+              "type": "t_array(t_struct(Kitty)4119_storage)dyn_storage",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:107"
             },
@@ -6598,7 +6794,7 @@
               "label": "saleAuction",
               "offset": 0,
               "slot": "10",
-              "type": "t_contract(SaleClockAuction)7366",
+              "type": "t_contract(SaleClockAuction)6591",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:125"
             },
@@ -6606,7 +6802,7 @@
               "label": "siringAuction",
               "offset": 0,
               "slot": "11",
-              "type": "t_contract(SiringClockAuction)7518",
+              "type": "t_contract(SiringClockAuction)6743",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:130"
             },
@@ -6614,7 +6810,7 @@
               "label": "sireAllowedToAddress",
               "offset": 0,
               "slot": "12",
-              "type": "t_mapping(t_uint256,t_struct(Permitted)6137_storage)",
+              "type": "t_mapping(t_uint256,t_struct(Approved)5362_storage)",
               "contract": "KittyCross",
               "src": "contracts/KittyCross.sol:16"
             },
@@ -6704,7 +6900,7 @@
               "label": "address",
               "numberOfBytes": "20"
             },
-            "t_array(t_struct(Kitty)4877_storage)dyn_storage": {
+            "t_array(t_struct(Kitty)4119_storage)dyn_storage": {
               "label": "struct KittyBase.Kitty[]",
               "numberOfBytes": "32"
             },
@@ -6724,11 +6920,11 @@
               "label": "contract ERC721Metadata",
               "numberOfBytes": "20"
             },
-            "t_contract(SaleClockAuction)7366": {
+            "t_contract(SaleClockAuction)6591": {
               "label": "contract SaleClockAuction",
               "numberOfBytes": "20"
             },
-            "t_contract(SiringClockAuction)7518": {
+            "t_contract(SiringClockAuction)6743": {
               "label": "contract SiringClockAuction",
               "numberOfBytes": "20"
             },
@@ -6752,15 +6948,33 @@
               "label": "mapping(uint256 => bool)",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_uint256,t_struct(Permitted)6137_storage)": {
-              "label": "mapping(uint256 => struct KittyCross.Permitted)",
+            "t_mapping(t_uint256,t_struct(Approved)5362_storage)": {
+              "label": "mapping(uint256 => struct KittyCross.Approved)",
               "numberOfBytes": "32"
             },
             "t_string_storage": {
               "label": "string",
               "numberOfBytes": "32"
             },
-            "t_struct(Kitty)4877_storage": {
+            "t_struct(Approved)5362_storage": {
+              "label": "struct KittyCross.Approved",
+              "members": [
+                {
+                  "label": "chainID",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "approvedAddress",
+                  "type": "t_address",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_struct(Kitty)4119_storage": {
               "label": "struct KittyBase.Kitty",
               "members": [
                 {
@@ -6814,24 +7028,6 @@
               ],
               "numberOfBytes": "96"
             },
-            "t_struct(Permitted)6137_storage": {
-              "label": "struct KittyCross.Permitted",
-              "members": [
-                {
-                  "label": "chainID",
-                  "type": "t_uint256",
-                  "offset": 0,
-                  "slot": "0"
-                },
-                {
-                  "label": "permittedAddress",
-                  "type": "t_address",
-                  "offset": 0,
-                  "slot": "1"
-                }
-              ],
-              "numberOfBytes": "64"
-            },
             "t_uint16": {
               "label": "uint16",
               "numberOfBytes": "2"
@@ -6856,9 +7052,9 @@
       "contracts/KittyMinting.sol:KittyMinting": {
         "src": "contracts/KittyMinting.sol:7",
         "version": {
-          "withMetadata": "00ab56d5110e7829d326509c7fc0042b85cccbc2de9a3de70e39dc2549b894c6",
-          "withoutMetadata": "a4e522024eeee36c92f922b3f0de1ea27c2695cd75404d47ecc74772f3d0cc78",
-          "linkedWithoutMetadata": "a4e522024eeee36c92f922b3f0de1ea27c2695cd75404d47ecc74772f3d0cc78"
+          "withMetadata": "27ccd2bf09f029d6ddb1d312685aee2e3661135b03282dac65bca210f3809eb5",
+          "withoutMetadata": "bb32d952818e26101dea309e34d4abf97c878e43cfc0c218d39ba6942d1f8832",
+          "linkedWithoutMetadata": "bb32d952818e26101dea309e34d4abf97c878e43cfc0c218d39ba6942d1f8832"
         },
         "inherit": [
           "contracts/KittyAuction.sol:KittyAuction",
@@ -6935,7 +7131,7 @@
               "label": "kitties",
               "offset": 0,
               "slot": "6",
-              "type": "t_array(t_struct(Kitty)4877_storage)dyn_storage",
+              "type": "t_array(t_struct(Kitty)4119_storage)dyn_storage",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:107"
             },
@@ -6967,7 +7163,7 @@
               "label": "saleAuction",
               "offset": 0,
               "slot": "10",
-              "type": "t_contract(SaleClockAuction)7366",
+              "type": "t_contract(SaleClockAuction)6591",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:125"
             },
@@ -6975,7 +7171,7 @@
               "label": "siringAuction",
               "offset": 0,
               "slot": "11",
-              "type": "t_contract(SiringClockAuction)7518",
+              "type": "t_contract(SiringClockAuction)6743",
               "contract": "KittyBase",
               "src": "contracts/KittyBase.sol:130"
             },
@@ -6983,7 +7179,7 @@
               "label": "sireAllowedToAddress",
               "offset": 0,
               "slot": "12",
-              "type": "t_mapping(t_uint256,t_struct(Permitted)6137_storage)",
+              "type": "t_mapping(t_uint256,t_struct(Approved)5362_storage)",
               "contract": "KittyCross",
               "src": "contracts/KittyCross.sol:16"
             },
@@ -7087,7 +7283,7 @@
               "label": "geneScience",
               "offset": 0,
               "slot": "25",
-              "type": "t_contract(GeneScienceInterface)4409",
+              "type": "t_contract(GeneScienceInterface)3651",
               "contract": "KittyBreeding",
               "src": "contracts/KittyBreeding.sol:26"
             },
@@ -7113,7 +7309,7 @@
               "label": "address",
               "numberOfBytes": "20"
             },
-            "t_array(t_struct(Kitty)4877_storage)dyn_storage": {
+            "t_array(t_struct(Kitty)4119_storage)dyn_storage": {
               "label": "struct KittyBase.Kitty[]",
               "numberOfBytes": "32"
             },
@@ -7133,15 +7329,15 @@
               "label": "contract ERC721Metadata",
               "numberOfBytes": "20"
             },
-            "t_contract(GeneScienceInterface)4409": {
+            "t_contract(GeneScienceInterface)3651": {
               "label": "contract GeneScienceInterface",
               "numberOfBytes": "20"
             },
-            "t_contract(SaleClockAuction)7366": {
+            "t_contract(SaleClockAuction)6591": {
               "label": "contract SaleClockAuction",
               "numberOfBytes": "20"
             },
-            "t_contract(SiringClockAuction)7518": {
+            "t_contract(SiringClockAuction)6743": {
               "label": "contract SiringClockAuction",
               "numberOfBytes": "20"
             },
@@ -7165,15 +7361,33 @@
               "label": "mapping(uint256 => bool)",
               "numberOfBytes": "32"
             },
-            "t_mapping(t_uint256,t_struct(Permitted)6137_storage)": {
-              "label": "mapping(uint256 => struct KittyCross.Permitted)",
+            "t_mapping(t_uint256,t_struct(Approved)5362_storage)": {
+              "label": "mapping(uint256 => struct KittyCross.Approved)",
               "numberOfBytes": "32"
             },
             "t_string_storage": {
               "label": "string",
               "numberOfBytes": "32"
             },
-            "t_struct(Kitty)4877_storage": {
+            "t_struct(Approved)5362_storage": {
+              "label": "struct KittyCross.Approved",
+              "members": [
+                {
+                  "label": "chainID",
+                  "type": "t_uint256",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "approvedAddress",
+                  "type": "t_address",
+                  "offset": 0,
+                  "slot": "1"
+                }
+              ],
+              "numberOfBytes": "64"
+            },
+            "t_struct(Kitty)4119_storage": {
               "label": "struct KittyBase.Kitty",
               "members": [
                 {
@@ -7226,24 +7440,6 @@
                 }
               ],
               "numberOfBytes": "96"
-            },
-            "t_struct(Permitted)6137_storage": {
-              "label": "struct KittyCross.Permitted",
-              "members": [
-                {
-                  "label": "chainID",
-                  "type": "t_uint256",
-                  "offset": 0,
-                  "slot": "0"
-                },
-                {
-                  "label": "permittedAddress",
-                  "type": "t_address",
-                  "offset": 0,
-                  "slot": "1"
-                }
-              ],
-              "numberOfBytes": "64"
             },
             "t_uint16": {
               "label": "uint16",
