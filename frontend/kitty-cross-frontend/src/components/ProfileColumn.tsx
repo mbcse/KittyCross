@@ -3,6 +3,9 @@ import { getKitty } from "../utils/getKitty";
 import { getChainIdForNetworkName } from "../utils/constants";
 import { useGetAllKittiesData } from "../utils/useGetAllKittiesData";
 import KittyCard from "./Profile/KittyCard";
+import { use, useEffect, useState } from "react";
+import { getAllKittiesData } from "../utils/getAllKittiesData";
+import { GetKittyDetails } from "../utils/types";
 
 export default function ProfileGrid({
   chainName,
@@ -11,7 +14,38 @@ export default function ProfileGrid({
   kitties,
 }) {
   const chainId = getChainIdForNetworkName(networkName);
-  const kittiesData = useGetAllKittiesData(chainId, kitties);
+  useEffect(() => {
+    console.log("3");
+    console.log(kitties);
+    console.log("4");
+  }, [kitties]);
+
+  const [kittyData, setKittyData] = useState<GetKittyDetails[] | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        // Fetch data logic here
+        const data = await getAllKittiesData(chainId, kitties);
+        setKittyData(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (chainId && kitties && kitties.length > 0) {
+      fetchData();
+    }
+  }, [chainId, kitties]); 
+
+  useEffect(() => {
+    console.log(kittyData);
+  }, [kittyData]);
 
   return (
     <>
@@ -28,15 +62,11 @@ export default function ProfileGrid({
           <Text fontSize="2xl">{chainName}</Text>
         </Flex>
 
-        <Flex justifyContent="center" alignItems="center">
-          {kitties}
-        </Flex>
-
-        {/* {kitties && kitties.map((kitty) => (
-          <Flex key={kitty} justifyContent="center" alignItems="center">
-            {JSON.stringify(kitties)}
+        {kitties && kittyData && kittyData.map((kitty,i) => (
+          <Flex key={i} justifyContent="center" alignItems="center">
+            <KittyCard kittyId={String(kitties[i])} kitty={kitty} />
           </Flex>
-        ))} */}
+        ))}
       </GridItem>
     </>
   );

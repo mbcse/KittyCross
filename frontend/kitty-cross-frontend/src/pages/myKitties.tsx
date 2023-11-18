@@ -16,6 +16,7 @@ export default function MyKitties() {
     base: [4, 5, 6],
   };
 
+  // const userTokens = useAllTokensOfOwner("0x8FAab0963aE8296Cd504559324c2572929B489a3");
   const userTokens = useAllTokensOfOwner(address);
   useEffect(() => {
     console.log(userTokens);
@@ -25,7 +26,7 @@ export default function MyKitties() {
       <Navbar />
       <Layout>
         <Text fontSize="2xl">My Cats:</Text>
-        <ProfileGrid kittyData={data} />
+        <ProfileGrid kittyData={userTokens} />
       </Layout>
     </>
   );

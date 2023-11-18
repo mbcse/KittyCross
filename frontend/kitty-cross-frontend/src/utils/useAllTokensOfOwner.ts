@@ -13,10 +13,10 @@ import { ethers } from "ethers";
 
 export function useAllTokensOfOwner(ownerAddress: Address) {
   const [kittiesPerChain, setKittiesPerChain] = useState<KittesPerChain>({
-    "polygon-zkevm": [],
-    scroll: [],
-    arbitrum: [],
-    base: [],
+    "polygon-zkevm-testnet": [],
+    "scroll-sepolia": [],
+    "arbitrum-goerli": [],
+    "base-goerli": [],
   });
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export function useAllTokensOfOwner(ownerAddress: Address) {
       };
 
       for (const chain in contractAddresses) {
-        const chain = "homestead";
+        // const chain = "homestead";
         if (contractAddresses.hasOwnProperty(chain)) {
           const fetchTokensOfOwner = async () => {
             try {
@@ -48,7 +48,9 @@ export function useAllTokensOfOwner(ownerAddress: Address) {
             }
           };
           const data = await fetchTokensOfOwner();
-          setKittiesPerChain(data);
+          let newState = {...kittiesPerChain}
+          newState[chain] = data;
+          setKittiesPerChain(newState);
         }
       }
     };
