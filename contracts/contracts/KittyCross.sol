@@ -23,6 +23,15 @@ contract KittyCross is KittyBase {
 
     uint256[] chainIDs;
 
+    constructor() {
+        chainIDs.push(42161); //Arbitrum
+        chainIDs.push(534352); //Scroll
+        chainIDs.push(1101); //Polygon ZKEVM
+        chainIDs.push(8453); //Base
+
+        
+    }
+
     modifier onlyUnblocked(uint256 id) {
         require(!isBlocked[id], "This kitten is currently blocked!");
 
