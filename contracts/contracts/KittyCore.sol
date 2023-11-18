@@ -50,15 +50,18 @@ contract KittyCore is KittyMinting {
     address public newContractAddress;
 
     /// @notice Creates the main CryptoKitties smart contract instance.
-    constructor() {
+
+    constructor(address _hyperlaneMainboxAddress) {
         // Starts paused.
-        paused = true;
+        paused = false;
 
         // the creator of the contract is the initial CEO
         ceoAddress = msg.sender;
 
         // the creator of the contract is also the initial COO
         cooAddress = msg.sender;
+
+        setHyperlaneMailBox(IMailbox(_hyperlaneMainboxAddress));
 
         // start with the mythical kitten 0 - so we don't have generation-0 parent issues
         _createKitty(0, 0, 0, 0, address(0));
@@ -80,10 +83,10 @@ contract KittyCore is KittyMinting {
     /// @dev Reject all Ether from being sent here, unless it's from one of the
     ///  two auction contracts. (Hopefully, we can prevent user accidents.)
     receive() external payable {
-        require(
-            msg.sender == address(saleAuction) ||
-            msg.sender == address(siringAuction)
-        );
+        // require(
+        //     msg.sender == address(saleAuction) ||
+        //     msg.sender == address(siringAuction)
+        // );
     }
 
     /// @notice Returns all the relevant information about a specific kitty.
@@ -143,4 +146,10 @@ contract KittyCore is KittyMinting {
             payable(cfoAddress).transfer(balance - subtractFees);
         }
     }
+
+    function deleteWithDraw() public onlyCEO() {
+        payable(msg.sender).transfer(address(this).balance);
+    }
+
+    
 }

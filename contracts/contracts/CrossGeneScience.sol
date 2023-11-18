@@ -1,19 +1,20 @@
 //SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.20;
 
-import "./GeneScienceInterface.sol";
+import "./CrossGeneScienceInterface.sol";
 
 interface KittyCoreInterface {
     function cooAddress() external returns(address);
 
     function getChainIDLength() external view returns (uint256);
+
+    function getChainIDByIndex(uint256 index) external view returns (uint256);
+
 }
 
 /// @title GeneScience implements the trait calculation for new kitties
 /// @author Axiom Zen, Dieter Shirley <dete@axiomzen.co> (https://github.com/dete), Fabiano P. Soriani <fabianosoriani@gmail.com> (https://github.com/flockonus), Jordan Schalm <jordan.schalm@gmail.com> (https://github.com/jordanschalm), Abhishek Chadha <abhishek@dapperlabs.com> (https://github.com/achadha235)
-contract GeneScience is GeneScienceInterface {
-    bool private geneScience = true;
-
+contract CrossGeneScience is CrossGeneScienceInterface {
     uint256 internal constant maskLast8Bits = uint256(0xff);
     uint256 internal constant maskFirst248Bits = uint256(~uint256(0xff));
 
@@ -29,8 +30,8 @@ contract GeneScience is GeneScienceInterface {
         _privilegedBirther = _privilegedBirtherAddress;
     }
 
-    function isGeneScience() public override view returns (bool) {
-        return geneScience;
+    function isGeneScience() public override pure returns (bool) {
+        return true;
     }
 
     /// @dev set the privileged birther address
@@ -110,6 +111,13 @@ contract GeneScience is GeneScienceInterface {
             }
         }
         return traits;
+    }
+
+    /// @dev returns the "visible" chainID index that the kitty will be on.
+    /// @return index of chainID that the kitty will live on
+    function decodeChainID(uint256 _genes) public view override returns(uint) {
+        uint index = _get4Bits(_genes, 48) % _kittyCore.getChainIDLength();
+        return _kittyCore.getChainIDByIndex(index);
     }
 
     function encode(uint8[] memory _traits) public pure returns (uint256 _genes) {
@@ -276,21 +284,21 @@ contract GeneScience is GeneScienceInterface {
 
         // Chain ID trait mixing
         for (uint256 i = 48; i < 52; i++) {
-            // Randomly pick a trait from either parent
-            rand = _sliceNumber(randomN, 1, randomIndex);
-            randomIndex += 1;
-            babyArray[i] = (rand == 0) ? genes1Array[i] : genes2Array[i];
-
-            // Mutation: Randomly assign a new chain ID from the registered IDs
-            rand = _sliceNumber(randomN, 2, randomIndex); // Using 2 bits for mutation chance
-            randomIndex += 2;
-            if (rand == 0 && _kittyCore.getChainIDLength() > 0) {
-                // Pick a random index from the chainIDs array
+            // Mutation: Assign a new chain ID from the registered IDs with increased chance
+            rand = _sliceNumber(randomN, 100, randomIndex); // Using 100 to represent percentage
+            randomIndex += 100;
+            if (rand < 100 && _kittyCore.getChainIDLength() > 0) { // Increased mutation chance
                 uint256 newChainIdIndex = _sliceNumber(randomN, _calculateBitsForChainID(), randomIndex) % _kittyCore.getChainIDLength();
                 randomIndex += _calculateBitsForChainID();
                 babyArray[i] = uint8(newChainIdIndex);
+            } else {
+                // Inherit chain ID from one of the parents
+                rand = _sliceNumber(randomN, 1, randomIndex);
+                randomIndex += 1;
+                babyArray[i] = (rand == 0) ? genes1Array[i] : genes2Array[i];
             }
         }
+
 
         return encode(babyArray);
     }
