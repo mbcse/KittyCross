@@ -10,7 +10,8 @@ export default function MyKitties() {
   const { address, isConnected } = useAccount();
   const [kittyData, setKittyData] = useState(null);
 
-  const auctionableKitties = [{ chainId: 1, kittyId: 120000 }, { chainId: 1, kittyId: 120001 }, { chainId: 1, kittyId: 1 }, {chainId:1, kittyId: 20000}];
+  const auctionableKitties = [{ chainId: 84531, kittyId: 1 }];
+    // , { chainId: 1, kittyId: 120001 }, { chainId: 1, kittyId: 1 }, {chainId:1, kittyId: 20000}];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,7 +38,7 @@ export default function MyKitties() {
         <Text fontSize="2xl">Cats on Auction:</Text>
         <Flex direction="row" justifyContent="center" alignItems="center" gap={8}>
         {kittyData && kittyData.map((kitty,i) => {
-            return <KittyCard key={i} chainId={auctionableKitties[i].chainId} kittyId={auctionableKitties[i].kittyId.toString()} kitty={kitty} />
+            return <KittyCard key={i} showButtons={true} chainId={auctionableKitties[i].chainId} kittyId={auctionableKitties[i].kittyId.toString()} kitty={kitty} />
         })}
         </Flex>
       </Layout>
