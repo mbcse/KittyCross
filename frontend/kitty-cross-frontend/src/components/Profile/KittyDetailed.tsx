@@ -16,10 +16,13 @@ import {
   Wrap,
   WrapItem,
   VStack,
+  Link,
 } from "@chakra-ui/react";
 import { FaCat } from "react-icons/fa";
 import Brand from "../Brand";
 import { GetKittyDetails } from "../../utils/types";
+import { getImageSrc } from "../../utils/constants";
+import { useRouter } from "next/router";
 
 const IMAGE =
   "https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80";
@@ -34,6 +37,8 @@ export default function KittyDetailed({
   kitty: GetKittyDetails;
   kittyId: string;
 }) {
+  const router = useRouter();
+  const { chainId } = router.query;
   const unixTimestamp: any = Number(kitty.birthTime);
   const date = new Date(unixTimestamp * 1e3); // 1e3 === 1000
   const localizedTime = date.toLocaleDateString();
@@ -102,8 +107,16 @@ export default function KittyDetailed({
                 : kitty.cooldownIndex}
             </Badge>
           </VStack>
+          <VStack direction={"row"} align={"center"}>
+            <Text fontWeight={500} fontSize={"l"}>
+              Living On
+            </Text>
+            <Image src={getImageSrc(chainId)} boxSize={50} borderRadius={'50%'}></Image>
+          </VStack>
+
         </Stack>
         <HStack mt={8} direction={"row"} spacing={4}>
+          <Link href={"/breeding/" + chainId + "/" + kittyId}>
           <Button
             flex={1}
             fontSize={"sm"}
@@ -114,6 +127,7 @@ export default function KittyDetailed({
           >
             Breed
           </Button>
+          </Link>
           <Button
             flex={1}
             fontSize={"sm"}

@@ -16,12 +16,14 @@ import {
   Wrap,
   WrapItem,
   VStack,
+  Link,
 } from "@chakra-ui/react";
 import { FaCat } from "react-icons/fa";
 import Brand from "../Brand";
 import Cat from "../../lib/Types";
 import { GetKittyDetails } from "../../utils/types";
 import { useRouter } from "next/router";
+import { getImageSrc } from "../../utils/constants";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -36,8 +38,8 @@ export default function KittyCard({
   kitty,
   kittyId,
   showButtons = false,
-  // kittyImg,
-}: {
+}: // kittyImg,
+{
   chainId: any;
   kitty?: GetKittyDetails;
   kittyId: string;
@@ -68,8 +70,8 @@ export default function KittyCard({
         });
 
         console.log(response.data);
-        const { imgKittyId , kittyImgURL } = response.data
-        console.log(kittyImgURL)
+        const { imgKittyId, kittyImgURL } = response.data;
+        console.log(kittyImgURL);
         setImgURL(kittyImgURL);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -154,10 +156,22 @@ export default function KittyCard({
                     : kitty.cooldownIndex}
                 </Badge>
               </VStack>
+              <VStack direction={"row"} align={"center"}>
+                <Text fontWeight={500} fontSize={"l"}>
+                  Living On
+                </Text>
+                <Image
+                  src={getImageSrc(chainId)}
+                  boxSize={50}
+                  borderRadius={"50%"}
+                ></Image>
+              </VStack>
             </Stack>
             {showButtons && (
               <>
                 <HStack mt={8} direction={"row"} spacing={4}>
+
+                  <Link href={"/breeding/" + chainId + "/" + kittyId}>
                   <Button
                     flex={1}
                     fontSize={"sm"}
@@ -168,6 +182,7 @@ export default function KittyCard({
                   >
                     Breed
                   </Button>
+                  </Link>
                   <Button
                     flex={1}
                     fontSize={"sm"}
