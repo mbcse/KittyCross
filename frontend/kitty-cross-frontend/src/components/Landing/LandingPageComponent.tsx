@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
 import { FaCat } from "react-icons/fa";
+import ProfileGrid from "../ProfileGrid";
 
 
 export default function LandingPageComponent() {
@@ -66,6 +67,7 @@ export default function LandingPageComponent() {
         </HStack>
        
       </Stack>
+    <ProfileGrid/>
     </Container>
   );
 }
