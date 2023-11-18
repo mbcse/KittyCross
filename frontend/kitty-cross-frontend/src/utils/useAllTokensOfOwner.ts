@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { KittesPerChain, contractABI, contractAddresses, supportedChains } from "./constants";
 import { Address, useContractRead } from "wagmi";
 
-async function useAllTokensOfOwner(ownerAddress) {
+export async function useAllTokensOfOwner(ownerAddress: Address) {
   const [kittiesPerChain, setKittiesPerChain] = useState<KittesPerChain>({
     "polygon-zkevm": [],
     "scroll": [],

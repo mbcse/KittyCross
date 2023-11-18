@@ -1,6 +1,7 @@
 import { Flex, GridItem, Image, Text } from "@chakra-ui/react";
 
-export default function ProfileGrid({ chainName, imageSource }) {
+export default function ProfileGrid({ chainName, imageSource, kitties }) {
+  // fetch all the kitties from kitties
   return (
     <>
       <GridItem w="100%">
@@ -10,6 +11,12 @@ export default function ProfileGrid({ chainName, imageSource }) {
         <Flex justifyContent="center" alignItems="center" h="100%">
           <Text fontSize="2xl">{chainName}</Text>
         </Flex>
+
+        {kitties.map((kitty) => (
+          <Flex justifyContent="center" alignItems="center" h="100%">
+            <Text fontSize="l">{kitty}</Text>
+          </Flex>
+        ))}
       </GridItem>
     </>
   );
