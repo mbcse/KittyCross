@@ -9,7 +9,6 @@ import {
   getNetworkNameForChainId,
   supportedChains,
 } from "../../../utils/constants";
-import { ethers } from "ethers";
 import { Text } from "@chakra-ui/react";
 import { GetKittyDetails } from "../../../utils/types";
 export default function Page() {
