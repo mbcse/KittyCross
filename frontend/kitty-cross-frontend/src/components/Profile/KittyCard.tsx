@@ -35,9 +35,9 @@ export default function KittyCard({
   kittyImg
 }: {
   chainId: any;
-  kitty: GetKittyDetails;
+  kitty?: GetKittyDetails;
   kittyId: string;
-  kittyImg: string;
+  kittyImg?: string;
 }) {
   const router = useRouter();
 
@@ -74,7 +74,7 @@ export default function KittyCard({
             pos: "absolute",
             top: 5,
             left: 0,
-            backgroundImage: `url(${kittyImg})`,
+            backgroundImage: `url(${imgcat})`,
             filter: "blur(15px)",
             zIndex: -1,
           }}
@@ -89,7 +89,7 @@ export default function KittyCard({
             height={230}
             width={282}
             objectFit={"cover"}
-            src={kittyImg}
+            src={imgcat}
             alt="#"
           />
         </Box>
