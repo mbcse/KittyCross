@@ -86,7 +86,7 @@ export default function Navbar(){
                   variant="ghost"
                   leftIcon={<BsFillCameraVideoFill />}
                 >
-                  Catalouge
+                  Catalogue
                 </Button>
               </VStack>
             </Box>
