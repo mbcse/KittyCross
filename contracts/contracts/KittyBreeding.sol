@@ -258,56 +258,56 @@ contract KittyBreeding is KittyERC721, IMessageRecipient {
     ///  fail entirely. Requires a pre-payment of the fee given out to the first caller of giveBirth()
     /// @param _matronId The ID of the Kitty acting as matron (will end up pregnant if successful)
     /// @param _sireId The ID of the Kitty acting as sire (will begin its siring cooldown if successful)
-    function breedWithAuto(uint256 _matronId, uint256 _sireId, uint256 _chainID)
-        external
-        payable
-        whenNotPaused
-    {
-        // Checks for payment.
-        require(msg.value >= autoBirthFee);
+    // function breedWithAuto(uint256 _matronId, uint256 _sireId)
+    //     external
+    //     payable
+    //     whenNotPaused
+    // {
+    //     // Checks for payment.
+    //     require(msg.value >= autoBirthFee);
 
-        // Caller must own the matron.
-        require(_owns(msg.sender, _matronId));
+    //     // Caller must own the matron.
+    //     require(_owns(msg.sender, _matronId));
 
-        // Neither sire nor matron are allowed to be on auction during a normal
-        // breeding operation, but we don't need to check that explicitly.
-        // For matron: The caller of this function can't be the owner of the matron
-        //   because the owner of a Kitty on auction is the auction house, and the
-        //   auction house will never call breedWith().
-        // For sire: Similarly, a sire on auction will be owned by the auction house
-        //   and the act of transferring ownership will have cleared any oustanding
-        //   siring approval.
-        // Thus we don't need to spend gas explicitly checking to see if either cat
-        // is on auction.
+    //     // Neither sire nor matron are allowed to be on auction during a normal
+    //     // breeding operation, but we don't need to check that explicitly.
+    //     // For matron: The caller of this function can't be the owner of the matron
+    //     //   because the owner of a Kitty on auction is the auction house, and the
+    //     //   auction house will never call breedWith().
+    //     // For sire: Similarly, a sire on auction will be owned by the auction house
+    //     //   and the act of transferring ownership will have cleared any oustanding
+    //     //   siring approval.
+    //     // Thus we don't need to spend gas explicitly checking to see if either cat
+    //     // is on auction.
 
-        // Check that matron and sire are both owned by caller, or that the sire
-        // has given siring permission to caller (i.e. matron's owner).
-        // Will fail for _sireId = 0
-        require(_isSiringPermitted(_sireId, _matronId));
+    //     // Check that matron and sire are both owned by caller, or that the sire
+    //     // has given siring permission to caller (i.e. matron's owner).
+    //     // Will fail for _sireId = 0
+    //     require(_isSiringPermitted(_sireId, _matronId));
 
-        // Grab a reference to the potential matron
-        Kitty storage matron = kitties[_matronId];
+    //     // Grab a reference to the potential matron
+    //     Kitty storage matron = kitties[_matronId];
 
-        // Make sure matron isn't pregnant, or in the middle of a siring cooldown
-        require(_isReadyToBreed(matron));
+    //     // Make sure matron isn't pregnant, or in the middle of a siring cooldown
+    //     require(_isReadyToBreed(matron));
 
-        // Grab a reference to the potential sire
-        Kitty storage sire = kitties[_sireId];
+    //     // Grab a reference to the potential sire
+    //     Kitty storage sire = kitties[_sireId];
 
-        // Make sure sire isn't pregnant, or in the middle of a siring cooldown
-        require(_isReadyToBreed(sire));
+    //     // Make sure sire isn't pregnant, or in the middle of a siring cooldown
+    //     require(_isReadyToBreed(sire));
 
-        // Test that these cats are a valid mating pair.
-        require(_isValidMatingPair(
-            matron,
-            _matronId,
-            sire,
-            _sireId
-        ));
+    //     // Test that these cats are a valid mating pair.
+    //     require(_isValidMatingPair(
+    //         matron,
+    //         _matronId,
+    //         sire,
+    //         _sireId
+    //     ));
 
-        // All checks passed, kitty gets pregnant!
-        _breedWith(_matronId, _sireId);
-    }
+    //     // All checks passed, kitty gets pregnant!
+    //     _breedWith(_matronId, _sireId);
+    // }
 
     /// @notice Have a pregnant Kitty give birth!
     /// @param _matronId A Kitty ready to give birth.
@@ -317,10 +317,17 @@ contract KittyBreeding is KittyERC721, IMessageRecipient {
     ///  to the current owner of the matron. Upon successful completion, both the matron and the
     ///  new kitten will be ready to breed again. Note that anyone can call this function (if they
     ///  are willing to pay the gas!), but the new kitten always goes to the mother's owner.
-    function giveBirth(uint256 _matronId)
-        external
-        whenNotPaused
-        returns(uint256)
+    
+    function giveBirth(uint256 _matronId) external whenNotPaused() returns(uint256){
+        if(block.chainid == crossSireData[_matronId].sireChainId) {
+            _giveBirth(_matronId);
+        }else {
+            _giveBirthCrossChain(_matronId);
+        }    
+    }
+    
+    function _giveBirth(uint256 _matronId)
+       internal
     {
         // Grab a reference to the matron in storage.
         Kitty storage matron = kitties[_matronId];
@@ -359,7 +366,7 @@ contract KittyBreeding is KittyERC721, IMessageRecipient {
         payable(msg.sender).transfer(autoBirthFee);
 
         // return the new kitten's ID
-        return kittenId;
+        // return kittenId;
     }
 
 
@@ -450,10 +457,8 @@ contract KittyBreeding is KittyERC721, IMessageRecipient {
     }
 
 
-    function giveBirthCrossChain(uint256 _matronId)
-        external
-        whenNotPaused
-        returns(uint256)
+    function _giveBirthCrossChain(uint256 _matronId)
+        internal
     {
         // Grab a reference to the matron in storage.
         Kitty storage matron = kitties[_matronId];
@@ -477,10 +482,12 @@ contract KittyBreeding is KittyERC721, IMessageRecipient {
 
         // Call the sooper-sekret gene mixing operation.
         uint256 childGenes = geneScience.mixGenes(matron.genes, crossSireData[_matronId].genes, matron.cooldownEndBlock - 1);
-
+        uint256 newKittyChainId = uint256(geneScience.decodeChainID(childGenes));
         // Make the new kitten!
         address owner = kittyIndexToOwner[_matronId];
-        uint256 kittenId = _createKitty(_matronId, matron.siringWithId, parentGen + 1, childGenes, owner);
+        bytes memory payload = abi.encode(_matronId, matron.siringWithId, parentGen + 1, childGenes, owner);
+        sendCrossMessage(newKittyChainId, crossContractAddresses[newKittyChainId], payload, 'crossCallCreateKitty');
+        // uint256 kittenId = _createKitty(_matronId, matron.siringWithId, parentGen + 1, childGenes, owner);
 
         // Clear the reference to sire from the matron (REQUIRED! Having siringWithId
         // set is what marks a matron as being pregnant.)
@@ -493,7 +500,7 @@ contract KittyBreeding is KittyERC721, IMessageRecipient {
         payable(msg.sender).transfer(autoBirthFee);
 
         // return the new kitten's ID
-        return kittenId;
+        // return kittenId;
     }
 
 
@@ -534,7 +541,11 @@ contract KittyBreeding is KittyERC721, IMessageRecipient {
         }else if(compare(routeName, 'failedBreedCrossCallback')){
             (uint256 _matronId) = abi.decode(payload, (uint256));
             _failedBreedCrossCallback(_matronId);
-        }else{
+        }else if(compare(routeName, 'crossCallCreateKitty')){
+            (uint256 _matronId, uint256 _siringWithId, uint16 _generation, uint256 _genes, address _owner) = abi.decode(payload, (uint256, uint256, uint16, uint256, address));
+            _createKitty(_matronId, _siringWithId, _generation, _genes, _owner);
+        }
+        else{
             revert("Invalid Route");
         }
 
