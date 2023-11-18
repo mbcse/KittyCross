@@ -110,6 +110,8 @@ contract GeneScience is CrossGeneScienceInterface {
         return traits;
     }
 
+    /// @dev returns the "visible" chainID index that the kitty will be on.
+    /// @return index of chainID that the kitty will live on
     function decodeChainID(uint256 _genes) public pure override returns(uint8) {
         return _get4Bits(_genes, 48);
     }
