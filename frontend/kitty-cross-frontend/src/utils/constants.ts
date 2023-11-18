@@ -25,3 +25,13 @@ export const contractAddresses : ContractAddresses = {
 }
 
 export const contractABI = [/* ...ERC-721 ABI... */];
+
+export const getNetworkNameForChainId = (chainId) => {
+    const chain = supportedChains.find((c) => c.id === chainId);
+    return chain ? chain.network : undefined;
+};
+
+export const getChainIdForNetworkName = (networkName) => {
+    const chain = supportedChains.find((c) => c.network === networkName);
+    return chain ? chain.id : undefined;
+}
