@@ -1,7 +1,7 @@
 [
   {
     "name": "eye color",
-    "prompt": "The cat has {} eyes. ",
+    "prompt": "The eyes are vibrant {}. ",
     "options": {
       "green": 3,
       "yellow": 2,
@@ -23,7 +23,7 @@
   },
   {
     "name": "accessory",
-    "prompt": "The cat is wearing a {} with the ethereum chain logo. ",
+    "prompt": "The cat is wearing a {} adorned with the ethereum logo. ",
     "options": {
       "eyepatch": 3,
       "collar": 3,
@@ -36,7 +36,7 @@
   },
   {
     "name": "hat",
-    "prompt": "The cat is also wearing a {} on its head. ",
+    "prompt": "As a hat, the cat is wearing a {} on its head. ",
     "options": {
       "moped helmet": 4,
       "turkish hat": 4,
@@ -54,7 +54,7 @@
   },
   {
     "name": "seat",
-    "prompt": "The cat is sitting alertly on a {}. The cat is pictured in its entirety and facing the camera. The tail of the cat is curled around the feet. ",
+    "prompt": "The cat is positioned on a {}. The cat sitting upright, with its entire body visible in the frame. The cat should be facing the camera directly, ensuring that its face and eyes are clearly seen and centered. The cat's posture should be alert and upright, with its back straight, showcasing its full stature. Its front paws should be positioned neatly in front, and its tail can be either curled around its feet or resting behind it. The cat's expression should be calm and attentive, with a gentle gaze that connects with the viewer.",
     "options": {
       "worn concrete pillar": 5,
       "shabby carboard box": 5,
@@ -96,42 +96,26 @@
     }
   },
   {
-    "name": "art style",
-    "prompt": "The picture is in the {} art style. ",
-    "options": {
-      "colorful memphis": 4,
-      "grimy dieselpunk": 3,
-      "scifi cyberpunk": 3,
-      "futuristic vaporwave": 3,
-      "fantasy gothic": 3,
-      "sketched lineart": 3,
-      "retro pixelart": 3,
-      "energetic anime": 3,
-      "loriot comic style": 3,
-      "abstract art": 3
-    }
-  },
-  {
     "name": "background",
-    "prompt": "In the background is {}. ",
+    "prompt": "The scene is set outside. In the background is the imposing {}. ",
     "options": {
-      "desert": 5,
-      "forest": 5,
-      "grassy hills": 5,
+      "desert": 4,
+      "forest": 4,
+      "grassy hills": 4,
+      "alien landscape": 4,
       "stonehenge": 1,
       "hagia sophia": 2,
-      "galata tower": 2,
+      "galata tower": 1,
       "statue of liberty": 1,
       "eiffel tower": 1,
       "egyptian pyramids": 1,
       "japanese torii": 1,
       "brandenburg gate": 1,
-      "burj kalifa": 1,
       "chinese wall": 1,
       "colosseum": 1,
       "taj mahal": 1,
       "christ the redeemer": 1,
-      "petra": 1
+      "moon landscape": 4
     }
   }
 ]

@@ -35,21 +35,7 @@ const YourComponent = () => {
             chain: 1,
             genes: [31, 19, 8, 10, 9, 24, 23, 0],
           },
-          {
-            id: 1881,
-            chain: 1,
-            genes: [31, 19, 9, 10, 9, 29, 23, 0],
-          },
-          {
-            id: 4501,
-            chain: 1,
-            genes: [31, 19, 7, 10, 9, 24, 73, 0],
-          },
-          {
-            id: 1541,
-            chain: 1,
-            genes: [31, 15, 8, 40, 9, 24, 43, 0],
-          },
+          
         ];
 
         const response = await axios.post(API_LINK, kittiesData, {
@@ -72,7 +58,7 @@ const YourComponent = () => {
     <div>
       {getImgURLS ? (
         Object.entries(getImgURLS).map(([id, imgUrl]) => (
-          <KittyCard key={id} kittyId={id} chainId={12} kitty={kittydeets}  />
+          <KittyCard key={id} kittyId={id} chainId={12} kitty={kittydeets} kittyImg={imgUrl? imgUrl as string : IMAGE}  />
         ))
       ) : (
         <div>Fetching Data</div>

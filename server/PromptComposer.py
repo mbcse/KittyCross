@@ -1,7 +1,6 @@
 import json
 
 breed = ["orange tabby", "bengal", "tuxedo", "british shorthair", "turtleshell calico"]
-taxi_prompt = "I NEED to test how the tool works with extremely simple prompts. DO NOT add any detail, just use it AS-IS: melancholic photograph of a cat with a fur pattern of bold repeating black and white stripes, cat is sitting behind the wheel in the driver seat of a yellow taxi, camera is positioned outside the codriver window, cat is facing the camera, cat has a grumpy expression, cat is wearing traditional turkish hat, cat has piercing red eyes, its raining heavily outside the taxi, in the foreground is a hand holding turkish lira money"
 with open('prompts.json', 'r') as file:
     lookup = json.loads(file.read())
 
@@ -14,11 +13,22 @@ def extract(val, lk):
     return None
 
 
-def compose(chain, attr):
-    prompt = "I NEED to test how the tool works with extremely simple prompts. DO NOT add any detail, just use it AS-IS: Create a picture of a {} cat. ".format(breed[chain])
+def decode_genes(gene):
+    attr = [int((gene >> i * 20) & 0b11111) for i in range(12)]
+    chain = gene >> 240 & 0b1111
+    return attr
+
+
+def compose(chain, gene):
+    attr = decode_genes(gene)
+
+    prompt = "Create a striking and vibrant illustration in the style of the Memphis Group, known for its 1980s postmodern design. The artwork should feature Memphis's signature aesthetic, characterized by bright, contrasting colors and graphic patterns. The image should have a sense of joyful, eclectic exuberance, with a mix of unconventional and abstract elements. The overall design should evoke a sense of playful irreverence, breaking traditional design norms with its daring use of color, pattern, and form. Aim for a composition that is both energetic and whimsically sophisticated, reflecting the Memphis Group's unique blend of modern and kitsch"
+    prompt += "The subject of the illustration is a {} cat. ".format(breed[chain])
     for e in lookup:
         val = extract(int(attr.pop(0)), e["options"])
         if val:
             prompt += e["prompt"].format(val)
 
+    prompt += "The illustration should be one holistic piece tying together all its elements. "
+    print(prompt)
     return prompt
