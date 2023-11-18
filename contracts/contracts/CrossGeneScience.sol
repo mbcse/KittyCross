@@ -14,7 +14,7 @@ interface KittyCoreInterface {
 
 /// @title GeneScience implements the trait calculation for new kitties
 /// @author Axiom Zen, Dieter Shirley <dete@axiomzen.co> (https://github.com/dete), Fabiano P. Soriani <fabianosoriani@gmail.com> (https://github.com/flockonus), Jordan Schalm <jordan.schalm@gmail.com> (https://github.com/jordanschalm), Abhishek Chadha <abhishek@dapperlabs.com> (https://github.com/achadha235)
-contract GeneScience is CrossGeneScienceInterface {
+contract CrossGeneScience is CrossGeneScienceInterface {
     uint256 internal constant maskLast8Bits = uint256(0xff);
     uint256 internal constant maskFirst248Bits = uint256(~uint256(0xff));
 

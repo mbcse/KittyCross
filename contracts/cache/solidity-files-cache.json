@@ -97,7 +97,7 @@
       ]
     },
     "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/KittyBreeding.sol": {
-      "lastModificationDate": 1700300073532,
+      "lastModificationDate": 1700301273811,
       "contentHash": "25de9a6b37aa4558d186c7b377826bb8",
       "sourceName": "contracts/KittyBreeding.sol",
       "solcConfig": {
@@ -191,8 +191,8 @@
       ]
     },
     "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/KittyCore.sol": {
-      "lastModificationDate": 1700300200481,
-      "contentHash": "920dd6b44dbb2ef4e7025a13c332d3eb",
+      "lastModificationDate": 1700323179413,
+      "contentHash": "5a83f72ebb2db123a2c80a556c4f630d",
       "sourceName": "contracts/KittyCore.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -237,8 +237,8 @@
       ]
     },
     "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/KittyCross.sol": {
-      "lastModificationDate": 1700297692954,
-      "contentHash": "b364ed4f0da61b33679856e835cf6ed4",
+      "lastModificationDate": 1700323427985,
+      "contentHash": "89135051a4b60e392abc7c1e901e1451",
       "sourceName": "contracts/KittyCross.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -1199,8 +1199,8 @@
       ]
     },
     "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/CrossGeneScienceInterface.sol": {
-      "lastModificationDate": 1700297155929,
-      "contentHash": "a8f4c15bcbbbd04bf8bd347ff6e43968",
+      "lastModificationDate": 1700300941466,
+      "contentHash": "e73bb4a474651411bd3878e23c0d81b2",
       "sourceName": "contracts/CrossGeneScienceInterface.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -1243,8 +1243,8 @@
       ]
     },
     "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/CrossGeneScience.sol": {
-      "lastModificationDate": 1700297692938,
-      "contentHash": "2d7e53bf1d52816afe125d4c2dfb8b95",
+      "lastModificationDate": 1700301763081,
+      "contentHash": "004b16e3480a2c34799912bfb81c558a",
       "sourceName": "contracts/CrossGeneScience.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -1285,7 +1285,7 @@
         "0.8.20"
       ],
       "artifacts": [
-        "GeneScience",
+        "CrossGeneScience",
         "KittyCoreInterface"
       ]
     },
