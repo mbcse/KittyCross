@@ -7,10 +7,13 @@ import PromptComposer
 import base64
 from io import BytesIO
 from flask_cors import CORS
+import os
+
+OPENAIKEY = os.environ.get('OPENAIKEY')
 
 app = Flask(__name__)
 CORS(app)
-client = OpenAI(api_key="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",)
+client = OpenAI(api_key=OPENAIKEY,)
 pinata_jwp = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJjYjU3OTViNi01MDIzLTQxZjItYTYyMS1kOWIzNWY2NTJiYzAiLCJlbWFpbCI6ImFibGF6ZWR0b3JjaEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicGluX3BvbGljeSI6eyJyZWdpb25zIjpbeyJpZCI6IkZSQTEiLCJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MX1dLCJ2ZXJzaW9uIjoxfSwibWZhX2VuYWJsZWQiOmZhbHNlLCJzdGF0dXMiOiJBQ1RJVkUifSwiYXV0aGVudGljYXRpb25UeXBlIjoic2NvcGVkS2V5Iiwic2NvcGVkS2V5S2V5IjoiODFhZTM2YWM5ZmY5MWZjMzk4M2UiLCJzY29wZWRLZXlTZWNyZXQiOiJmYTZjMjU5YzA3YTA4OTIzMjQ0ZjMzNzM2YWUzYjA0OWEzOGY2NDZkMTkyYmRlOGU4NjUwNTQzMjJiYjMyZWU1IiwiaWF0IjoxNzAwMzIwNjQwfQ.L22Eobs88kJDu4lBgQNjy5HdZ_1My9Ln_L793ryjSJQ"
 
 with open('storage.json', 'r') as file:
