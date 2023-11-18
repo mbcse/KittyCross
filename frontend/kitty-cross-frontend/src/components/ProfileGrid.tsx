@@ -1,7 +1,6 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import ProfileColumn from "./ProfileColumn";
 export default function ProfileGrid({kittyData}: any) {
-  console.log(kittyData)
   return (
     <>
       <Grid templateColumns="repeat(4, 1fr)" gap={8}>

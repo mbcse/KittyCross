@@ -2,7 +2,6 @@ import { Flex, GridItem, Image, Text } from "@chakra-ui/react";
 
 export default function ProfileGrid({ chainName, imageSource, kitties }) {
   // fetch all the kitties from kitties
-  console.log(kitties);
   return (
     <>
       <GridItem w="100%">
