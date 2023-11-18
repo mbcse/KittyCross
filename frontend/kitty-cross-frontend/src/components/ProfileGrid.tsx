@@ -4,10 +4,10 @@ export default function ProfileGrid() {
   return (
     <>
       <Grid templateColumns="repeat(4, 1fr)" gap={8}>
-        <ProfileColumn chainName="Scroll"/>
-        <ProfileColumn chainName="Polygon zkEVM"/>
-        <ProfileColumn chainName="Base"/>
-        <ProfileColumn chainName="Arbitrum"/>
+        <ProfileColumn chainName="Scroll" imageSource="scroll.jpeg"/>
+        <ProfileColumn chainName="Polygon zkEVM" imageSource="polygon.png"/>
+        <ProfileColumn chainName="Base" imageSource="base.png"/>
+        <ProfileColumn chainName="Arbitrum" imageSource="arbitrum.webp"/>
       </Grid>
     </>
   );
