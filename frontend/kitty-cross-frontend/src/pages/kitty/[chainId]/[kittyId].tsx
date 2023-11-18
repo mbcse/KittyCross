@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import KittyCard from "../../../components/Profile/KittyCard";
+import KittyCard from "../../../components/Profile/KittyCardDetailed";
 import Navbar from "../../../components/NavBar/Navbar";
 import Layout from "../../../components/Layout";
 export default function Page() {
