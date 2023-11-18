@@ -7,7 +7,7 @@ export default async function getKittyImages(
   try {
     const data = JSON.parse(req.body);
 
-    const API_LINK = "https://kittycross-dall-e-server.onrender.com/kitties";
+    const API_LINK = "https://kitty-cross-server-2.onrender.com/kitties";
 
     const response = await fetch(API_LINK, {
       method: "POST", // Change the method to POST

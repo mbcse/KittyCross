@@ -33,11 +33,13 @@ export default function KittyCard({
   kitty,
   kittyId,
   showButtons = false,
+  kittyImg
 }: {
   chainId: any;
-  kitty: GetKittyDetails;
+  kitty?: GetKittyDetails;
   kittyId: string;
   showButtons?: boolean;
+  kittyImg?: string;
 }) {
   const router = useRouter();
 
