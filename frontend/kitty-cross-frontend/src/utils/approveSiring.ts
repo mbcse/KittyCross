@@ -13,9 +13,9 @@ async function writeApproveSiring(
     // TODO: adapt abi
     abi: contractABI,
     // TODO: will be called crosschain something xD
-    functionName: "approveSiring",
+    functionName: "breedWithAutoCrossChain",
     // TODO: adapt args
-    args: [sireId, chainIdDestination, matronId],
+    args: [matronId, chainIdDestination, sireId, chainIdOrigin],
     chainId: chainIdOrigin,
   });
   const { data, isLoading, isSuccess, write } = useContractWrite(config);
