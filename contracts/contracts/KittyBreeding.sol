@@ -2,7 +2,7 @@
 pragma solidity 0.8.20;
 
 import "./KittyERC721.sol";
-import "./GeneScienceInterface.sol";
+import "./CrossGeneScienceInterface.sol";
 
 /// @title A facet of KittyCore that manages Kitty siring, gestation, and birth.
 /// @author Axiom Zen (https://www.axiomzen.co)
@@ -23,12 +23,12 @@ contract KittyBreeding is KittyERC721 {
 
     /// @dev The address of the sibling contract that is used to implement the sooper-sekret
     ///  genetic combination algorithm.
-    GeneScienceInterface public geneScience;
+    CrossGeneScienceInterface public geneScience;
 
     /// @dev Update the address of the genetic contract, can only be called by the CEO.
     /// @param _address An address of a GeneScience contract instance to be used from this point forward.
     function setGeneScienceAddress(address _address) external onlyCEO {
-        GeneScienceInterface candidateContract = GeneScienceInterface(_address);
+        CrossGeneScienceInterface candidateContract = CrossGeneScienceInterface(_address);
 
         // NOTE: verify that a contract is what we expect - https://github.com/Lunyr/crowdsale-contracts/blob/cfadd15986c30521d8ba7d5b6f57b4fefcc7ac38/contracts/LunyrToken.sol#L117
         require(candidateContract.isGeneScience());

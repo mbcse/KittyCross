@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.20;
 
-import "./GeneScienceInterface.sol";
+import "./CrossGeneScienceInterface.sol";
 
 interface KittyCoreInterface {
     function cooAddress() external returns(address);
@@ -11,9 +11,7 @@ interface KittyCoreInterface {
 
 /// @title GeneScience implements the trait calculation for new kitties
 /// @author Axiom Zen, Dieter Shirley <dete@axiomzen.co> (https://github.com/dete), Fabiano P. Soriani <fabianosoriani@gmail.com> (https://github.com/flockonus), Jordan Schalm <jordan.schalm@gmail.com> (https://github.com/jordanschalm), Abhishek Chadha <abhishek@dapperlabs.com> (https://github.com/achadha235)
-contract GeneScience is GeneScienceInterface {
-    bool private geneScience = true;
-
+contract GeneScience is CrossGeneScienceInterface {
     uint256 internal constant maskLast8Bits = uint256(0xff);
     uint256 internal constant maskFirst248Bits = uint256(~uint256(0xff));
 
@@ -29,8 +27,8 @@ contract GeneScience is GeneScienceInterface {
         _privilegedBirther = _privilegedBirtherAddress;
     }
 
-    function isGeneScience() public override view returns (bool) {
-        return geneScience;
+    function isGeneScience() public override pure returns (bool) {
+        return true;
     }
 
     /// @dev set the privileged birther address
@@ -110,6 +108,10 @@ contract GeneScience is GeneScienceInterface {
             }
         }
         return traits;
+    }
+
+    function decodeChainID(uint256 _genes) public pure override returns(uint8) {
+        return _get4Bits(_genes, 48);
     }
 
     function encode(uint8[] memory _traits) public pure returns (uint256 _genes) {

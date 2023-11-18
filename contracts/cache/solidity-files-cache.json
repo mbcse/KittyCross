@@ -874,8 +874,8 @@
       ]
     },
     "/Users/quantadrian/workspace/ethglobal_istanbul_23/KittyCross/contracts/contracts/KittyCross.sol": {
-      "lastModificationDate": 1700264916702,
-      "contentHash": "2a2b01c72b0ba7e82d585f4c86dce321",
+      "lastModificationDate": 1700293802618,
+      "contentHash": "a20dd5e78081ec08f10acd3078ea067e",
       "sourceName": "contracts/KittyCross.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -1285,6 +1285,97 @@
       ],
       "artifacts": [
         "KittyCore"
+      ]
+    },
+    "/Users/quantadrian/workspace/ethglobal_istanbul_23/KittyCross/contracts/contracts/CrossGeneScience.sol": {
+      "lastModificationDate": 1700294520070,
+      "contentHash": "79a8864f4868778a1f953ece9410c130",
+      "sourceName": "contracts/CrossGeneScience.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "viaIR": true,
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./CrossGeneScienceInterface.sol"
+      ],
+      "versionPragmas": [
+        "0.8.20"
+      ],
+      "artifacts": [
+        "GeneScience",
+        "KittyCoreInterface"
+      ]
+    },
+    "/Users/quantadrian/workspace/ethglobal_istanbul_23/KittyCross/contracts/contracts/CrossGeneScienceInterface.sol": {
+      "lastModificationDate": 1700294529602,
+      "contentHash": "a8f4c15bcbbbd04bf8bd347ff6e43968",
+      "sourceName": "contracts/CrossGeneScienceInterface.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "viaIR": true,
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "0.8.20"
+      ],
+      "artifacts": [
+        "CrossGeneScienceInterface"
       ]
     }
   }
