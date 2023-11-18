@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { GetKittyDetails } from "../../../utils/types";
 import { getKitty } from "../../../utils/getKitty";
 import KittyDetailed from "../../../components/Profile/KittyDetailed";
+import { Flex } from "@chakra-ui/react";
 export default function Page() {
   const router = useRouter();
   const { kittyId, chainId } = router.query;
@@ -26,7 +27,7 @@ export default function Page() {
         <div>ChainId: {chainId}</div>
         <div>KittyId: {kittyId}</div>
         {kittyData ? (
-          <KittyDetailed kitty={kittyData} kittyId={String(kittyId)} />
+            <KittyDetailed kitty={kittyData} kittyId={kittyId.toString()} />
         ) : null}
       </Layout>
     </>

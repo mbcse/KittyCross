@@ -25,12 +25,11 @@ export function useAllTokensOfOwner(ownerAddress: Address) {
           const { data, isError, isLoading } = useContractRead({
             address,
             abi: contractABI,
-            functionName: "kittyIndexToOwner",
+            functionName: "tokensOfOwner",
+            args: [ownerAddress],
             chainId: supportedChains.find((c) => c.network === chain).id,
           });
 
-          const kittesToAddressMapping: { kittyId: number; owner: Address }[] =
-            data;
 
           if (!isError && kittesToAddressMapping) {
             result[chain] = kittesToAddressMapping
