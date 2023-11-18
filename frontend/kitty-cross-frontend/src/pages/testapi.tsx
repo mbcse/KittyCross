@@ -1,8 +1,14 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
+import KittyCard from '../components/Profile/KittyCard';
+const IMAGE =
+  "https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80";
 
 const YourComponent = () => {
+
+const [ getImgURLS, setImgURLS] = useState();
   useEffect(() => {
+    const API_LINK = "https://kitty-cross-server-2.onrender.com/kitties";
     const fetchData = async () => {
       try {
         const kittiesData = [
@@ -18,25 +24,28 @@ const YourComponent = () => {
           },
         ];
 
-        const response = await axios.post('https://kittycross-dall-e-server.onrender.com/kitties', kittiesData, {
+        const response = await axios.post( API_LINK, kittiesData, {
           headers: {
             'Content-Type': 'application/json',
           },
         });
 
         console.log(response.data);
+        setImgURLS(response.data)
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
     fetchData();
-  }, []); // Empty dependency array ensures the effect runs once on mount
+  }, []);
 
   return (
     <div>
       <h1>Fetching Data with Axios</h1>
-      {/* Add your component content here */}
+      {getImgURLS?.map(({ id, imageUrl }) => (
+  <KittyCard kitty={undefined} kittyId={id} kittyImg={imageUrl ? imageUrl as string : IMAGE} />
+))}
     </div>
   );
 };

@@ -30,9 +30,11 @@ const imgcat =
 export default function KittyCard({
   kitty,
   kittyId,
+  kittyImg
 }: {
   kitty: GetKittyDetails;
   kittyId: string;
+  kittyImg: string;
 }) {
   return (
     <Center py={12}>
@@ -60,7 +62,7 @@ export default function KittyCard({
             pos: "absolute",
             top: 5,
             left: 0,
-            backgroundImage: `url(${imgcat})`,
+            backgroundImage: `url(${kittyImg})`,
             filter: "blur(15px)",
             zIndex: -1,
           }}
@@ -75,7 +77,7 @@ export default function KittyCard({
             height={230}
             width={282}
             objectFit={"cover"}
-            src={imgcat}
+            src={kittyImg}
             alt="#"
           />
         </Box>
