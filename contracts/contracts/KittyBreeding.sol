@@ -20,9 +20,8 @@ interface IMessageRecipient {
 }
 
 
-/// @title A facet of KittyCore that manages Kitty siring, gestation, and birth.
-/// @author Axiom Zen (https://www.axiomzen.co)
-/// @dev See the KittyCore contract documentation to understand how the various contract facets are arranged.
+/// @title A facet of KittyCore that manages Kitty siring, breeding, and birth.
+/// @author Adrian Koegl, Mohit Bhat
 contract KittyBreeding is KittyERC721, IMessageRecipient {
 
     /// @dev The Pregnant event is fired when two cats successfully breed and the pregnancy
@@ -34,6 +33,8 @@ contract KittyBreeding is KittyERC721, IMessageRecipient {
 
     /// @dev this event will be emitted when the sire cannot breed and breeding is reverted in the matron
     event BreedingReverted(uint256 matronId, uint256 sireId, uint256 sireChainId);
+
+    event Approved(address addr, uint sireID, uint chainID);
 
     /// @notice The minimum payment required to use breedWithAuto(). This fee goes towards
     ///  the gas cost paid by whatever calls giveBirth().
@@ -111,6 +112,8 @@ contract KittyBreeding is KittyERC721, IMessageRecipient {
     {
         require(_owns(msg.sender, _sireId));
         sireAllowedToAddress[_sireId] = Permitted(chainID, _addr);
+
+        emit Approved(_addr, _sireId, chainID);
     }
 
     /// @dev Updates the minimum payment required for calling giveBirthAuto(). Can only
@@ -381,18 +384,6 @@ contract KittyBreeding is KittyERC721, IMessageRecipient {
 
         // Caller must own the matron.
         require(_owns(msg.sender, _matronId));
-
-        // Neither sire nor matron are allowed to be on auction during a normal
-        // breeding operation, but we don't need to check that explicitly.
-        // For matron: The caller of this function can't be the owner of the matron
-        //   because the owner of a Kitty on auction is the auction house, and the
-        //   auction house will never call breedWith().
-        // For sire: Similarly, a sire on auction will be owned by the auction house
-        //   and the act of transferring ownership will have cleared any oustanding
-        //   siring approval.
-        // Thus we don't need to spend gas explicitly checking to see if either cat
-        // is on auction.
-
 
         // Grab a reference to the potential matron
         Kitty storage matron = kitties[_matronId];
