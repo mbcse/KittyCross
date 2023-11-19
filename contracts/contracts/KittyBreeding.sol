@@ -411,6 +411,14 @@ contract KittyBreeding is KittyERC721, IMessageRecipient {
 
             // Make sure sire isn't pregnant, or in the middle of a siring cooldown
             require(_isReadyToBreed(sire));
+
+            // Test that these cats are a valid mating pair.
+            require(_isValidMatingPair(
+                matron,
+                _matronId,
+                sire,
+                _sireId
+            ));
             // All checks passed, kitty gets pregnant!
             _breedWith(_matronId, _sireId);
         }else{
