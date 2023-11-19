@@ -13,7 +13,7 @@
     "@emotion/styled": "^11.11.0",
     "@web3modal/wagmi": "^3.3.2",
     "axios": "^1.6.2",
-    "ethers": "^5.8.1",
+    "ethers": "^5.7.2",
     "framer-motion": "^6.5.1",
     "next": "latest",
     "react": "^18.2.0",

@@ -8,18 +8,11 @@ import { useAccount } from "wagmi";
 import { useEffect } from "react";
 export default function MyKitties() {
   const { address, isConnected } = useAccount();
-  // const data = useAllTokensOfOwner(address);
-  const data = {
-    "polygon-zkevm": [1, 2, 3],
-    scroll: [4, 5, 6],
-    arbitrum: [1, 2, 3],
-    base: [4, 5, 6],
-  };
 
-  // const userTokens = useAllTokensOfOwner("0x8FAab0963aE8296Cd504559324c2572929B489a3");
   const userTokens = useAllTokensOfOwner(address);
   useEffect(() => {
-    console.log(userTokens);
+    // console.log('userTokens')
+    // console.log(userTokens);
   }, [userTokens]);
   return (
     <>

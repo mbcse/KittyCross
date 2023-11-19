@@ -3,9 +3,9 @@ import ProfileColumn from "./ProfileColumn";
 import { useEffect } from "react";
 export default function ProfileGrid({ kittyData }: any) {
   useEffect(() => {
-    console.log("1");
-    console.log(kittyData);
-    console.log("2");
+    // console.log("1");
+    // console.log(kittyData);
+    // console.log("2");
   }, [kittyData]);
   return (
     <>

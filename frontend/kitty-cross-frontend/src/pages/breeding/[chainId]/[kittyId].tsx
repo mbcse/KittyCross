@@ -1,5 +1,15 @@
-import { Button, Flex, Input, Text, Image } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Input,
+  Text,
+  Image,
+  useDisclosure,
+  Box,
+  CloseButton,
+} from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import Layout from "../../../components/Layout";
 import Navbar from "../../../components/NavBar/Navbar";
@@ -8,6 +18,19 @@ import { getKitty } from "../../../utils/getKitty";
 import { GetKittyDetails } from "../../../utils/types";
 import { useApproveSiring } from "../../../utils/useApproveSiring";
 import { getChainIdForNetworkName } from "../../../utils/constants";
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from "@chakra-ui/react";
+import {
+  contractABI,
+  contractAddresses,
+  getNetworkNameForChainId,
+} from "../../../utils/constants";
+import React from "react";
+
 export default function Page() {
   const router = useRouter();
   const { kittyId, chainId } = router.query;
@@ -22,6 +45,44 @@ export default function Page() {
     if (chainId && kittyId) {
       getKitty(chainId, kittyId, setIsLoading, setKittyData, setError);
     }
+
+    //event listner for KittyBorn Event
+    //pop up with info when event found
+
+  //   const KittyBornListener = async () => {
+  //     const ethereum = (window as any).ethereum;
+  //     const accounts = await ethereum.request({
+  //       method: "eth_requestAccounts",
+  //     });
+
+  //     const provider = new ethers.providers.Web3Provider(ethereum);
+  //     const walletAddress = accounts[0]; // first account in MetaMask
+  //     const signer = provider.getSigner(walletAddress);
+  //     // TODO: get the chain ID that we called the breed function on
+  //     const contractAddress =
+  //       contractAddresses[getNetworkNameForChainId(84531)];
+
+  //     const contract = new ethers.Contract(
+  //       contractAddress,
+  //       contractABI,
+  //       provider
+  //     );
+
+  //     const eventName = "KittyBorn";
+
+  //     const handleEvent = (event: any) => {
+  //       alert("Kitty Born" + event);
+  //       console.log(`Event '${eventName}' received:`, event);
+  //     };
+
+  //     contract.on(eventName, handleEvent);
+  //     // Cleanup the event listener when the component unmounts
+  //     // return () => {
+  //     //   contract.off(eventName, handleEvent);
+  //     // };
+  //   };
+
+  //   KittyBornListener();
   }, [chainId, kittyId]);
 
   const handleAddressChange = (event) => {
@@ -37,7 +98,13 @@ export default function Page() {
   };
 
   const onClickSiringApproval = async () => {
-    const tx = useApproveSiring(chainId, kittyId, selectedChainId, selectedAddress, setTxHash);
+    const tx = useApproveSiring(
+      chainId,
+      kittyId,
+      selectedChainId,
+      selectedAddress,
+      setTxHash
+    );
   };
 
   const isButtonSelected = (chainId) => selectedChainId === chainId;
@@ -49,6 +116,7 @@ export default function Page() {
         {kittyData && (
           <Flex justifyContent="center" alignItems="center" gap={16}>
             <KittyCard
+              clickable={true}
               chainId={chainId}
               kittyId={kittyId.toString()}
               kitty={kittyData}
@@ -164,16 +232,12 @@ export default function Page() {
               >
                 Approve Siring
               </Button>
-              { txHash &&
-              <>
-              <Text fontSize="xs">
-                Transaction Hash: 
-              </Text>
-              <Text fontSize={"xs"}>
-                {txHash}
-              </Text>
-              </>
-}
+              {txHash && (
+                <>
+                  <Text fontSize="xs">Transaction Hash:</Text>
+                  <Text fontSize={"xs"}>{txHash}</Text>
+                </>
+              )}
             </Flex>
           </Flex>
         )}

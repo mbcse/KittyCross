@@ -21,15 +21,14 @@ export function useAllTokensOfOwner(ownerAddress: Address) {
 
   useEffect(() => {
     const fetchKitties = async () => {
-      const result = {
-        "polygon-zkevm": [],
-        scroll: [],
-        arbitrum: [],
-        base: [],
-      };
 
+      const result = {
+        "polygon-zkevm-testnet": [],
+        "scroll-sepolia": [],
+        "arbitrum-goerli": [],
+        "base-goerli": [],        
+      }
       for (const chain in contractAddresses) {
-        // const chain = "homestead";
         if (contractAddresses.hasOwnProperty(chain)) {
           const fetchTokensOfOwner = async () => {
             try {
@@ -48,11 +47,13 @@ export function useAllTokensOfOwner(ownerAddress: Address) {
             }
           };
           const data = await fetchTokensOfOwner();
-          let newState = {...kittiesPerChain}
-          newState[chain] = data;
-          setKittiesPerChain(newState);
+          result[chain] = data;
+          console.log(result);
         }
       }
+
+      setKittiesPerChain(result);
+
     };
 
     fetchKitties();

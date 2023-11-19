@@ -1,33 +1,26 @@
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
-import { contractABI } from "./constants";
+import { contractABI, contractAddresses, getNetworkNameForChainId } from "./constants";
+import { ethers } from "ethers";
 
-async function giveBirth(
+export async function giveBirth(
   chainIdOrigin,
-  chainIdDestination,
-  sireId,
-  matronId
+  matronId,
+  setTxHash
 ) {
-  const { config } = usePrepareContractWrite({
-    // TODO: adapt addr
-    address: "0xecb504d39723b0be0e3a9aa33d646642d1051ee1",
-    // TODO: adapt abi
-    abi: contractABI,
-    // TODO: will be called give Birth something
-    functionName: "giveBirthAuto",
-    // TODO: adapt args
-    args: [sireId, chainIdDestination, matronId],
-    chainId: chainIdOrigin,
+  const ethereum = (window as any).ethereum;
+  const accounts = await ethereum.request({
+    method: "eth_requestAccounts",
   });
-  const { data, isLoading, isSuccess, write } = useContractWrite(config);
 
-  // Check if the request was successful
-  if (!isSuccess) {
-    throw new Error(`Error approving siring`);
-  }
+  const provider = new ethers.providers.Web3Provider(ethereum)
+  const walletAddress = accounts[0]    // first account in MetaMask
+  const signer = provider.getSigner(walletAddress)
 
-  return data;
-  if (!isSuccess) {
-    throw new Error(`error approving siring`);
-  }
-  return data;
+  const contractAddress = contractAddresses[getNetworkNameForChainId(chainIdOrigin)]
+  const contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+  const tx = await contract.giveBirth(matronId);
+  console.log(tx.hash);
+  tx.wait();
+  return tx;
 }
