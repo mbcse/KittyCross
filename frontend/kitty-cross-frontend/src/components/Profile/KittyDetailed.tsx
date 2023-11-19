@@ -172,7 +172,7 @@ export default function KittyDetailed({
             </Link>
             <Button
               onClick={async () => {
-                const data = await giveBirth(chainId, kittyId);
+                const data = await giveBirth(chainId, kittyId, setTxHash);
                 setTxHash(data);
               }}
               flex={1}
