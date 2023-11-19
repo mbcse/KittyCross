@@ -64,7 +64,7 @@ export default function ProfileGrid({
 
         {kitties && kittyData && kittyData.map((kitty,i) => (
           <Flex key={i} justifyContent="center" alignItems="center">
-            <KittyCard chainId={chainId} kittyId={String(kitties[i])} kitty={kitty} />
+            <KittyCard clickable={true} chainId={chainId} kittyId={String(kitties[i])} kitty={kitty} />
           </Flex>
         ))}
       </GridItem>
