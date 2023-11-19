@@ -37,10 +37,11 @@ The back-end, developed in Python, orchestrates these components. To add unpredi
 - added `KittyCross` containing some variables for cross-chain interactions
 - completely updated `KittyBreeding` for cross-chain breeding
   - added Hyperlane for cross-chain interaction
-  - multi-step breeding process to query sire on different chain and separate the checks performed
+  - multi-step breeding process to query sire on different chain and separate the checks performed; callback with revert or success to matron
   - newborn kitty can be born on different chain
 - adjusted kitty genetics to additionally encode the chainID with a visible and hidden chainIDs
 - added DALL-E to deterministically generate pictures based on genetic properties for newborn kitties
+- added Chainlink VRF for random genetic combination. Before, users could predict resulting traits based on blocknumber
 
 
 ## Notes
