@@ -20,5 +20,6 @@ export async function giveBirth(
 
   const tx = await contract.giveBirth(matronId);
   console.log(tx);
+  tx.wait();
   return tx;
 }
