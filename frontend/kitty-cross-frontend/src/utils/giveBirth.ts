@@ -8,12 +8,9 @@ async function giveBirth(
   matronId
 ) {
   const { config } = usePrepareContractWrite({
-    address: contractAddresses[getNetworkNameForChainId(chainIdOrigin)]
-    // TODO: adapt abi
+    address: contractAddresses[getNetworkNameForChainId(chainIdOrigin)],
     abi: contractABI,
-    // TODO: will be called give Birth something
     functionName: "giveBirth",
-    // TODO: adapt args
     args: [matronId],
     chainId: chainIdOrigin,
   });
@@ -24,9 +21,5 @@ async function giveBirth(
     throw new Error(`Error approving siring`);
   }
 
-  return data;
-  if (!isSuccess) {
-    throw new Error(`error approving siring`);
-  }
   return data;
 }
