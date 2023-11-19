@@ -29,6 +29,7 @@ import {
   contractAddresses,
   getNetworkNameForChainId,
 } from "../../../utils/constants";
+import React from "react";
 
 export default function Page() {
   const router = useRouter();

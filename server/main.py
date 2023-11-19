@@ -55,7 +55,7 @@ def request_dalle(cat):
 def fetch_missing(cat):
     pinata = upload_to_pinata(id, request_dalle(cat))
     image_url = "https://gateway.pinata.cloud/ipfs/{}".format(pinata["IpfsHash"])
-    return int(cat["id"]), image_url
+    return image_url
 
 
 @app.get("/taxi")
@@ -78,7 +78,7 @@ def get_kitties():
 
         missing = []
         for cat in ls:
-            id = str(cat["id"])
+            id = str(cat["genes"])
             if id not in storage:
                 storage[id] = fetch_missing(cat)
                 with open("storage.json", "w") as f:
