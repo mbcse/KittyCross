@@ -279,7 +279,7 @@ module.exports = {
       mantle_testnet: config.MANTLESCAN_API_KEY,
       zkevm_testnet: config.ZKEVMSCAN_API_KEY,
       scroll_testnet : config.SCROLLSCAN_API_KEY,
-      arbitrum_goerli: config.ARBITRUMSCAN_API_KEY,
+      arbitrumGoerli: config.ARBITRUMSCAN_API_KEY,
       linea_goerli: config.ETHERSCAN_API_KEY,
       base_goerli: config.BASESCAN_API_KEY,
     },

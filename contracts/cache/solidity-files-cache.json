@@ -97,8 +97,8 @@
       ]
     },
     "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/KittyBreeding.sol": {
-      "lastModificationDate": 1700338430533,
-      "contentHash": "8237d9b55453d480862c93e8d0d80575",
+      "lastModificationDate": 1700347319766,
+      "contentHash": "74bbdef9e806e24876dad8ce167c6174",
       "sourceName": "contracts/KittyBreeding.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -237,8 +237,8 @@
       ]
     },
     "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/KittyCross.sol": {
-      "lastModificationDate": 1700328818180,
-      "contentHash": "50c80b3a90da28796d08dc588e3bd909",
+      "lastModificationDate": 1700347319767,
+      "contentHash": "3d1a96a2dcac5f3f4e8ff0aac1622726",
       "sourceName": "contracts/KittyCross.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -1244,8 +1244,8 @@
       ]
     },
     "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/CrossGeneScience.sol": {
-      "lastModificationDate": 1700329275320,
-      "contentHash": "096504b477018e8a6536f1f3dbbac10e",
+      "lastModificationDate": 1700347319765,
+      "contentHash": "8bd564d77a0330ed86a41b73c06a2e15",
       "sourceName": "contracts/CrossGeneScience.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -1336,10 +1336,10 @@
         "KittyAuction"
       ]
     },
-    "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/GeneScience.sol": {
-      "lastModificationDate": 1700261611149,
-      "contentHash": "6e422b2221848c2b12242dea92211295",
-      "sourceName": "contracts/GeneScience.sol",
+    "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/ArbitrumCrossGeneScience.sol": {
+      "lastModificationDate": 1700347319765,
+      "contentHash": "9b6713a5a4506fc3ea93e5d53e60da3f",
+      "sourceName": "contracts/ArbitrumCrossGeneScience.sol",
       "solcConfig": {
         "version": "0.8.20",
         "settings": {
@@ -1373,20 +1373,21 @@
         }
       },
       "imports": [
-        "./GeneScienceInterface.sol"
+        "./ArbitrumCrossGeneScienceInterface.sol",
+        "@chainlink/contracts/src/v0.8/VRFV2WrapperConsumerBase.sol"
       ],
       "versionPragmas": [
         "0.8.20"
       ],
       "artifacts": [
-        "GeneScience",
+        "ArbitrumCrossGeneScience",
         "KittyCoreInterface"
       ]
     },
-    "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/GeneScienceInterface.sol": {
-      "lastModificationDate": 1700261611149,
-      "contentHash": "8b29f6b3d9143909f211b6ba426adbb7",
-      "sourceName": "contracts/GeneScienceInterface.sol",
+    "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/contracts/ArbitrumCrossGeneScienceInterface.sol": {
+      "lastModificationDate": 1700347319765,
+      "contentHash": "715009995e0fc6e33316b94ce1f0a159",
+      "sourceName": "contracts/ArbitrumCrossGeneScienceInterface.sol",
       "solcConfig": {
         "version": "0.8.20",
         "settings": {
@@ -1424,7 +1425,142 @@
         "0.8.20"
       ],
       "artifacts": [
-        "GeneScienceInterface"
+        "ArbitrumCrossGeneScienceInterface"
+      ]
+    },
+    "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/node_modules/@chainlink/contracts/src/v0.8/VRFV2WrapperConsumerBase.sol": {
+      "lastModificationDate": 1700260023291,
+      "contentHash": "00e3a6c5eaacf1329b672e52ad14e095",
+      "sourceName": "@chainlink/contracts/src/v0.8/VRFV2WrapperConsumerBase.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "viaIR": true,
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./interfaces/LinkTokenInterface.sol",
+        "./interfaces/VRFV2WrapperInterface.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "VRFV2WrapperConsumerBase"
+      ]
+    },
+    "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/node_modules/@chainlink/contracts/src/v0.8/interfaces/VRFV2WrapperInterface.sol": {
+      "lastModificationDate": 1700260023291,
+      "contentHash": "6848d0e769b460011d3edf1a2047cc51",
+      "sourceName": "@chainlink/contracts/src/v0.8/interfaces/VRFV2WrapperInterface.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "viaIR": true,
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "VRFV2WrapperInterface"
+      ]
+    },
+    "/Users/mohit/Desktop/MYPERSONAL/HACKATHONS/ETHGLOBAL_ISTANBUL/KittyCross/contracts/node_modules/@chainlink/contracts/src/v0.8/interfaces/LinkTokenInterface.sol": {
+      "lastModificationDate": 1700260023191,
+      "contentHash": "da5a0c3bd86c896f6a407f909c57edf3",
+      "sourceName": "@chainlink/contracts/src/v0.8/interfaces/LinkTokenInterface.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "viaIR": true,
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout",
+                "devdoc",
+                "userdoc",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "LinkTokenInterface"
       ]
     }
   }

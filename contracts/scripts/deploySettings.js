@@ -20,5 +20,18 @@ module.exports = {
     534351:{
         CHAIN_NAME: "scroll_testnet",
         HYPERLANE_MAILBOX_ADDRESS: "0x3C5154a193D6e2955650f9305c8d80c18C814A68"
-    }
+    },
+    5001:{
+        CHAIN_NAME: "mantle_testnet",
+        HYPERLANE_MAILBOX_ADDRESS: "0x3C5154a193D6e2955650f9305c8d80c18C814A68"
+    },
+    44787: {
+        CHAIN_NAME: "cello_testnet",
+        HYPERLANE_MAILBOX_ADDRESS: "0x3C5154a193D6e2955650f9305c8d80c18C814A68"
+    },
+    59140: {
+        CHAIN_NAME: "linea_goerli",
+        HYPERLANE_MAILBOX_ADDRESS: "0x3C5154a193D6e2955650f9305c8d80c18C814A68"
+    },
+
 };
