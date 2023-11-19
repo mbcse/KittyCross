@@ -37,7 +37,13 @@ export default function Page() {
   };
 
   const onClickSiringApproval = async () => {
-    const tx = useApproveSiring(chainId, kittyId, selectedChainId, selectedAddress, setTxHash);
+    const tx = useApproveSiring(
+      chainId,
+      kittyId,
+      selectedChainId,
+      selectedAddress,
+      setTxHash
+    );
   };
 
   const isButtonSelected = (chainId) => selectedChainId === chainId;
@@ -49,6 +55,7 @@ export default function Page() {
         {kittyData && (
           <Flex justifyContent="center" alignItems="center" gap={16}>
             <KittyCard
+              clickable={true}
               chainId={chainId}
               kittyId={kittyId.toString()}
               kitty={kittyData}
@@ -164,16 +171,12 @@ export default function Page() {
               >
                 Approve Siring
               </Button>
-              { txHash &&
-              <>
-              <Text fontSize="xs">
-                Transaction Hash: 
-              </Text>
-              <Text fontSize={"xs"}>
-                {txHash}
-              </Text>
-              </>
-}
+              {txHash && (
+                <>
+                  <Text fontSize="xs">Transaction Hash:</Text>
+                  <Text fontSize={"xs"}>{txHash}</Text>
+                </>
+              )}
             </Flex>
           </Flex>
         )}
