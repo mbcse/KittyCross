@@ -17,7 +17,7 @@ export async function getAllKittiesData(chainId, kittyIds) {
   
       // Wait for all promises to resolve
       const kittiesData = await Promise.all(kittyDataPromises);
-      console.log("kittiesData:", kittiesData);
+      // console.log("kittiesData:", kittiesData);
       return kittiesData;
     //   setKittiesData(kittiesData);
     } catch (err) {

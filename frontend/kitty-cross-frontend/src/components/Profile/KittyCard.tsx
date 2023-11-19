@@ -86,7 +86,7 @@ export default function KittyCard({
       }
     };
     fetchData();
-  });
+  },[kittiesData, kittyId,kitty,getImgURL]);
 
   const handleClick = () => {
     router.push("/kitty/" + chainId + "/" + kittyId);

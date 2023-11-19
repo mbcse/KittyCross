@@ -11,8 +11,8 @@ export default function MyKitties() {
 
   const userTokens = useAllTokensOfOwner(address);
   useEffect(() => {
-    console.log('userTokens')
-    console.log(userTokens);
+    // console.log('userTokens')
+    // console.log(userTokens);
   }, [userTokens]);
   return (
     <>
