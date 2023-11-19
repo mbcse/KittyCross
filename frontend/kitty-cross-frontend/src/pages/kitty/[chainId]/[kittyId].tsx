@@ -7,6 +7,7 @@ import { GetKittyDetails } from "../../../utils/types";
 import { getKitty } from "../../../utils/getKitty";
 import KittyDetailed from "../../../components/Profile/KittyDetailed";
 import { Flex } from "@chakra-ui/react";
+import React from "react";
 export default function Page() {
   const router = useRouter();
   const { kittyId, chainId } = router.query;
