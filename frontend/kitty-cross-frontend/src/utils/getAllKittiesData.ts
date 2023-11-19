@@ -2,6 +2,8 @@ import { ethers } from "ethers";
 import { contractABI, contractAddresses, getNetworkNameForChainId, getRpcForChainId } from "./constants";
 
 export async function getAllKittiesData(chainId, kittyIds) {
+  console.log("chainId:", chainId);
+  console.log("kittyIds:", kittyIds);
     try {
       const rpcUrl = getRpcForChainId(chainId);
       const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
@@ -15,7 +17,7 @@ export async function getAllKittiesData(chainId, kittyIds) {
   
       // Wait for all promises to resolve
       const kittiesData = await Promise.all(kittyDataPromises);
-      console.log("kittiesData:", kittiesData);
+      // console.log("kittiesData:", kittiesData);
       return kittiesData;
     //   setKittiesData(kittiesData);
     } catch (err) {

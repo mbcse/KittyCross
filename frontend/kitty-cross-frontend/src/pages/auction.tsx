@@ -21,7 +21,7 @@ export default function MyKitties() {
   const [matronChainId, setMatronChainId] =useState(null);
   const [matronKittyId, setMatronKittyId] =useState(null);
 
-  const auctionableKitties = [{ chainId: 84531, kittyId: 1 }];
+  const auctionableKitties = [{ chainId: 534351, kittyId: 5 }, { chainId: 1442 ,kittyId: 4}, {chainId: 421613, kittyId: 3}];
   const matingKitties = [{ chainId: 84531, kittyId: 1 } ];
   // , { chainId: 1, kittyId: 120001 }, { chainId: 1, kittyId: 1 }, {chainId:1, kittyId: 20000}];
 
