@@ -15,10 +15,10 @@ export default function ProfileGrid({
 }) {
   const chainId = getChainIdForNetworkName(networkName);
   useEffect(() => {
-    console.log(networkName);
-    console.log(kitties);
-    console.log(chainId);
-    console.log("END");
+    // console.log(networkName);
+    // console.log(kitties);
+    // console.log(chainId);
+    // console.log("END");
   }, [kitties]);
 
   const [kittyData, setKittyData] = useState<GetKittyDetails[] | null>(null);

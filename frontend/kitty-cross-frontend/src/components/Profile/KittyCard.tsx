@@ -64,12 +64,16 @@ export default function KittyCard({
     {
       id: kittyId,
       chain: chainId,
-      genes: "33863591012657808888884989357798569375861404721347333941257145493487751203",
+      genes: kitty.genes.toString(),
     },
   ];
 
   useEffect(() => {
-    //console.log(kitty.genes.toString());
+    console.log('start');
+    console.log(chainId);
+    console.log(kittyId);
+    console.log(kitty?.genes.toString());
+    console.log('end');
     const fetchData = async () => {
       try {
         const response = await axios.post(API_LINK, kittiesData, {
