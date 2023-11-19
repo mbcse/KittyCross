@@ -308,7 +308,7 @@ export default function KittyDetailed({
         </Box>
       </Center>
 
-      {txHash && <Text>{txHash}</Text>}
+      {/* {txHash && <Text>{txHash}</Text>} */}
     </>
   );
 }

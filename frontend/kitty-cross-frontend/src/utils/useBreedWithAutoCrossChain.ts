@@ -3,13 +3,12 @@ import { contractABI, contractAddresses, getNetworkNameForChainId } from "./cons
 import { ethers } from "ethers";
 
 export async function useBreedWithAutoCrossChain(
-    matronChainId,
     sireChainId,
-    sireId,
+    matronChainId,
     matronId,
+    sireId,
     setTxHash,
   ) {
-    console.log("HIHIHIHIH");
     console.log(matronChainId);
     console.log(sireChainId);
     console.log(sireId);

@@ -24,6 +24,7 @@ export default function MyKitties() {
     { chainId: 534351, kittyId: 1 },
     { chainId: 1442, kittyId: 2 },
     { chainId: 421613, kittyId: 3 },
+    { chainId: 84531, kittyId: 2 },
   ];
   const matingKitties = [{ chainId: 1442, kittyId: 2 }, {chainId: 84531, kittyId: 2}, {chainId: 534351, kittyId: 3}];
   // , { chainId: 1, kittyId: 120001 }, { chainId: 1, kittyId: 1 }, {chainId:1, kittyId: 20000}];
@@ -119,8 +120,8 @@ export default function MyKitties() {
                       handleSelect={async () => {
                         console.log("handleSelect");
                         const data = await useBreedWithAutoCrossChain(
-                          matronChainId,
                           matingKitties[i].chainId,
+                          matronChainId,
                           matronKittyId,
                           matingKitties[i].kittyId,
                           setTxHash
