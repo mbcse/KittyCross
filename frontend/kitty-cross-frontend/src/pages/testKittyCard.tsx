@@ -16,7 +16,7 @@ const kittydeets = {
 export default function test() {
   return (
     <>
-      <KittyCard chainId={1} kittyId={"1223"} kitty={kittydeets} />
+      <KittyCard chainId={84351} kittyId={"1223"} kitty={kittydeets} />
       <TaxiDriverStealsCatFailAlert />
     </>
   );

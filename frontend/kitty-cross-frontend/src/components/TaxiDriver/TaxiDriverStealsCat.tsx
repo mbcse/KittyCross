@@ -26,7 +26,7 @@ export default function TaxiDriverStealsCatFailAlert() {
         </AlertTitle>
         <AlertDescription maxWidth="sm">
           You can't cross breed your cat
-          anymore. Try again please.
+          anymore. Try again.
         </AlertDescription>
       </Alert>
     </>
