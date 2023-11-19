@@ -19,7 +19,7 @@ export async function giveBirth(
   const contract = new ethers.Contract(contractAddress, contractABI, signer);
 
   const tx = await contract.giveBirth(matronId);
-  console.log(tx);
+  console.log(tx.hash);
   tx.wait();
   return tx;
 }

@@ -203,7 +203,7 @@ export default function KittyCard({
                     Breed With
                   </Button>
                   {/* </Link> */}
-                  <Button
+                  {/* <Button
                     flex={1}
                     fontSize={"sm"}
                     rounded={"full"}
@@ -212,7 +212,7 @@ export default function KittyCard({
                     }}
                   >
                     Give Birth
-                  </Button>
+                  </Button> */}
                 </HStack>
               </>
             )}
