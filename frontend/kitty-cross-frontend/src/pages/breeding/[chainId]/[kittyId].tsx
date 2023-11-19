@@ -240,7 +240,6 @@ export default function Page() {
             </Flex>
           </Flex>
         )}
-        <KittyBornAlert />
       </Layout>
     </>
   );
