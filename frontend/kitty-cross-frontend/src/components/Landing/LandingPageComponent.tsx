@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
 import { FaCat } from "react-icons/fa";
+import Slideshow from "./SlideShow";
 
 
 export default function LandingPageComponent() {
@@ -23,7 +24,7 @@ export default function LandingPageComponent() {
         textAlign={"center"}
         align={"center"}
         spacing={{ base: 8, md: 10 }}
-        py={{ base: 20, md: 28 }}
+        py={{ base: 5, md: 20 }}
       >
         <Heading
           fontWeight={600}
@@ -56,14 +57,8 @@ export default function LandingPageComponent() {
             Learn more
           </Button>
         </Stack>
-        <HStack>
-          {/* <Image
-            src="logo.png"
-            width={500}
-            height={500}
-            alt="Picture of the author"
-          /> */}
-        </HStack>
+        <Slideshow/>
+
        
       </Stack>
     </Container>

@@ -1,3 +1,4 @@
+import Slideshow from "../components/Landing/SlideShow";
 import KittyCard from "../components/Profile/KittyCard";
 import TaxiDriverStealsCatFailAlert from "../components/TaxiDriver/TaxiDriverStealsCat";
 const kittydeets = {
@@ -18,6 +19,7 @@ export default function test() {
     <>
       <KittyCard clickable={true} chainId={84531} kittyId={"1223"} kitty={kittydeets} />
       <TaxiDriverStealsCatFailAlert />
+      <Slideshow/>
     </>
   );
 }
