@@ -23,6 +23,8 @@ import Brand from "../Brand";
 import { GetKittyDetails } from "../../utils/types";
 import { getImageSrc } from "../../utils/constants";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const IMAGE =
   "https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80";
@@ -42,6 +44,37 @@ export default function KittyDetailed({
   const unixTimestamp: any = Number(kitty.birthTime);
   const date = new Date(unixTimestamp * 1e3); // 1e3 === 1000
   const localizedTime = date.toLocaleDateString();
+
+  const API_LINK = "https://kittycross-api-server.onrender.com/kitties";
+  const [getImgURL, setImgURL] = useState();
+  const [txHash, setTxHash] = useState();
+  const kittiesData = [
+    {
+      id: kittyId,
+      chain: chainId,
+      genes: kitty.genes,
+    },
+  ];
+
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post(API_LINK, kittiesData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        console.log(response.data);
+        const respdata = response.data;
+        console.log("kittimgurl" + respdata[kittyId][1]);
+        setImgURL(respdata[kittyId][1]);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  });
 
   return (
     <Center py={12}>
@@ -69,7 +102,7 @@ export default function KittyDetailed({
             pos: "absolute",
             top: 5,
             left: 0,
-            backgroundImage: `url(${imgcat})`,
+            backgroundImage: `url(${getImgURL})`,
             filter: "blur(15px)",
             zIndex: -1,
           }}
@@ -84,7 +117,7 @@ export default function KittyDetailed({
             height={540}
             width={570}
             objectFit={"cover"}
-            src={imgcat}
+            src={getImgURL}
             alt="#"
           />
         </Box>
