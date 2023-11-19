@@ -4,7 +4,8 @@ import { ethers } from "ethers";
 
 export async function giveBirth(
   chainIdOrigin,
-  matronId
+  matronId,
+  setTxHash
 ) {
   const ethereum = (window as any).ethereum;
   const accounts = await ethereum.request({

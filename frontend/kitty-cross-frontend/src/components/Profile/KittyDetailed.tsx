@@ -52,14 +52,10 @@ export default function KittyDetailed({
   const kittiesData = [
     {
       id: kittyId,
-      chain: chainId,
-      genes: kitty.genes,
+      chain: chainId.toString(),
+      genes: kitty.genes.toString(),
     },
   ];
-
-  console.log('11')
-  console.log(kitty);
-  console.log('11')
 
   useEffect(() => {
     const fetchData = async () => {

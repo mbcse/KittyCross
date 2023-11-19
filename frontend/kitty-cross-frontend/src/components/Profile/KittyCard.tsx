@@ -63,8 +63,8 @@ export default function KittyCard({
   const kittiesData = [
     {
       id: kittyId,
-      chain: chainId,
-      genes: kitty.genes
+      chain: chainId.toString(),
+      genes: kitty.genes.toString(),
     },
   ];
 
