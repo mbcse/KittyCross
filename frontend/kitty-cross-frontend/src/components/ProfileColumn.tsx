@@ -15,9 +15,10 @@ export default function ProfileGrid({
 }) {
   const chainId = getChainIdForNetworkName(networkName);
   useEffect(() => {
-    console.log("3");
+    console.log(networkName);
     console.log(kitties);
-    console.log("4");
+    console.log(chainId);
+    console.log("END");
   }, [kitties]);
 
   const [kittyData, setKittyData] = useState<GetKittyDetails[] | null>(null);
@@ -41,11 +42,11 @@ export default function ProfileGrid({
     if (chainId && kitties && kitties.length > 0) {
       fetchData();
     }
-  }, [chainId, kitties]); 
+  }, [kitties]); 
 
   useEffect(() => {
-    console.log(kittyData);
-  }, [kittyData]);
+    // console.log(kittyData);
+  }, [kittyData, setKittyData]);
 
   return (
     <>
@@ -64,7 +65,7 @@ export default function ProfileGrid({
 
         {kitties && kittyData && kittyData.map((kitty,i) => (
           <Flex key={i} justifyContent="center" alignItems="center">
-            <KittyCard clickable={true} chainId={chainId} kittyId={String(kitties[i])} kitty={kitty} />
+            <KittyCard clickable={true} chainId={getChainIdForNetworkName(networkName)} kittyId={String(kitties[i])} kitty={kitty} />
           </Flex>
         ))}
       </GridItem>

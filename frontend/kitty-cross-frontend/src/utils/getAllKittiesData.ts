@@ -2,6 +2,8 @@ import { ethers } from "ethers";
 import { contractABI, contractAddresses, getNetworkNameForChainId, getRpcForChainId } from "./constants";
 
 export async function getAllKittiesData(chainId, kittyIds) {
+  console.log("chainId:", chainId);
+  console.log("kittyIds:", kittyIds);
     try {
       const rpcUrl = getRpcForChainId(chainId);
       const provider = new ethers.providers.JsonRpcProvider(rpcUrl);

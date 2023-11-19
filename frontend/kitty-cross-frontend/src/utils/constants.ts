@@ -1631,7 +1631,7 @@ export const getChainIdForNetworkName = (networkName) => {
 };
 
 export const getImageSrc = (id) => {
-  switch (id) {
+  switch (id.toString()) {
     case "534351":
       return "/scroll.jpeg";
     case "421613":
