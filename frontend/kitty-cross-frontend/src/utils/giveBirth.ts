@@ -4,7 +4,8 @@ import { ethers } from "ethers";
 
 export async function giveBirth(
   chainIdOrigin,
-  matronId
+  matronId,
+  setTxHash
 ) {
   const ethereum = (window as any).ethereum;
   const accounts = await ethereum.request({
@@ -19,7 +20,7 @@ export async function giveBirth(
   const contract = new ethers.Contract(contractAddress, contractABI, signer);
 
   const tx = await contract.giveBirth(matronId);
-  console.log(tx);
+  console.log(tx.hash);
   tx.wait();
   return tx;
 }

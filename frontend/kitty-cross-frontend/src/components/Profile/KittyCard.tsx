@@ -63,8 +63,8 @@ export default function KittyCard({
   const kittiesData = [
     {
       id: kittyId,
-      chain: chainId,
-      genes: kitty.genes
+      chain: chainId.toString(),
+      genes: kitty.genes.toString(),
     },
   ];
 
@@ -78,8 +78,8 @@ export default function KittyCard({
         });
         console.log(response.data);
         const respdata = response.data;
-        console.log("kittimgurl" + respdata[kittyId][1]);
-        setImgURL(respdata[kittyId][1]);
+        console.log("kittimgurl" + respdata[kitty.genes]);
+        setImgURL(respdata[kitty.genes]);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -203,7 +203,7 @@ export default function KittyCard({
                     Breed With
                   </Button>
                   {/* </Link> */}
-                  <Button
+                  {/* <Button
                     flex={1}
                     fontSize={"sm"}
                     rounded={"full"}
@@ -212,7 +212,7 @@ export default function KittyCard({
                     }}
                   >
                     Give Birth
-                  </Button>
+                  </Button> */}
                 </HStack>
               </>
             )}

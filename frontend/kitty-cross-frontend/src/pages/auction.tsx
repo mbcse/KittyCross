@@ -12,17 +12,20 @@ export default function MyKitties() {
   const [kittyData, setKittyData] = useState(null);
   const [matingKittiesData, setMatingKittiesData] = useState(null);
   const [openMatrons, setOpenMatrons] = useState(false);
-  const [sireChainId, setSireChainId] =useState(null);
-  const [sireKittyId, setSireKittyId] =useState(null);
+  const [sireChainId, setSireChainId] = useState(null);
+  const [sireKittyId, setSireKittyId] = useState(null);
 
   const [txHash, setTxHash] = useState(null);
 
+  const [matronChainId, setMatronChainId] = useState(null);
+  const [matronKittyId, setMatronKittyId] = useState(null);
 
-  const [matronChainId, setMatronChainId] =useState(null);
-  const [matronKittyId, setMatronKittyId] =useState(null);
-
-  const auctionableKitties = [{ chainId: 534351, kittyId: 5 }, { chainId: 1442 ,kittyId: 4}, {chainId: 421613, kittyId: 3}];
-  const matingKitties = [{ chainId: 84531, kittyId: 1 } ];
+  const auctionableKitties = [
+    { chainId: 534351, kittyId: 1 },
+    { chainId: 1442, kittyId: 2 },
+    { chainId: 421613, kittyId: 3 },
+  ];
+  const matingKitties = [{ chainId: 1442, kittyId: 2 }, {chainId: 84531, kittyId: 2}, {chainId: 534351, kittyId: 3}];
   // , { chainId: 1, kittyId: 120001 }, { chainId: 1, kittyId: 1 }, {chainId:1, kittyId: 20000}];
 
   const toggleOpenMatrons = () => {
@@ -85,10 +88,10 @@ export default function MyKitties() {
                   toggle={() => {
                     toggleOpenMatrons();
                   }}
-                  handleSelect={(() => {
-                    setSireKittyId(auctionableKitties[i].kittyId);
-                    setSireChainId(auctionableKitties[i].chainId);
-                  })}
+                  handleSelect={() => {
+                    setMatronKittyId(auctionableKitties[i].kittyId);
+                    setMatronChainId(auctionableKitties[i].chainId);
+                  }}
                 />
               );
             })}
@@ -107,29 +110,37 @@ export default function MyKitties() {
                 matingKittiesData.map((kitty, i) => {
                   return (
                     <KittyCard
-                    clickable={false}
-                    finalStage={true}
-                    key={i}
-                    showButtons={false}
-                    chainId={matingKitties[i].chainId}
-                    kittyId={matingKitties[i].kittyId.toString()}
-                    handleSelect={async () => {
-                      console.log("handleSelect");
-                       const data = await useBreedWithAutoCrossChain(matingKitties[i].chainId,sireChainId,sireKittyId, matingKitties[i].kittyId, setTxHash); 
-                     }}
-                    kitty={kitty}
-                    toggle={() => {
-                      toggleOpenMatrons();
-                    }}
-                  />
+                      clickable={false}
+                      finalStage={true}
+                      key={i}
+                      showButtons={false}
+                      chainId={matingKitties[i].chainId}
+                      kittyId={matingKitties[i].kittyId.toString()}
+                      handleSelect={async () => {
+                        console.log("handleSelect");
+                        const data = await useBreedWithAutoCrossChain(
+                          matronChainId,
+                          matingKitties[i].chainId,
+                          matronKittyId,
+                          matingKitties[i].kittyId,
+                          setTxHash
+                        );
+                      }}
+                      kitty={kitty}
+                      toggle={() => {
+                        toggleOpenMatrons();
+                      }}
+                    />
                   );
                 })}
             </Flex>
 
-            {txHash && (<>
-            <Text fontSize="2l">Transaction Hash:</Text>
-            <Text fontSize="2l">{txHash}</Text>
-            </>)}
+            {txHash && (
+              <>
+                <Text fontSize="2l">Transaction Hash:</Text>
+                <Text fontSize="2l">{txHash}</Text>
+              </>
+            )}
           </>
         )}
       </Layout>
