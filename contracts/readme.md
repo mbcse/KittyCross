@@ -29,6 +29,31 @@ We departed from the pre-defined imagery model of CryptoKitties. Instead, we use
 
 The back-end, developed in Python, orchestrates these components. To add unpredictability in kitty traits, we integrated @Chainlink VRF. This prevents users from predicting or engineering specific rare traits, adding a layer of randomness and fairness to the breeding process.
 
+### Deployed Contracts
+
+#### Arbitrum
+KittyCore: https://goerli.arbiscan.io/address/0xee76132BB4fd271870be87d898A9755f6BB10260
+CrossGeneScience: https://goerli.arbiscan.io/address/0x80D259cB8552aDd69c699eF139579fFf64115697
+
+#### Scroll
+KittyCore: https://sepolia.scrollscan.dev/address/0x7C12cd69Ab858313C4f2E1547eC3fA861E0bd808
+CrossGeneScience: https://sepolia.scrollscan.dev/address/0xbc5a35b8b885137abbca42cc960321645a0b76d8
+
+#### Base
+KittyCore: https://goerli.basescan.org/address/0xaed048c393f319407b3cf2c9ec9f7987318ef63a
+CrossGeneScience: https://goerli.basescan.org/address/0x6211F610C39B4F1F641db47235Feda5524bf7C7f
+
+#### PolygonZKEVM
+KittyCore: https://testnet-zkevm.polygonscan.com/address/0xFFc6054e6C8929E3d8356e5f09164E51302A41a9
+CrossGeneScience: https://testnet-zkevm.polygonscan.com/address/0x1dD38615645e6512684f39B6f851C8D69f305eb9
+
+#### Linea
+KittyCore: https://explorer.goerli.linea.build/address/0x0344DBaf786945198Ad6ABF0b5E73060751D0eB3
+CrossGeneScience: https://explorer.goerli.linea.build/address/0xbc00fe101346856ca7Ea27b6A13D07dB9B67532b
+
+#### Mantle
+KittyCore: https://explorer.testnet.mantle.xyz/address/0xB4F9dDedEcd61eC2237CeB6981de139481fF6a28
+CrossGeneScience: https://explorer.testnet.mantle.xyz/address/0x06b30d285A58243790Ab7209b4544C5d52D51725
 
 ### Changes to CryptoKitties
 
