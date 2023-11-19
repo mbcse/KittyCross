@@ -68,8 +68,8 @@ export default function KittyDetailed({
         });
         console.log(response.data);
         const respdata = response.data;
-        console.log("kittimgurl" + respdata[kittyId][1]);
-        setImgURL(respdata[kittyId][1]);
+        console.log("kittimgurl" + respdata[kitty.genes]);
+        setImgURL(respdata[kitty.genes]);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
