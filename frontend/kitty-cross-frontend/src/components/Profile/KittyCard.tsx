@@ -26,6 +26,7 @@ import { useRouter } from "next/router";
 import { getImageSrc } from "../../utils/constants";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useBreedWithAutoCrossChain } from "../../utils/useBreedWithAutoCrossChain";
 
 const IMAGE =
   "https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80";
@@ -38,25 +39,33 @@ export default function KittyCard({
   kitty,
   kittyId,
   showButtons = false,
+  clickable = true,
+  finalStage = false,
+  handleSelect = () => {},
+  toggle,
 }: // kittyImg,
 {
   chainId: any;
+  clickable: boolean;
   kitty?: GetKittyDetails;
   kittyId: string;
   showButtons?: boolean;
+  toggle?: () => void;
+  handleSelect?: () => void;
+  finalStage?: boolean;
   // kittyImg?: string;
 }) {
   const router = useRouter();
   // Generate Image at the Component Level
   const API_LINK = "https://kittycross-api-server.onrender.com/kitties";
   const [getImgURL, setImgURL] = useState();
+  const [txHash, setTxHash] = useState();
   const kittiesData = [
     {
       id: kittyId,
       chain: chainId,
-      genes: "33863591012657808888884989357798569375861404721347333941257145493487751203"
+      genes: "33863591012657808888884989357798569375861404721347333941257145493487751203",
     },
-
   ];
 
   useEffect(() => {
@@ -88,7 +97,7 @@ export default function KittyCard({
       {kitty && (
         <Center py={12}>
           <Box
-            onClick={handleClick} // Add onClick event
+            onClick={clickable ? handleClick : () => {}} // Add onClick event
             cursor="pointer" // Change cursor to indicate it's clickable
             role={"group"}
             p={6}
@@ -169,9 +178,22 @@ export default function KittyCard({
             {showButtons && (
               <>
                 <HStack mt={8} direction={"row"} spacing={4}>
+                  {/* <Link href={"/breeding/" + chainId + "/" + kittyId}> */}
 
-                  <Link href={"/breeding/" + chainId + "/" + kittyId}>
                   <Button
+                    // onClick={() => {
+                    //   useBreedWithAutoCrossChain(
+                    //     1,
+                    //     chainId,
+                    //     kittyId,
+                    //     2,
+                    //     setTxHash
+                    //   );
+                    // }}
+                    onClick={() => {
+                      handleSelect();
+                      toggle();
+                    }}
                     flex={1}
                     fontSize={"sm"}
                     rounded={"full"}
@@ -179,9 +201,9 @@ export default function KittyCard({
                       bg: "teal.200",
                     }}
                   >
-                    Breed
+                    Breed With
                   </Button>
-                  </Link>
+                  {/* </Link> */}
                   <Button
                     flex={1}
                     fontSize={"sm"}
@@ -194,6 +216,21 @@ export default function KittyCard({
                   </Button>
                 </HStack>
               </>
+            )}
+            {finalStage && (
+              <HStack mt={8} direction={"row"} spacing={4}>
+                <Button
+                  onClick={handleSelect}
+                  flex={1}
+                  fontSize={"sm"}
+                  rounded={"full"}
+                  _focus={{
+                    bg: "teal.200",
+                  }}
+                >
+                  Select
+                </Button>
+              </HStack>
             )}
           </Box>
         </Center>
