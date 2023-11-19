@@ -9,10 +9,7 @@ async function giveBirth(
 ) {
   const { config } = usePrepareContractWrite({
     address: contractAddresses[getNetworkNameForChainId(chainIdOrigin)],
-<<<<<<< HEAD
-=======
     // TODO: adapt abi
->>>>>>> 98b5b75b7504bd5df580faa8629427d69529ca22
     abi: contractABI,
     functionName: "giveBirth",
     args: [matronId],
