@@ -137,7 +137,6 @@ export default function KittyCard({
                 width={282}
                 objectFit={"cover"}
                 src={getImgURL}
-                onError={}
                 alt="#"
               />
             </Box>
